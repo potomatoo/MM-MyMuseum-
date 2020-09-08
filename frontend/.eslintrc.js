@@ -14,7 +14,7 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
-    quotes: ["error", "single"],
+    quotes: ["error", "double"],
     camelcase: "off",
     "@typescript-eslint/camelcase": "off",
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
