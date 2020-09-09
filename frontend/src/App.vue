@@ -31,7 +31,7 @@
     </v-app-bar>
 
     <v-main>
-      <router-view />
+      <route-view />
     </v-main>
   </v-app>
 </template>
@@ -40,10 +40,12 @@
 import { Vue, Component } from "vue-property-decorator";
 
 import Home from "@/views/Home.vue";
+import RouteView from "@/components/RouteView.vue";
 
 @Component({
   components: {
-    Home
+    Home,
+    RouteView
   }
 })
 export default class App extends Vue {}
