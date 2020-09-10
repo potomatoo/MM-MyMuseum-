@@ -26,7 +26,10 @@
       <v-spacer></v-spacer>
 
       <v-btn :to="{ name: 'Login' }" text>
-        <span class="mr-2">Login</span>
+        <span class="mr-2">로그인</span>
+      </v-btn>
+      <v-btn :to="{ name: 'Signup' }" text>
+        <span class="mr-2">회원가입</span>
       </v-btn>
     </v-app-bar>
 
