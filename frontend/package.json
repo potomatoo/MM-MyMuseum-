@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
+    "vue-google-oauth2": "^1.5.5",
     "vue-property-decorator": "^8.5.1",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
