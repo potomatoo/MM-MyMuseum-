@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>move category test - museumlist</p>
+    <p>move category test</p>
   </div>
 </template>
 
