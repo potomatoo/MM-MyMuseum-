@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row style="height: 100vh">
+    <v-row>
       <v-col class="artist-description" xs="12" sm="12" md="6" lg="6" xl="6">
         description
       </v-col>
@@ -18,9 +18,11 @@ import { Vue, Component } from "vue-property-decorator";
 export default class DetailArtistView extends Vue {}
 </script>
 
-<style scoped>
+<style>
 .artist-description {
   background-color: rgb(137, 120, 104);
+  height: calc(100vh - 64px);
+  font-family: "Playfair Display", serif;
 }
 
 .artist-img {
