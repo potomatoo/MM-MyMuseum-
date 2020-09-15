@@ -91,6 +91,13 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- mysql end -->
+
+		<!-- redis start -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!-- redis end -->
 	</dependencies>
 
 	<build>
