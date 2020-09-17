@@ -26,6 +26,7 @@
           <button
             class="allArtBtn"
             v-if="show"
+            @click="isArtsFlag"
             style="font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
           >
             작품 보기
@@ -42,6 +43,10 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 @Component
 export default class DetailArtistDescription extends Vue {
   @Prop({ type: Boolean }) readonly show!: boolean;
+
+  isArtsFlag() {
+    this.$emit("isArtsFlag");
+  }
 }
 </script>
 

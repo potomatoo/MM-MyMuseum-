@@ -1,11 +1,13 @@
 <template>
   <div style="height: 100%">
     <v-row style="height: 100%">
-      <detail-artist-description :show="show" />
+      <detail-artist-description :show="show" v-on:isArtsFlag="isArtsFlag" />
       <detail-artist-img :show="show" />
     </v-row>
 
-    <detail-artist-arts />
+    <div v-if="artsFlag">
+      <detail-artist-arts />
+    </div>
   </div>
 </template>
 
@@ -23,7 +25,13 @@ import DetailArtistArts from "@/components/detail/DetailArtistArts.vue";
   }
 })
 export default class DetailArtistView extends Vue {
+  artsFlag = false;
   show = false;
+
+  isArtsFlag() {
+    this.artsFlag = true;
+  }
+
   mounted() {
     this.show = !this.show;
   }
@@ -36,6 +44,7 @@ export default class DetailArtistView extends Vue {
   opacity: 0;
   transition: opacity 5s;
 }
+
 .fade-enter-to,
 .fade-leave-to {
   opacity: 1;
