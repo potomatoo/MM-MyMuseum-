@@ -29,12 +29,10 @@ const routes: Array<RouteConfig> = [
     name: "Signup",
     component: SignupView
   },
-<<<<<<< HEAD
   {
     path: "/detail/artist",
     name: "DetailArtist",
     component: DetailArtistView
-=======
 
   //category
   {
@@ -56,7 +54,6 @@ const routes: Array<RouteConfig> = [
     path: "/categorys/stylelist",
     name: "StyleList",
     component: StyleList
->>>>>>> front-museumlist
   }
 ];
 
