@@ -1,37 +1,59 @@
 <template>
-  <div style="width: 50%" class="mx-auto mt-15">
-    <h1 class="my-3">회원가입</h1>
-    <v-form>
-      <v-text-field
-        v-model="userEmail"
-        :rules="emailRules"
-        solo
-        label="이메일"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="userNickname"
-        :rules="nicknameRules"
-        solo
-        label="닉네임"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="userPassword"
-        :rules="passwordRules"
-        solo
-        label="비밀번호"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="userPasswordCheck"
-        :rules="passwordCheckRules"
-        solo
-        label="비밀번호 확인"
-        required
-      ></v-text-field>
-      <v-btn color="indigo" width="100%" dark large>회원가입</v-btn>
-    </v-form>
+  <div style="height: 100%">
+    <v-row style="height: 100%">
+      <v-col class="empty-space"></v-col>
+      <v-col class="align-self-center text-center">
+        <img
+          class="signup-picture"
+          src="http://lh3.googleusercontent.com/IwwQYovC4kvc6Qx2Emye-QDQCi5CInNW89Hkug9A_K79RD4M-2cdLmJwJ_ZWLaTf"
+          alt="account-basic-picture"
+        />
+      </v-col>
+      <v-col class="empty-space"></v-col>
+      <v-col class="align-self-center">
+        <div class="signup">
+          <h1 class="signup-text mb-5">회원가입</h1>
+          <v-form>
+            <v-text-field
+              class="mb-3"
+              v-model="userEmail"
+              :rules="emailRules"
+              label="이메일"
+              solo
+              required
+            ></v-text-field>
+            <v-text-field
+              class="mb-3"
+              v-model="userNickname"
+              :rules="nicknameRules"
+              solo
+              label="닉네임"
+              required
+            ></v-text-field>
+            <v-text-field
+              class="mb-3"
+              v-model="userPassword"
+              :rules="passwordRules"
+              solo
+              label="비밀번호"
+              required
+            ></v-text-field>
+            <v-text-field
+              class="mb-3"
+              v-model="userPasswordCheck"
+              :rules="passwordCheckRules"
+              solo
+              label="비밀번호 확인"
+              required
+            ></v-text-field>
+            <v-btn color="rgb(137,120,104)" width="100%" dark large>
+              회원가입
+            </v-btn>
+          </v-form>
+        </div>
+      </v-col>
+      <v-col class="empty-space"></v-col>
+    </v-row>
   </div>
 </template>
 
@@ -67,4 +89,25 @@ export default class SignupView extends Vue {
 }
 </script>
 
-<style></style>
+<style scoped>
+.signup-picture {
+  width: 100%;
+  min-width: 400px;
+  max-width: 600px;
+  box-shadow: 0px 0px 50px 20px;
+}
+
+.signup {
+  width: 100%;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.signup-text {
+  color: rgb(181, 178, 177);
+}
+
+.empty-space {
+  max-width: 200px;
+}
+</style>

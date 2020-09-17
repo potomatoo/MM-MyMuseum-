@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <app-navbar app dark />
+    <app-navbar />
     <app-main />
   </v-app>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark>
+  <v-app-bar app dark src="../../assets/backgoundColorImg.png" flat>
     <div class="d-flex align-center">
       <router-link :to="{ name: 'Home' }">
         <v-img
@@ -25,11 +25,11 @@
     <v-spacer></v-spacer>
 
     <!-- v-btn--active 삭제 시키기 -->
-    <v-btn :to="{ name: 'Login' }" text>
-      <span class="mr-2">로그인</span>
+    <v-btn class="navbar-btn" :to="{ name: 'Login' }" text>
+      <span>로그인</span>
     </v-btn>
-    <v-btn :to="{ name: 'Signup' }" text>
-      <span class="mr-2">회원가입</span>
+    <v-btn class="navbar-btn" :to="{ name: 'Signup' }" text>
+      <span>회원가입</span>
     </v-btn>
   </v-app-bar>
 </template>
@@ -40,3 +40,9 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class AppNavbar extends Vue {}
 </script>
+
+<style scoped>
+.navbar-btn {
+  margin: 5px 10px 0px 10px;
+}
+</style>
