@@ -5,6 +5,12 @@ import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
 import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 
+//categorys
+import CategoryList from "@/views/categorys/CategoryList.vue";
+import ArtistList from "@/views/categorys/artists/ArtistList.vue";
+import MuseumList from "@/views/categorys/museums/MuseumList.vue";
+import StyleList from "@/views/categorys/styles/StyleList.vue";
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -23,10 +29,34 @@ const routes: Array<RouteConfig> = [
     name: "Signup",
     component: SignupView
   },
+<<<<<<< HEAD
   {
     path: "/detail/artist",
     name: "DetailArtist",
     component: DetailArtistView
+=======
+
+  //category
+  {
+    path: "/categorys/categorylist",
+    name: "CategoryList",
+    component: CategoryList
+  },
+  {
+    path: "/categorys/artistlist",
+    name: "ArtistList",
+    component: ArtistList
+  },
+  {
+    path: "/categorys/museumlist",
+    name: "MuseumList",
+    component: MuseumList
+  },
+  {
+    path: "/categorys/stylelist",
+    name: "StyleList",
+    component: StyleList
+>>>>>>> front-museumlist
   }
 ];
 
