@@ -1,5 +1,5 @@
 <template>
-  <v-main style="height: 100%;">
+  <v-main style="height: 0px">
     <v-fade-transition mode="out-in">
       <router-view />
     </v-fade-transition>

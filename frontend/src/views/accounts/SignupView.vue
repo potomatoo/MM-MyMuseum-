@@ -94,6 +94,7 @@ export default class SignupView extends Vue {
   width: 100%;
   min-width: 400px;
   max-width: 600px;
+  box-shadow: 0px 0px 50px 20px;
 }
 
 .signup {
