@@ -1,3 +1,7 @@
+export interface ArticleModule {
+  articles: Article[] | null;
+}
+
 export interface Article {
   title: string;
   author?: string | null;

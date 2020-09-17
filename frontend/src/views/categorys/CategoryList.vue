@@ -36,7 +36,7 @@
             >
               <v-img
                 :src="require(`@/assets/dummydata/category/${hero}`)"
-                class="mb-4"
+                class="mb-4 category-card"
                 height="275"
                 max-width="100%"
               >
@@ -105,5 +105,9 @@ export default class CategoryView extends Vue {
   opacity: 0.5;
   position: absolute;
   width: 100%;
+}
+
+.category-card {
+  box-shadow: 0px 0px 10px 10px;
 }
 </style>
