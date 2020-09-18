@@ -1,11 +1,20 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { StoreOptions } from "vuex";
+import articleModule from "./ArticleModule.store";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
-});
+export interface RootState {
+  version: string;
+}
+
+const store: StoreOptions<RootState> = {
+  state: {
+    version: "1.0.0" // a simple property
+  },
+  modules: {
+    articleModule
+  }
+};
+
+export default new Vuex.Store<RootState>(store);
