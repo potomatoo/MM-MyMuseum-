@@ -23,7 +23,17 @@
     </div>
 
     <v-spacer></v-spacer>
-
+    <span v-show="!isHome">
+      <v-btn class="navbar-btn" text>
+        <span>추천 작품</span>
+      </v-btn>
+      <v-btn class="navbar-btn" :to="{ name: 'CategoryList' }" text>
+        <span>컬렉션</span>
+      </v-btn>
+      <v-btn class="navbar-btn" text>
+        <span>내 전시회</span>
+      </v-btn>
+    </span>
     <!-- v-btn--active 삭제 시키기 -->
     <v-btn class="navbar-btn" :to="{ name: 'Login' }" text>
       <span>로그인</span>
@@ -35,10 +45,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component
-export default class AppNavbar extends Vue {}
+export default class AppNavbar extends Vue {
+  isHome = false;
+
+  @Watch("$route", { immediate: true })
+  checkRoute() {
+    if (this.$route.name === "Home") {
+      this.isHome = true;
+    } else {
+      this.isHome = false;
+    }
+  }
+}
 </script>
 
 <style scoped>
