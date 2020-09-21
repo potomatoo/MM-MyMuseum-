@@ -5,8 +5,8 @@
       <detail-artist-img :show="show" />
     </v-row>
 
-    <div v-if="artsFlag">
-      <detail-artist-arts />
+    <div>
+      <detail-artist-arts :scrollHeight="scrollHeight" />
     </div>
   </div>
 </template>
@@ -27,13 +27,20 @@ import DetailArtistArts from "@/components/detail/DetailArtistArts.vue";
 export default class DetailArtistView extends Vue {
   artsFlag = false;
   show = false;
+  scrollHeight = 0;
 
-  isArtsFlag() {
+  moveScroll() {
+    window.scrollTo(0, this.scrollHeight);
+  }
+
+  async isArtsFlag() {
     this.artsFlag = true;
+    await window.scrollTo(0, this.scrollHeight + 1);
   }
 
   mounted() {
     this.show = !this.show;
+    this.scrollHeight = window.innerHeight;
   }
 }
 </script>
