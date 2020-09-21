@@ -33,7 +33,7 @@ const routes: Array<RouteConfig> = [
     path: "/detail/artist",
     name: "DetailArtist",
     component: DetailArtistView
-
+  },
   //category
   {
     path: "/categorys/categorylist",
