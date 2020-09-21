@@ -29,10 +29,6 @@ export default class DetailArtistView extends Vue {
   show = false;
   scrollHeight = 0;
 
-  moveScroll() {
-    window.scrollTo(0, this.scrollHeight);
-  }
-
   async isArtsFlag() {
     this.artsFlag = true;
     await window.scrollTo(0, this.scrollHeight + 1);
