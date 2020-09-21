@@ -1,5 +1,5 @@
 <template>
-  <v-col class="artist-description" xs="6" sm="6" md="6" lg="6" xl="6">
+  <v-col class="artist-description">
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <transition name="fade">
