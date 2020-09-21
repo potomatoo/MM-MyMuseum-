@@ -15,6 +15,7 @@
             class="text-h4 main-text"
             @mouseover="hovered.collection = true"
             @mouseleave="hovered.collection = false"
+            @click="routerToCollection()"
           >
             <span v-if="hovered.collection" class="arrow">&rarr;</span>
             컬렉션
@@ -51,6 +52,10 @@ export default class Home extends Vue {
     collection: false,
     exhibition: false
   };
+
+  routerToCollection() {
+    this.$router.push({ name: "CategoryList" });
+  }
 }
 </script>
 
@@ -63,7 +68,6 @@ export default class Home extends Vue {
 
 .main-img {
   height: 100%;
-  width: 100%;
   box-shadow: 0px 0px 50px 20px;
 }
 
