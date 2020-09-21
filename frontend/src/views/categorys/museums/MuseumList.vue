@@ -12,20 +12,35 @@
     >
       Museum
     </h2>
-    <!-- 아랫공간 -->
-    <v-responsive class="mx-auto mb-12" width="56">
-      <v-divider class="mb-1"></v-divider>
-      <v-divider></v-divider>
-    </v-responsive>
-    <!-- 전시공간 -->
-    <v-row style="padding:20px" cols="12" sm="6" offset-sm="3">
+
+    <v-row cols="12" align="center" justify="center" style="margin : 1px 20%">
+      <v-text-field
+        outlined
+        dark
+        placeholder="전시공간 검색"
+        type="text"
+        clearable
+        prepend-inner-icon="mdi-magnify"
+        v-model="inputText"
+        color="white"
+        background-color="rgb(80, 70, 60)"
+        @keypress.enter="test"
+      >
+      </v-text-field>
+    </v-row>
+
+    <!-- 전시공간 별 -->
+    <v-row style="margin: 10px 10%">
       <v-container fluid cols="12">
         <v-row>
           <v-col
             v-for="(value, n) in articles"
             :key="n"
+            :size="layout[i]"
             class="d-flex child-flex"
-            cols="3"
+            cols="6"
+            :md="size === 2 ? 6 : size === 3 ? 4 : undefined"
+            style="padding: 20px"
           >
             <v-hover v-slot:default="{ hover }">
               <v-card
@@ -88,6 +103,12 @@ export default class MuseumList extends Vue {
 
   created() {
     this.SET_ARTICLE();
+  }
+
+  data() {
+    return {
+      layout: [2, 2, 1, 2, 2, 3, 3, 3, 3, 3, 3]
+    };
   }
 }
 </script>
