@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-    <v-row style="height: 100%">
+    <v-row style="height: 100vh">
       <detail-artist-description :show="show" v-on:isArtsFlag="isArtsFlag" />
       <detail-artist-img :show="show" />
     </v-row>
