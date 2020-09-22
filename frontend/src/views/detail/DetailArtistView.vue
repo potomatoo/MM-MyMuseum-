@@ -31,7 +31,7 @@ export default class DetailArtistView extends Vue {
 
   async isArtsFlag() {
     this.artsFlag = true;
-    await window.scrollTo(0, this.scrollHeight + 1);
+    await window.scrollTo({ top: this.scrollHeight, behavior: "smooth" });
   }
 
   mounted() {
