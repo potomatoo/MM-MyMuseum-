@@ -24,7 +24,7 @@
 
     <v-spacer></v-spacer>
     <span v-show="!isHome">
-      <v-btn class="navbar-btn" text>
+      <v-btn class="navbar-btn" :to="{ name: 'RecommendView' }" text>
         <span>추천 작품</span>
       </v-btn>
       <v-btn class="navbar-btn" :to="{ name: 'CategoryList' }" text>
