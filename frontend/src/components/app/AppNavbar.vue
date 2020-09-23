@@ -16,8 +16,8 @@
         alt="Vuetify Name"
         class="shrink mt-1 hidden-sm-and-down"
         contain
-        min-width="150"
-        src="../../assets/text_logo_test2.png"
+        min-width="160"
+        src="../../assets/text_logo_test.png"
         width="100"
       />
     </div>

@@ -1,8 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="home">
-    <img alt="home logo" src="../assets/logo.png" />
-=======
   <div class="home full-height">
     <v-row class="full-height">
       <v-col class="full-height col-6 col-sm-6 col-md-5">
@@ -43,7 +39,6 @@
       </v-col>
       <v-col class="full-height col-1 col-sm-1 col-md-3"> </v-col>
     </v-row>
->>>>>>> f04dfcc36e6a57984701f76be911c7542c354b2c
   </div>
 </template>
 
