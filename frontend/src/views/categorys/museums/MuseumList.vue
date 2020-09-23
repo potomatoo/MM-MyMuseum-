@@ -36,10 +36,9 @@
           <v-col
             v-for="(value, n) in articles"
             :key="n"
-            :size="layout[i]"
             class="d-flex child-flex"
             cols="6"
-            :md="size === 2 ? 6 : size === 3 ? 4 : undefined"
+            md="3"
             style="padding: 20px"
           >
             <v-hover v-slot:default="{ hover }">
@@ -98,17 +97,12 @@ const articleModule = namespace("articleModule");
 
 @Component
 export default class MuseumList extends Vue {
+  [x: string]: any;
   @articleModule.State articles!: Article[] | null;
   @articleModule.Mutation SET_ARTICLE: any;
 
   created() {
     this.SET_ARTICLE();
-  }
-
-  data() {
-    return {
-      layout: [2, 2, 1, 2, 2, 3, 3, 3, 3, 3, 3]
-    };
   }
 }
 </script>
