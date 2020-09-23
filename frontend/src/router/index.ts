@@ -4,7 +4,7 @@ import Home from "@/views/Home.vue";
 import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
 import DetailArtistView from "@/views/detail/DetailArtistView.vue";
-
+import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 //categorys
 import CategoryList from "@/views/categorys/CategoryList.vue";
 import ArtistList from "@/views/categorys/artists/ArtistList.vue";
@@ -33,6 +33,12 @@ const routes: Array<RouteConfig> = [
     path: "/artist/detail",
     name: "DetailArtist",
     component: DetailArtistView
+  },
+
+  {
+    path: "/mygallery",
+    name: "MyGallery",
+    component: MygalleryView
   },
   //category
   {
