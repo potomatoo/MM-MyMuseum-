@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Home from "@/views/Home.vue";
 import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
+import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 
 //categorys
 import CategoryList from "@/views/categorys/CategoryList.vue";
@@ -28,7 +29,11 @@ const routes: Array<RouteConfig> = [
     name: "Signup",
     component: SignupView
   },
-
+  {
+    path: "/artist/detail",
+    name: "DetailArtist",
+    component: DetailArtistView
+  },
   //category
   {
     path: "/categorys/categorylist",
