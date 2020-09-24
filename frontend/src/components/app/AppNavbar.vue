@@ -8,7 +8,7 @@
           contain
           src="../../assets/logo_test2.png"
           transition="scale-transition"
-          width="40"
+          width="50"
         />
       </router-link>
 

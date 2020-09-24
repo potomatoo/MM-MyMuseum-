@@ -11,6 +11,9 @@ import ArtistList from "@/views/categorys/artists/ArtistList.vue";
 import MuseumList from "@/views/categorys/museums/MuseumList.vue";
 import StyleList from "@/views/categorys/styles/StyleList.vue";
 
+//requestamatuer
+import RequestAmateur from "@/views/requestamateur/RequestAmateur.vue";
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -54,6 +57,12 @@ const routes: Array<RouteConfig> = [
     path: "/categorys/stylelist",
     name: "StyleList",
     component: StyleList
+  },
+  //requestamatuer
+  {
+    path: "/requestamateur",
+    name: "RequestAmateur",
+    component: RequestAmateur
   }
 ];
 

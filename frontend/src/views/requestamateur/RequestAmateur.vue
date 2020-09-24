@@ -1,0 +1,105 @@
+<template>
+  <div>
+    <!-- 윗공간 -->
+    <v-responsive class="mx-auto mb-12" width="56">
+      <v-divider class="mb-1"></v-divider>
+      <v-divider></v-divider>
+    </v-responsive>
+    <!-- 제목 -->
+    <h2
+      class="display-2 font-weight-bold mb-3 text-uppercase text-center"
+      style="color:white"
+    >
+      작가 신청 페이지
+    </h2>
+    <!-- 아랫공간 -->
+    <v-responsive class="mx-auto mb-12" width="56">
+      <v-divider class="mb-1"></v-divider>
+      <v-divider></v-divider>
+    </v-responsive>
+
+    <v-row
+      cols="12"
+      align="center"
+      justify="center"
+      style="margin : 1px 20%; background-color:white;"
+    >
+      <v-col class="align-self-center">
+        <div class="request">
+          <v-form>
+            <!-- 이메일, 닉네임 자동 입력되고 수정 불가 -->
+            <v-text-field
+              class="mb-3"
+              v-model="userEmail"
+              readonly
+              solo
+              prepend-icon="mdi-email"
+              label="이메일 값"
+            ></v-text-field>
+            <v-text-field
+              class="mb-3"
+              v-model="userNickname"
+              solo
+              readonly
+              prepend-icon="mdi-account"
+              label="닉네임 값"
+            ></v-text-field>
+            <v-file-input
+              v-model="files"
+              show-size
+              solo
+              label="포트폴리오나 작품을 올려주세요"
+              prepend-icon="mdi-camera"
+            ></v-file-input>
+            <v-text-field
+              class="mb-3"
+              v-model="decription"
+              solo
+              label="상세 설명"
+              prepend-icon="mdi-message-text"
+            ></v-text-field>
+            <v-btn color="rgb(137,120,104)" width="100%" dark large>
+              신청
+              <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
+            </v-btn>
+          </v-form>
+        </div>
+      </v-col>
+    </v-row>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class RequestAmateur extends Vue {
+  userEmail = "";
+  userNickname = "";
+  files = [];
+  decription = "";
+}
+</script>
+
+<style scoped>
+.signup-picture {
+  width: 100%;
+  min-width: 400px;
+  max-width: 600px;
+  box-shadow: 0px 0px 50px 20px;
+}
+
+.signup {
+  width: 100%;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.signup-text {
+  color: rgb(181, 178, 177);
+}
+
+.empty-space {
+  max-width: 200px;
+}
+</style>

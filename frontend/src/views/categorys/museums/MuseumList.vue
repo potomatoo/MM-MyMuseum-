@@ -12,7 +12,6 @@
     >
       Museum
     </h2>
-
     <v-row cols="12" align="center" justify="center" style="margin : 1px 20%">
       <v-text-field
         outlined
