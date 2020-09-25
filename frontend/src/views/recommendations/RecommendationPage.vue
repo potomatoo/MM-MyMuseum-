@@ -1,7 +1,25 @@
 <template>
   <div class="recommendation-page">
-    <div class="rec-section">
-      <h1 class="rec-title">니가 좋아할만한 작품</h1>
+    <div
+      class="rec-section"
+      @mouseover="onWrapHover('user', true)"
+      @mouseleave="onWrapHover('user', false)"
+    >
+      <h1 class="rec-header">
+        <div
+          class="rec-title"
+          @mouseover="onTitleHover('user', true)"
+          @mouseleave="onTitleHover('user', false)"
+        >
+          니가 좋아할만한 작품
+        </div>
+        <v-fade-transition mode="out-in">
+          <div v-if="recTitle.user.titleHover" class="see-all">모두보기</div>
+        </v-fade-transition>
+        <v-icon class="rec-icon" v-if="recTitle.user.wrapHover" dark>
+          mdi-36px mdi-chevron-right
+        </v-icon>
+      </h1>
       <vue-slick-carousel class="slick" v-bind="settings">
         <div v-for="(article, i) in articles" :key="i">
           <img
@@ -12,8 +30,26 @@
         </div>
       </vue-slick-carousel>
     </div>
-    <div class="rec-section">
-      <h1 class="rec-title">작가 추천</h1>
+    <div
+      class="rec-section"
+      @mouseover="onWrapHover('author', true)"
+      @mouseleave="onWrapHover('author', false)"
+    >
+      <h1 class="rec-header">
+        <div
+          class="rec-title"
+          @mouseover="onTitleHover('author', true)"
+          @mouseleave="onTitleHover('author', false)"
+        >
+          작가 추천
+        </div>
+        <v-fade-transition mode="out-in">
+          <div v-if="recTitle.author.titleHover" class="see-all">모두보기</div>
+        </v-fade-transition>
+        <v-icon class="rec-icon" v-if="recTitle.author.wrapHover" dark>
+          mdi-36px mdi-chevron-right
+        </v-icon>
+      </h1>
       <vue-slick-carousel class="slick" v-bind="settingsrtl">
         <div v-for="(article, i) in articles" :key="i">
           <img
@@ -50,6 +86,17 @@ export default class RecommendationPage extends Vue {
   window = {
     width: 0,
     height: 0
+  };
+
+  recTitle = {
+    user: {
+      titleHover: false,
+      wrapHover: false
+    },
+    author: {
+      titleHover: false,
+      wrapHover: false
+    }
   };
 
   settings = {
@@ -126,7 +173,25 @@ export default class RecommendationPage extends Vue {
       }
     ]
   };
-  // onHover() {}
+
+  onWrapHover(cate, bool) {
+    console.log(cate);
+    if (cate == "user") {
+      this.recTitle.user.wrapHover = bool;
+    } else if (cate == "author") {
+      this.recTitle.author.wrapHover = bool;
+    }
+  }
+
+  onTitleHover(cate, bool) {
+    console.log(cate);
+    if (cate == "user") {
+      this.recTitle.user.titleHover = bool;
+    } else if (cate == "author") {
+      this.recTitle.author.titleHover = bool;
+    }
+  }
+
   @Watch("window", { deep: true })
   setDot() {
     const dots = document.querySelectorAll(".slick-dots");
@@ -183,8 +248,23 @@ export default class RecommendationPage extends Vue {
   margin-bottom: 50px;
 }
 
-.rec-title {
+.rec-header {
   margin-bottom: 10px;
   color: white;
+}
+
+.rec-title {
+  display: inline-block;
+}
+
+/* .rec-icon {
+} */
+.rec-icon:hover {
+  transform: translate(30px);
+}
+
+.see-all {
+  display: inline;
+  font-size: 20px;
 }
 </style>
