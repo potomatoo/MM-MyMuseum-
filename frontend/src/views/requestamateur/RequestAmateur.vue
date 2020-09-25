@@ -78,6 +78,7 @@
 </template>
 
 <script lang="ts">
+//tttt
 /*
 user - 작가 신청 페이지
 자동 입력 정보 : 아이디, 이름 등 개인 구분 정보
