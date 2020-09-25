@@ -5,6 +5,9 @@ import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
 import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 
+// recommendation
+import RecommendationPage from "@/views/recommendations/RecommendationPage.vue";
+
 //categorys
 import CategoryList from "@/views/categorys/CategoryList.vue";
 import ArtistList from "@/views/categorys/artists/ArtistList.vue";
@@ -58,7 +61,11 @@ const routes: Array<RouteConfig> = [
     name: "StyleList",
     component: StyleList
   },
-  //requestamatuer
+  {
+    path: "/recommend",
+    name: "RecommendView",
+    component: RecommendationPage
+  },
   {
     path: "/requestamateur",
     name: "RequestAmateur",

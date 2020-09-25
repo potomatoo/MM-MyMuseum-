@@ -7,6 +7,7 @@
             class="text-h4 main-text"
             @mouseover="hovered.recommendation = true"
             @mouseleave="hovered.recommendation = false"
+            @click="routerToRecommendation"
           >
             <span v-if="hovered.recommendation" class="arrow">&rarr;</span>
             추천 작품
@@ -15,7 +16,7 @@
             class="text-h4 main-text"
             @mouseover="hovered.collection = true"
             @mouseleave="hovered.collection = false"
-            @click="routerToCollection()"
+            @click="routerToCollection"
           >
             <span v-if="hovered.collection" class="arrow">&rarr;</span>
             컬렉션
@@ -55,6 +56,10 @@ export default class Home extends Vue {
 
   routerToCollection() {
     this.$router.push({ name: "CategoryList" });
+  }
+
+  routerToRecommendation() {
+    this.$router.push({ name: "RecommendView" });
   }
 }
 </script>
