@@ -12,13 +12,30 @@
     >
       Style
     </h2>
-    <!-- 아랫공간 -->
-    <v-responsive class="mx-auto mb-12" width="56">
-      <v-divider class="mb-1"></v-divider>
-      <v-divider></v-divider>
-    </v-responsive>
-    <!-- 전시공간 -->
-    <v-row style="padding:20px" cols="12" sm="6" offset-sm="3">
+    <v-row
+      cols="12"
+      sm="6"
+      offset-sm="3"
+      align="center"
+      justify="center"
+      style="margin : 1px 20%"
+    >
+      <v-text-field
+        outlined
+        dark
+        placeholder="화풍 검색"
+        type="text"
+        clearable
+        prepend-inner-icon="mdi-magnify"
+        v-model="inputText"
+        color="white"
+        background-color="rgb(80, 70, 60)"
+        @keypress.enter="test"
+      >
+      </v-text-field>
+    </v-row>
+    <!-- 화풍별 -->
+    <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
       <v-container fluid cols="12">
         <v-row>
           <v-col

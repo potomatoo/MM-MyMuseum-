@@ -3,12 +3,12 @@
     <div class="d-flex align-center">
       <router-link :to="{ name: 'Home' }">
         <v-img
-          alt="Vuetify Logo"
+          alt="Home logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="../../assets/logo_test2.png"
           transition="scale-transition"
-          width="40"
+          width="50"
         />
       </router-link>
 
@@ -16,15 +16,15 @@
         alt="Vuetify Name"
         class="shrink mt-1 hidden-sm-and-down"
         contain
-        min-width="100"
-        src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+        min-width="160"
+        src="../../assets/text_logo_test.png"
         width="100"
       />
     </div>
 
     <v-spacer></v-spacer>
     <span v-show="!isHome">
-      <v-btn class="navbar-btn" text>
+      <v-btn class="navbar-btn" :to="{ name: 'RecommendView' }" text>
         <span>추천 작품</span>
       </v-btn>
       <v-btn class="navbar-btn" :to="{ name: 'CategoryList' }" text>

@@ -18,7 +18,7 @@
       <v-divider></v-divider>
     </v-responsive>
     <!-- 전시공간 -->
-    <v-row style="padding:20px" cols="12" sm="6" offset-sm="3">
+    <v-row style="padding:60px" cols="12" sm="6" offset-sm="3">
       <v-container fluid cols="12">
         <v-row>
           <v-col
@@ -27,7 +27,7 @@
             class="d-flex child-flex"
             cols="3"
           >
-            <v-hover v-slot:default="{ hover }">
+            <v-hover v-slot:default="{ hover }" style="margin: 10px">
               <v-card
                 flat
                 tile
@@ -40,6 +40,8 @@
                   :src="require(`@/assets/dummydata/articles/${value.hero}`)"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
+                  @mouseenter="zoomIn"
+                  @mouseleave="zoomOut"
                 >
                   <template v-slot:placeholder>
                     <v-row
@@ -85,6 +87,18 @@ const articleModule = namespace("articleModule");
 export default class DetailArtistArts extends Vue {
   @articleModule.State articles!: Article[] | null;
   @articleModule.Mutation SET_ARTICLE: any;
+
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
+  }
 
   created() {
     this.SET_ARTICLE();
