@@ -1,12 +1,5 @@
 <template>
-  <v-col
-    class="artist-img align-self-center"
-    xs="6"
-    sm="6"
-    md="6"
-    lg="6"
-    xl="6"
-  >
+  <v-col class="artist-img align-self-center">
     <v-row style="height: 100%">
       <v-col>
         <transition name="fade">
@@ -16,8 +9,16 @@
             ontouchstart="this.classList.toggle('hover');"
           >
             <div class="flipper">
-              <div class="front"></div>
-              <div class="back"></div>
+              <img
+                src="https://lh3.ggpht.com/1wo8kpGuE45XUHjxLCgnVWnGVpxyasc4ENyvMmuou9IoI2DTJc_pztjmqXFW"
+                alt=""
+                class="artist-img-front"
+              />
+              <img
+                src="https://lh3.ggpht.com/-6Qkc8AsUa8D7TE8uX-5urH4ehAh5BjjCA4fDgQcV_2YxASHiUMkQ3ZamZir"
+                alt=""
+                class="artist-img-back"
+              />
             </div>
           </div>
         </transition>
@@ -43,18 +44,14 @@ export default class DetailArtistImg extends Vue {
   margin: auto;
 }
 
-.front {
+.artist-img-front {
   z-index: 2;
   transform: rotateY(0deg);
-  background: url("//lh3.ggpht.com/1wo8kpGuE45XUHjxLCgnVWnGVpxyasc4ENyvMmuou9IoI2DTJc_pztjmqXFW")
-    no-repeat;
   background-size: 100% 100%;
 }
 
-.back {
+.artist-img-back {
   transform: rotateY(180deg);
-  background: url("//lh3.ggpht.com/-6Qkc8AsUa8D7TE8uX-5urH4ehAh5BjjCA4fDgQcV_2YxASHiUMkQ3ZamZir")
-    no-repeat;
   background-size: 100% 100%;
 }
 
@@ -64,8 +61,8 @@ export default class DetailArtistImg extends Vue {
 }
 
 .flip-container,
-.front,
-.back {
+.artist-img-front,
+.artist-img-back {
   width: 400px;
   height: 500px;
 }
@@ -76,8 +73,8 @@ export default class DetailArtistImg extends Vue {
   position: relative;
 }
 
-.front,
-.back {
+.artist-img-front,
+.artist-img-back {
   position: absolute;
   backface-visibility: hidden;
 }
