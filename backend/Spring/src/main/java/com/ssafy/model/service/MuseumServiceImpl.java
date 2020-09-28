@@ -27,7 +27,7 @@ public class MuseumServiceImpl implements MuseumService {
 		// TODO Auto-generated method stub
 		int index = start * 16 + 1;
 
-		return museumRepository.findMuseumByMuseumNamelimit(museumName, start);
+		return museumRepository.findMuseumByMuseumNamelimit(museumName, index);
 	}
 
 }
