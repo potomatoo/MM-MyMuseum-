@@ -143,7 +143,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRONJOBS = [
-    ('* * * * *', 'arts.cron.test_hello', '>> test.log' ),
+    ('* * * * *', 'arts.cron.test_hello', '>> /path/to/log/file.log'),
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
