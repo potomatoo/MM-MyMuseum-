@@ -25,7 +25,7 @@ SECRET_KEY = '@apyydox(5nvi8qoo2p^yksjur)6@ei%@=^&bqh9!isxyh@-z3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['j3b205.p.ssafy.io']
+ALLOWED_HOSTS = ['j3b205.p.ssafy.io', 'localhost']
 
 
 # Application definition
@@ -95,7 +95,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
+        'NAME': 'ssafy',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'j3b205.p.ssafy.io',
