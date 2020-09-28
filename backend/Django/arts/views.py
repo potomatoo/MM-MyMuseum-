@@ -19,7 +19,7 @@ import time
 
 def update_score():
     # CSV파일 불러오기
-    art_table = pd.read_csv('./new_table.csv')
+    art_table = pd.read_csv('../../../recommend/new_table.csv')
     art_table.fillna('NaN', inplace=True)
 
     # # Mysql에서 데이터 불러오기
