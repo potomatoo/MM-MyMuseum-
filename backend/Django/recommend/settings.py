@@ -143,7 +143,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRONJOBS = [
-    ('* * * * *', 'recommend.cron.test_hello', '>> test.log' ),
+    ('* * * * *', 'app.cron.test_hello', '>> test.log' ),
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
