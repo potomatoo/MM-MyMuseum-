@@ -12,6 +12,16 @@ import pandas as pd
 import numpy as np
 import random
 
+import threading
+import time
+
+def test_hello():
+    print('hello')
+    
+    threading.Timet(10, test_hello).start()
+    
+test_hello()
+
 @api_view(['GET'])
 def recommend_art(request, user_id):
     pass
