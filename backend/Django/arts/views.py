@@ -21,7 +21,6 @@ def test_hello():
     count += 1
     threading.Timer(10, test_hello).start()
 
-test_hello()
 
 @api_view(['GET'])
 def recommend_art(request, user_id):
@@ -33,3 +32,4 @@ def test(request):
     return Response({'test': 'hi'})
     
 count = 0
+test_hello()
