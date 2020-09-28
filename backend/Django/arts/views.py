@@ -15,11 +15,13 @@ import random
 import threading
 import time
 
+count = 0
+
 def test_hello():
     print('hello')
-    
-    threading.Timet(10, test_hello).start()
-    
+    count += 1
+    threading.Timer(10, test_hello).start()
+
 test_hello()
 
 @api_view(['GET'])
@@ -28,5 +30,5 @@ def recommend_art(request, user_id):
 
 @api_view(['GET'])
 def test(request):
-    print('hi')
+    print(count)
     return Response({'test': 'hi'})
