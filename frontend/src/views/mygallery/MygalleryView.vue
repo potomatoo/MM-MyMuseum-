@@ -35,5 +35,7 @@ export default class MygalleryView extends Vue {}
   width: 20vw;
   max-width: 500px;
   max-height: 200px;
+
+  box-shadow: 0px 0px 15px 5px;
 }
 </style>
