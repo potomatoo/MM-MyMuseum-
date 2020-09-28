@@ -17,6 +17,7 @@ import time
 
 
 def test_hello():
+    global count
     print('hello')
     count += 1
     threading.Timer(10, test_hello).start()
