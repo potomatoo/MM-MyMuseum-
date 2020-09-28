@@ -15,7 +15,6 @@ import random
 import threading
 import time
 
-count = 0
 
 def test_hello():
     print('hello')
@@ -32,3 +31,5 @@ def recommend_art(request, user_id):
 def test(request):
     print(count)
     return Response({'test': 'hi'})
+    
+count = 0
