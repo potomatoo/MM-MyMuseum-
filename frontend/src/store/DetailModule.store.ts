@@ -6,12 +6,17 @@ import { DetailModule, Art } from "./Detail.interface";
 const module: Module<DetailModule, RootState> = {
   namespaced: true,
   state: {
-    artList: null
+    artList: null,
+    art: null
   },
   getters: {},
   mutations: {
     SET_ART_LIST(state, artList: Art[]) {
       state.artList = artList;
+    },
+
+    SET_ART(state, art: Art) {
+      state.art = art;
     }
   },
   actions: {
@@ -22,6 +27,13 @@ const module: Module<DetailModule, RootState> = {
       Axios.instance
         .get("/api/public/art/artist", { params: { artist, start } })
         .then(({ data }) => commit("SET_ART_LIST", data.data))
+        .catch(err => console.error(err));
+    },
+
+    FETCH_ART({ commit }, artNo: number) {
+      Axios.instance
+        .get("/api/public/art", { params: artNo })
+        .then(({ data }) => commit("SET_ART", data.data))
         .catch(err => console.error(err));
     }
   }

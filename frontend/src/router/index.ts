@@ -4,6 +4,7 @@ import Home from "@/views/Home.vue";
 import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
 import DetailArtistView from "@/views/detail/DetailArtistView.vue";
+import DetailArtView from "@/views/detail/DetailArtView.vue";
 import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 
 // recommendation
@@ -41,7 +42,11 @@ const routes: Array<RouteConfig> = [
     name: "DetailArtistView",
     component: DetailArtistView
   },
-
+  {
+    path: "/art/:artNo",
+    name: "DetailArtView",
+    component: DetailArtView
+  },
   {
     path: "/mygallery",
     name: "MyGalleryView",
