@@ -8,7 +8,7 @@
             v-if="show"
             style="font-size: 40px; font-family: Playfair Display, serif;"
           >
-            Vincent van Gogh
+            {{ this.$route.params.artist }}
           </div>
         </transition>
 

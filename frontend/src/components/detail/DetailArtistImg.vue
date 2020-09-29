@@ -1,5 +1,5 @@
 <template>
-  <v-col class="artist-img align-self-center">
+  <v-col class="artist-img align-self-center" v-if="artList">
     <v-row style="height: 100%">
       <v-col>
         <transition name="fade">
@@ -9,16 +9,8 @@
             ontouchstart="this.classList.toggle('hover');"
           >
             <div class="flipper">
-              <img
-                src="https://lh3.ggpht.com/1wo8kpGuE45XUHjxLCgnVWnGVpxyasc4ENyvMmuou9IoI2DTJc_pztjmqXFW"
-                alt=""
-                class="artist-img-front"
-              />
-              <img
-                src="https://lh3.ggpht.com/-6Qkc8AsUa8D7TE8uX-5urH4ehAh5BjjCA4fDgQcV_2YxASHiUMkQ3ZamZir"
-                alt=""
-                class="artist-img-back"
-              />
+              <img :src="artList[0].artUrl" class="artist-img-front" />
+              <img :src="artList[1].artUrl" class="artist-img-back" />
             </div>
           </div>
         </transition>
@@ -30,8 +22,15 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 
+import { namespace } from "vuex-class";
+
+import { Art } from "../../store/Detail.interface";
+
+const DetailModule = namespace("DetailModule");
+
 @Component
 export default class DetailArtistImg extends Vue {
+  @DetailModule.State artList!: Art[] | null;
   @Prop({ type: Boolean }) readonly show!: boolean;
 }
 </script>

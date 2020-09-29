@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="artList">
     <!-- 윗공간 -->
     <v-responsive class="mx-auto mb-12" width="56">
       <v-divider class="mb-1"></v-divider>
@@ -8,9 +8,9 @@
     <!-- 제목 -->
     <h2
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
-      style="color:white"
+      style="color:white; font-family: Playfair Display, serif !important;"
     >
-      Artist
+      {{ this.$route.params.artist }}
     </h2>
     <v-row
       cols="12"
@@ -27,7 +27,7 @@
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="(value, n) in articles"
+            v-for="(art, n) in artList"
             :key="n"
             class="d-flex child-flex"
             cols="3"
@@ -39,12 +39,13 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                :to="{ name: link }"
               >
                 <v-img
-                  :src="require(`@/assets/dummydata/articles/${value.hero}`)"
+                  :src="art.artUrl"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
+                  @mouseenter="zoomIn"
+                  @mouseleave="zoomOut"
                 >
                   <template v-slot:placeholder>
                     <v-row
@@ -65,7 +66,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.title }}
+                      {{ art.artTitle }}
                     </div>
                   </v-expand-transition>
                 </v-img>
@@ -82,17 +83,25 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { Article } from "../../store/ArticleInterface";
 
-const articleModule = namespace("articleModule");
+import { Art } from "../../store/Detail.interface";
+
+const DetailModule = namespace("DetailModule");
 
 @Component
-export default class ArtistList extends Vue {
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+export default class DetailArtistArts extends Vue {
+  @DetailModule.State artList!: Art[] | null;
 
-  created() {
-    this.SET_ARTICLE();
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
   }
 }
 </script>

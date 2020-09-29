@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%">
+  <div style="height: 100%" v-if="artList">
     <v-row style="height: 100vh">
       <detail-artist-description :show="show" v-on:isArtsFlag="isArtsFlag" />
       <detail-artist-img :show="show" />
@@ -47,11 +47,10 @@ export default class DetailArtistView extends Vue {
     this.scrollHeight = window.innerHeight;
   }
 
-  @Watch("$route", { immediate: true })
-  fetchArtList() {
+  created() {
     this.FETCH_ART_LIST({
       artist: this.$route.params.artist,
-      start: 1
+      start: 0
     });
   }
 }
