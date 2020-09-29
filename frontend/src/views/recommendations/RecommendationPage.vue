@@ -2,23 +2,29 @@
   <div class="recommendation-page">
     <div
       class="rec-section"
-      @mouseover="onWrapHover('user', true)"
-      @mouseleave="onWrapHover('user', false)"
+      @mouseover="onWrapHover('user')"
+      @mouseleave="outWrapHover('user')"
     >
       <h1 class="rec-header">
         <div
           class="rec-title"
-          @mouseover="onTitleHover('user', true)"
-          @mouseleave="onTitleHover('user', false)"
+          @mouseover="onTitleHover('user')"
+          @mouseleave="outTitleHover('user')"
         >
-          니가 좋아할만한 작품
+          <div class="rec-header-title">
+            니가 좋아할만한 작품
+          </div>
+          <div class="rec-header-aro">
+            <v-fade-transition mode="out-in">
+              <div v-if="recTitle.user.titleHover" class="see-all">
+                모두보기
+              </div>
+            </v-fade-transition>
+            <v-icon class="rec-icon" v-if="isRecHover" dark>
+              mdi-36px mdi-chevron-right
+            </v-icon>
+          </div>
         </div>
-        <v-fade-transition mode="out-in">
-          <div v-if="recTitle.user.titleHover" class="see-all">모두보기</div>
-        </v-fade-transition>
-        <v-icon class="rec-icon" v-if="recTitle.user.wrapHover" dark>
-          mdi-36px mdi-chevron-right
-        </v-icon>
       </h1>
       <vue-slick-carousel class="slick" v-bind="settings">
         <div v-for="(article, i) in articles" :key="i">
@@ -32,23 +38,29 @@
     </div>
     <div
       class="rec-section"
-      @mouseover="onWrapHover('author', true)"
-      @mouseleave="onWrapHover('author', false)"
+      @mouseover="onWrapHover('author')"
+      @mouseleave="outWrapHover('author')"
     >
       <h1 class="rec-header">
         <div
           class="rec-title"
-          @mouseover="onTitleHover('author', true)"
-          @mouseleave="onTitleHover('author', false)"
+          @mouseover="onTitleHover('author')"
+          @mouseleave="outTitleHover('author')"
         >
-          작가 추천
+          <div class="rec-header-title">
+            작가 추천
+          </div>
+          <div class="rec-header-aro">
+            <v-fade-transition mode="out-in">
+              <div v-if="recTitle.author.titleHover" class="see-all">
+                모두보기
+              </div>
+            </v-fade-transition>
+            <v-icon class="rec-icon" v-if="isAuthorHover" dark>
+              mdi-36px mdi-chevron-right
+            </v-icon>
+          </div>
         </div>
-        <v-fade-transition mode="out-in">
-          <div v-if="recTitle.author.titleHover" class="see-all">모두보기</div>
-        </v-fade-transition>
-        <v-icon class="rec-icon" v-if="recTitle.author.wrapHover" dark>
-          mdi-36px mdi-chevron-right
-        </v-icon>
       </h1>
       <vue-slick-carousel class="slick" v-bind="settingsrtl">
         <div v-for="(article, i) in articles" :key="i">
@@ -83,6 +95,14 @@ export default class RecommendationPage extends Vue {
   @articleModule.State articles;
   @articleModule.Mutation SET_ARTICLE;
 
+  get isRecHover() {
+    return this.recTitle.user.wrapHover || this.recTitle.user.titleHover;
+  }
+
+  get isAuthorHover() {
+    return this.recTitle.author.wrapHover || this.recTitle.author.titleHover;
+  }
+
   window = {
     width: 0,
     height: 0
@@ -90,12 +110,14 @@ export default class RecommendationPage extends Vue {
 
   recTitle = {
     user: {
+      wrapHover: false,
       titleHover: false,
-      wrapHover: false
+      allseeHover: false
     },
     author: {
+      wrapHover: false,
       titleHover: false,
-      wrapHover: false
+      allseeHover: false
     }
   };
 
@@ -174,21 +196,50 @@ export default class RecommendationPage extends Vue {
     ]
   };
 
-  onWrapHover(cate, bool) {
-    console.log(cate);
+  onWrapHover(cate) {
+    console.log("onWrap");
     if (cate == "user") {
-      this.recTitle.user.wrapHover = bool;
+      this.recTitle.user.wrapHover = true;
     } else if (cate == "author") {
-      this.recTitle.author.wrapHover = bool;
+      this.recTitle.author.wrapHover = true;
     }
   }
 
-  onTitleHover(cate, bool) {
-    console.log(cate);
+  outWrapHover(cate) {
+    console.log("outWrap");
+    setTimeout(() => {
+      if (cate == "user") {
+        this.recTitle.user.wrapHover = false;
+      } else if (cate == "author") {
+        this.recTitle.author.wrapHover = false;
+      }
+    }, 500);
+  }
+
+  onTitleHover(cate) {
+    console.log("onTitle");
     if (cate == "user") {
-      this.recTitle.user.titleHover = bool;
+      this.recTitle.user.titleHover = true;
     } else if (cate == "author") {
-      this.recTitle.author.titleHover = bool;
+      this.recTitle.author.titleHover = true;
+    }
+    const icon = document.querySelector(".rec-icon");
+    if (icon) {
+      console.log("hihfilshflhlf");
+      icon.style.transform = "translateX(30px)";
+      icon.transition = "transform 2000ms";
+      // setTimeout(() => {
+      // }, 500);
+      console.log("style", icon.style);
+    }
+  }
+
+  outTitleHover(cate) {
+    console.log("outTitle");
+    if (cate == "user") {
+      this.recTitle.user.titleHover = false;
+    } else if (cate == "author") {
+      this.recTitle.author.titleHover = false;
     }
   }
 
@@ -259,12 +310,20 @@ export default class RecommendationPage extends Vue {
 
 /* .rec-icon {
 } */
-.rec-icon:hover {
+/* .rec-icon:hover {
   transform: translate(30px);
-}
+} */
 
 .see-all {
-  display: inline;
+  display: inline-block;
   font-size: 20px;
+}
+
+.rec-header-title {
+  display: table-cell;
+}
+
+.rec-header-aro {
+  display: table-cell;
 }
 </style>
