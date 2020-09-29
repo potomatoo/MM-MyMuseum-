@@ -12,10 +12,15 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Watch } from "vue-property-decorator";
+import { namespace } from "vuex-class";
 import DetailArtistImg from "@/components/detail/DetailArtistImg.vue";
 import DetailArtistDescription from "@/components/detail/DetailArtistDescription.vue";
 import DetailArtistArts from "@/components/detail/DetailArtistArts.vue";
+
+import { Art } from "../../store/Detail.interface";
+
+const DetailModule = namespace("DetailModule");
 
 @Component({
   components: {
@@ -25,6 +30,9 @@ import DetailArtistArts from "@/components/detail/DetailArtistArts.vue";
   }
 })
 export default class DetailArtistView extends Vue {
+  @DetailModule.State artList!: Art[] | null;
+  @DetailModule.Action FETCH_ART_LIST: any;
+
   artsFlag = false;
   show = false;
   scrollHeight = 0;
@@ -37,6 +45,14 @@ export default class DetailArtistView extends Vue {
   mounted() {
     this.show = !this.show;
     this.scrollHeight = window.innerHeight;
+  }
+
+  @Watch("$route", { immediate: true })
+  fetchArtList() {
+    this.FETCH_ART_LIST({
+      artist: this.$route.params.artist,
+      start: 1
+    });
   }
 }
 </script>

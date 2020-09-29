@@ -50,7 +50,7 @@ export default class DetailArtistDescription extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
 .artist-description {
   background-color: #e6e1de;
 }
