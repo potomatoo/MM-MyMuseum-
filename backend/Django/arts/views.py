@@ -12,7 +12,7 @@ import pandas as pd
 import numpy as np
 import random
 
-# import threading
+import threading
 import schedule
 import time
 
@@ -34,6 +34,8 @@ def update_score():
     #         art_table[event[0]] = 0
 
     print(art_table.head())
+
+    threading.Timer(10, update_score).start()
     # art_table.loc[0, 'test'] += 0.1
     # print(art_table.loc[0, 'test'])
 
@@ -45,8 +47,10 @@ def recommend_art(request, user_id):
     serializer = ArtSerializer(arts, many=True)
     return Response(serializer.data)
     
-schedule.every(5).seconds.do(update_score)
+# schedule.every(10).seconds.do(update_score)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
+
+update_score()
