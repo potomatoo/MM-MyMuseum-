@@ -43,7 +43,7 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class MygalleryView extends Vue {}
+export default class DetailRecommend extends Vue {}
 </script>
 
 <style scoped>
