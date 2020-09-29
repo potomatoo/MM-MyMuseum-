@@ -69,7 +69,7 @@ export default class Home extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
 .full-height {
   height: 100%;
   margin: 0px;
