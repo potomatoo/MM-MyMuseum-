@@ -44,7 +44,7 @@ const routes: Array<RouteConfig> = [
 
   {
     path: "/mygallery",
-    name: "MyGallery",
+    name: "MyGalleryView",
     component: MygalleryView
   },
   //category

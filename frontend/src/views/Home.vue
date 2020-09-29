@@ -25,6 +25,7 @@
             class="text-h4 main-text"
             @mouseover="hovered.exhibition = true"
             @mouseleave="hovered.exhibition = false"
+            @click="routerToMyGallery"
           >
             <span v-if="hovered.exhibition" class="arrow">&rarr;</span>
             내 전시회
@@ -60,6 +61,10 @@ export default class Home extends Vue {
 
   routerToRecommendation() {
     this.$router.push({ name: "RecommendView" });
+  }
+
+  routerToMyGallery() {
+    this.$router.push({ name: "MyGalleryView" });
   }
 }
 </script>
