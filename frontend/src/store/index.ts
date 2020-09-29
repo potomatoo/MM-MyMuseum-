@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex, { StoreOptions } from "vuex";
 import articleModule from "./ArticleModule.store";
+import styleModule from "./StyleModule.store";
 
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ const store: StoreOptions<RootState> = {
     version: "1.0.0" // a simple property
   },
   modules: {
-    articleModule
+    articleModule,
+    styleModule
   }
 };
 

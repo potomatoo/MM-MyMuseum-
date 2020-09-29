@@ -78,7 +78,6 @@
 </template>
 
 <script lang="ts">
-//tttt
 /*
 user - 작가 신청 페이지
 자동 입력 정보 : 아이디, 이름 등 개인 구분 정보
@@ -86,15 +85,15 @@ user - 작가 신청 페이지
 
 --- 이하 쟝고 어드민 페이지 자동 생성 -> 여기서 테이블 직접 수정  ---
 admin - 신청 글 관리 페이지
-user table에 작가 상태 0-> 일반 유저// 1-> 작가// 2-> 반려 
+user table에 작가 상태 0-> 일반 유저// 1-> 작가// 2-> 반려
 
-신청 글에 승인 반려 버튼 
+신청 글에 승인 반려 버튼
 승인 -> user table 작가 상태 1
 반려 -> user table 작가 상태 2 -> 반려 버튼 누르면 메세지창 -> 반려 사유
 
 반려 테이블 생성 사유 번호 + 번호당 사유 ex) 1 -> 포트폴리오나 작품 파일 미 제출
 
-관리자만 볼 수 있는 신청 게시판 <R, U +D -> message> 
+관리자만 볼 수 있는 신청 게시판 <R, U +D -> message>
 
 유저는 작가 신청 글만 작성<C>
 
@@ -108,13 +107,15 @@ user table에 작가 상태 0-> 일반 유저// 1-> 작가// 2-> 반려
 
 import { Component, Vue } from "vue-property-decorator";
 
-@Component
+@Component({})
 export default class RequestAmateur extends Vue {
+  /*
   userEmail = "";
   userNickname = "";
   introduce = "";
   files = [];
   decription = "";
+  */
   //user table에서 이메일하고 닉네임 가져오기
   //파일하고 상세 설명 전송하기
 }
