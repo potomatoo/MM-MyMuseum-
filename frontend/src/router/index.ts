@@ -37,8 +37,8 @@ const routes: Array<RouteConfig> = [
     component: SignupView
   },
   {
-    path: "/artist/detail",
-    name: "DetailArtist",
+    path: "/artist/:artist",
+    name: "DetailArtistView",
     component: DetailArtistView
   },
 
