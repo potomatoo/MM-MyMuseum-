@@ -18,99 +18,37 @@
       <v-divider></v-divider>
     </v-responsive>
     <!-- 전시공간 -->
-    <v-row style="padding:20px" cols="12" sm="6" offset-sm="3">
-      <v-container fluid cols="12">
-        <v-row>
-          <v-col
-            v-for="(value, n) in articles"
-            :key="n"
-            class="d-flex child-flex"
-            cols="3"
-          >
-            <v-hover v-slot:default="{ hover }">
-              <v-card
-                flat
-                tile
-                class="d-flex"
-                :elevation="hover ? 12 : 2"
-                :class="{ 'on-hover': hover }"
-                :to="{ name: link }"
-              >
-                <v-img
-                  :src="require(`@/assets/dummydata/articles/${value.hero}`)"
-                  aspect-ratio="1"
-                  class="grey lighten-2 artist-card"
-                >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
-
-                  <v-expand-transition>
-                    <div
-                      v-if="hover"
-                      class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
-                      style="width: 100%; height: 100%;"
-                    >
-                      {{ value.title }}
-                    </div>
-                  </v-expand-transition>
-                </v-img>
-              </v-card>
-            </v-hover>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-row>
+    <div class="container">
+      <img
+        src="https://lh4.ggpht.com/UuYCUnqvo2EIZhyFHYFVLbkmma_cubVk7SwxOF3lklT6aor5647BXVhEaFB7jg"
+      />
+      <img
+        src="https://lh6.ggpht.com/HlgucZ0ylJAfZgusynnUwxNIgIp5htNhShF559x3dRXiuy_UdP3UQVLYW6c"
+      />
+      <img
+        src="https://lh4.ggpht.com/zwvR_x7jq9u9Oo1vQ2QrIF5KPNcxM9jWu20F1n_AgX1QvCqLRWgXYTqt5H0"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-import { namespace } from "vuex-class";
-import { Article } from "../../store/ArticleInterface";
-
-const articleModule = namespace("articleModule");
-
 @Component
 export default class DetailArtistArts extends Vue {
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
 
-  created() {
-    this.SET_ARTICLE();
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
   }
 }
 </script>
 
-<style scoped>
-.v-card {
-  transition: opacity 0.4s ease-in-out;
-}
-
-.v-card:not(.on-hover) {
-  opacity: 0.9;
-}
-
-.v-card--reveal {
-  align-items: center;
-  bottom: 0;
-  justify-content: center;
-  opacity: 0.5;
-  position: relative;
-  width: 100%;
-}
-
-.artist-card {
-  box-shadow: 0px 0px 10px 5px;
-}
-</style>
+<style scoped></style>
