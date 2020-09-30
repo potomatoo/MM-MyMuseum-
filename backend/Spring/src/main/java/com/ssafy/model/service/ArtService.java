@@ -18,4 +18,6 @@ public interface ArtService {
 	public List<ArtDto> findArtByMuseumlimit(String museum, Integer start);
 
 	public List<ArtDto> findArtByGenrelimit(String genre, Integer start);
+
+	public ArtDto findArtByArtNo(int artNo);
 }
