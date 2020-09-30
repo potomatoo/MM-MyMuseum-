@@ -79,4 +79,20 @@ public class ArtController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	@GetMapping("/api/public/art/detail")
+	public Object findArtByGenrelimit(@RequestParam int artNo) {
+		BasicResponse response = new BasicResponse();
+
+		response.data = artService.findArtByArtNo(artNo);
+		if (response.data != null) {
+			response.status = true;
+			response.message = "조회에 성공하였습니다.";
+		} else {
+			response.status = false;
+			response.message = "조회에 실패하였습니다.";
+		}
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
 }
