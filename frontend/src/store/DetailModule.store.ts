@@ -32,7 +32,7 @@ const module: Module<DetailModule, RootState> = {
 
     FETCH_ART({ commit }, artNo: number) {
       Axios.instance
-        .get("/api/public/art", { params: artNo })
+        .get("/api/public/art/detail", { params: artNo })
         .then(({ data }) => commit("SET_ART", data.data))
         .catch(err => console.error(err));
     }
