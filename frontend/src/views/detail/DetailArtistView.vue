@@ -36,6 +36,28 @@ export default class DetailArtistView extends Vue {
   artsFlag = false;
   show = false;
   scrollHeight = 0;
+  start = 0;
+
+  scroll() {
+    window.onscroll = () => {
+      const bottomOfWindow =
+        Math.max(
+          window.pageYOffset,
+          document.documentElement.scrollTop,
+          document.body.scrollTop
+        ) +
+          window.innerHeight ===
+        document.documentElement.offsetHeight;
+
+      if (bottomOfWindow) {
+        ++this.start;
+        this.FETCH_ART_LIST({
+          artist: this.$route.params.artist,
+          start: this.start
+        });
+      }
+    };
+  }
 
   async isArtsFlag() {
     this.artsFlag = true;
@@ -43,6 +65,7 @@ export default class DetailArtistView extends Vue {
   }
 
   mounted() {
+    this.scroll();
     this.show = !this.show;
     this.scrollHeight = window.innerHeight;
   }
