@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%" v-if="artList">
+  <div id="fade" style="height: 100%" v-if="artList">
     <v-row style="height: 100vh">
       <detail-artist-description :show="show" v-on:isArtsFlag="isArtsFlag" />
       <detail-artist-img :show="show" />
@@ -57,14 +57,45 @@ export default class DetailArtistView extends Vue {
 </script>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-  opacity: 0;
-  transition: opacity 5s;
+#fade {
+  animation: fadein 2s;
+  -moz-animation: fadein 2s; /* Firefox */
+  -webkit-animation: fadein 2s; /* Safari and Chrome */
+  -o-animation: fadein 2s; /* Opera */
 }
-
-.fade-enter-to,
-.fade-leave-to {
-  opacity: 1;
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
