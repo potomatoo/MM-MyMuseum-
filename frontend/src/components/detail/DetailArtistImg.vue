@@ -4,13 +4,20 @@
       <v-col>
         <transition name="fade">
           <div
-            v-if="show"
             class="flip-container"
             ontouchstart="this.classList.toggle('hover');"
           >
             <div class="flipper">
-              <img :src="artList[0].artUrl" class="artist-img-front" />
-              <img :src="artList[1].artUrl" class="artist-img-back" />
+              <img
+                v-if="artList[0].artUrl"
+                :src="artList[0].artUrl"
+                class="artist-img-front"
+              />
+              <img
+                v-if="artList[1].artUrl"
+                :src="artList[1].artUrl"
+                class="artist-img-back"
+              />
             </div>
           </div>
         </transition>
