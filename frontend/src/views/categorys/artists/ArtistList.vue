@@ -30,7 +30,7 @@
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="test"
+        @keypress.enter="searchArtist($event)"
       >
       </v-text-field>
     </v-row>
@@ -40,7 +40,7 @@
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="(value, n) in articles"
+            v-for="(value, n) in artists"
             :key="n"
             class="d-flex child-flex"
             cols="3"
@@ -52,10 +52,11 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                :to="{ name: link }"
+                @click="test"
               >
+                <!-- 임시 이미지 입력 -->
                 <v-img
-                  :src="require(`@/assets/dummydata/articles/${value.hero}`)"
+                  :src="require(`@/assets/dummydata/category/museum.jpg`)"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
                 >
@@ -78,7 +79,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.title }}
+                      {{ value.artistName }}
                     </div>
                   </v-expand-transition>
                 </v-img>
@@ -95,17 +96,31 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { Article } from "../../../store/ArticleInterface";
+import { Artist } from "../../../store/ArtistInterface";
 
-const articleModule = namespace("articleModule");
+const artistModule = namespace("artistModule");
 
 @Component
 export default class ArtistList extends Vue {
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+  @artistModule.State artist!: Artist[] | null;
+  @artistModule.Action FETCH_ARTIST: any;
+  @artistModule.Action FETCH_SERCH_ARTIST: any;
+  @artistModule.Action FETCH_MOVE_ARTIST: any;
+
+  inputText!: "";
+  start = 0;
 
   created() {
-    this.SET_ARTICLE();
+    this.FETCH_ARTIST(this.start);
+  }
+
+  searchArtist($event: KeyboardEvent) {
+    this.FETCH_SERCH_ARTIST({ artistName: this.inputText, start: this.start });
+  }
+  //여기서 이동하는 함수를 만들어야하나??
+  goArtistDetail(artistName: String) {
+    this.FETCH_MOVE_ARTIST({ artistName: this.inputText, start: this.start });
+    this.$router.push({ name: "Detail" });
   }
 }
 </script>
