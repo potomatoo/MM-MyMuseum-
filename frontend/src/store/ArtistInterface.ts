@@ -1,5 +1,5 @@
 export interface ArtistModule {
-  artiests: Artist[] | null;
+  artists: Artist[] | null;
 }
 
 export interface Artist {

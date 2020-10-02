@@ -1,6 +1,6 @@
 import { Module } from "vuex";
 import { RootState } from "./index";
-import { ArtistModule, Artist } from "@/store/MuseumInterface.ts";
+import { ArtistModule, Artist } from "@/store/ArtistInterface.ts";
 import { Axios } from "@/service/axios.service";
 import qs from "qs";
 
