@@ -117,8 +117,16 @@ export default class DetailArtistArts extends Vue {
 </script>
 
 <style scoped>
+.router-link {
+  text-decoration: none;
+  color: inherit;
+  border: 0;
+  outline: none;
+}
+
 .v-card {
   transition: opacity 0.4s ease-in-out;
+  border-radius: 5px !important;
 }
 
 .v-card:not(.on-hover) {

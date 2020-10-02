@@ -46,7 +46,6 @@ export default class DetailArtistImg extends Vue {
 .flip-container {
   perspective: 1000px;
   border: 2px solid rgba(0, 0, 0, 0) !important;
-
   margin: auto;
 }
 
@@ -54,11 +53,15 @@ export default class DetailArtistImg extends Vue {
   z-index: 2;
   transform: rotateY(0deg);
   background-size: 100% 100%;
+  border-radius: 5px !important;
+  box-shadow: 0px 0px 10px 5px;
 }
 
 .artist-img-back {
   transform: rotateY(180deg);
   background-size: 100% 100%;
+  border-radius: 5px !important;
+  box-shadow: 0px 0px 10px 5px;
 }
 
 .flip-container:hover .flipper,
