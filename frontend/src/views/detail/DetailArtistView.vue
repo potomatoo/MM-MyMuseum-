@@ -31,7 +31,9 @@ const DetailModule = namespace("DetailModule");
 })
 export default class DetailArtistView extends Vue {
   @DetailModule.State artList!: Art[] | null;
+  @DetailModule.State scrollEnd!: boolean;
   @DetailModule.Action FETCH_ART_LIST: any;
+  @DetailModule.Action ADD_ART_LIST: any;
 
   artsFlag = false;
   show = false;
@@ -40,16 +42,15 @@ export default class DetailArtistView extends Vue {
 
   scroll() {
     window.onscroll = () => {
-      const bottomOfWindow =
-        Math.max(
-          window.pageYOffset,
-          document.documentElement.scrollTop,
-          document.body.scrollTop
-        ) +
-          window.innerHeight ===
+      const ceilBottomOfWindow =
+        Math.ceil(window.pageYOffset) + window.innerHeight ===
         document.documentElement.offsetHeight;
 
-      if (bottomOfWindow) {
+      const plusBottomOfWindow =
+        Math.ceil(window.pageYOffset) + window.innerHeight + 1 ===
+        document.documentElement.offsetHeight;
+
+      if ((ceilBottomOfWindow || plusBottomOfWindow) && !this.scrollEnd) {
         ++this.start;
         this.FETCH_ART_LIST({
           artist: this.$route.params.artist,

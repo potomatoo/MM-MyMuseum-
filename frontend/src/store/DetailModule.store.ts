@@ -7,12 +7,20 @@ const module: Module<DetailModule, RootState> = {
   namespaced: true,
   state: {
     artList: null,
-    art: null
+    art: null,
+    scrollEnd: false
   },
   getters: {},
   mutations: {
     SET_ART_LIST(state, artList: Art[]) {
-      state.artList = artList;
+      if (state.artList === null) {
+        state.artList = artList;
+      } else if (artList.length && !state.scrollEnd) {
+        state.artList = state.artList?.concat(artList);
+      } else if (!artList.length) {
+        state.scrollEnd = true;
+      }
+      console.log(artList.length);
     },
 
     SET_ART(state, art: Art) {

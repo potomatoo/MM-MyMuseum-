@@ -16,4 +16,5 @@ export interface Art {
 export interface DetailModule {
   artList: Art[] | null;
   art: Art | null;
+  scrollEnd: boolean;
 }
