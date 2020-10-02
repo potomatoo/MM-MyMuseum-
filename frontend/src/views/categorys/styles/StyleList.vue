@@ -30,7 +30,7 @@
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="test"
+        @keypress.enter="searchStyle($event)"
       >
       </v-text-field>
     </v-row>
@@ -39,7 +39,7 @@
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="(value, n) in articles"
+            v-for="(value, n) in styles"
             :key="n"
             class="d-flex child-flex"
             cols="3"
@@ -54,7 +54,7 @@
                 :to="{ name: link }"
               >
                 <v-img
-                  :src="require(`@/assets/dummydata/articles/${value.hero}`)"
+                  :src="value.genreUrl"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
                 >
@@ -77,7 +77,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.title }}
+                      {{ value.genreName }}
                     </div>
                   </v-expand-transition>
                 </v-img>
@@ -94,17 +94,24 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { Article } from "../../../store/ArticleInterface";
+import { Style } from "../../../store/StyleInterface";
 
-const articleModule = namespace("articleModule");
+const styleModule = namespace("styleModule");
 
 @Component
 export default class StyleList extends Vue {
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+  @styleModule.State styles!: Style[] | null;
+  @styleModule.Action FETCH_STYLE: any;
+  @styleModule.Action FETCH_SERCH_STYLE: any;
+
+  inputText!: "";
 
   created() {
-    this.SET_ARTICLE();
+    this.FETCH_STYLE();
+  }
+
+  searchStyle($event: KeyboardEvent) {
+    this.FETCH_SERCH_STYLE(this.inputText);
   }
 }
 </script>
