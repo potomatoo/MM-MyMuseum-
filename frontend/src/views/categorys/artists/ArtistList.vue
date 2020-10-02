@@ -52,7 +52,7 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                @click="test"
+                @click="moveDetail(value.artistName, 0)"
               >
                 <!-- 임시 이미지 입력 -->
                 <v-img
@@ -102,10 +102,9 @@ const artistModule = namespace("artistModule");
 
 @Component
 export default class ArtistList extends Vue {
-  @artistModule.State artist!: Artist[] | null;
+  @artistModule.State artists!: Artist[] | null;
   @artistModule.Action FETCH_ARTIST: any;
   @artistModule.Action FETCH_SERCH_ARTIST: any;
-  @artistModule.Action FETCH_MOVE_ARTIST: any;
 
   inputText!: "";
   start = 0;
@@ -117,10 +116,12 @@ export default class ArtistList extends Vue {
   searchArtist($event: KeyboardEvent) {
     this.FETCH_SERCH_ARTIST({ artistName: this.inputText, start: this.start });
   }
-  //여기서 이동하는 함수를 만들어야하나??
-  goArtistDetail(artistName: String) {
-    this.FETCH_MOVE_ARTIST({ artistName: this.inputText, start: this.start });
-    this.$router.push({ name: "Detail" });
+
+  moveDetail(artist: string, start: number) {
+    this.$router.push({
+      name: "DetailArtist",
+      query: { artist: artist, start: start.toString() }
+    });
   }
 }
 </script>

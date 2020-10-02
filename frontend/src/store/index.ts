@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex, { StoreOptions } from "vuex";
 import styleModule from "./StyleModule.store";
 import museumModule from "./MuseumModule.store";
-import artistModule from "./MuseumModule.store";
+import artistModule from "./ArtistModule.store";
 //삭제예정
 import articleModule from "./ArticleModule.store";
 import DetailModule from "./DetailModule.store";
