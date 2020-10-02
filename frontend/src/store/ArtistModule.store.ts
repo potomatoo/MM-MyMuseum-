@@ -1,8 +1,7 @@
 import { Module } from "vuex";
 import { RootState } from "./index";
-import { ArtistModule, Artist } from "@/store/MuseumInterface.ts";
+import { ArtistModule, Artist } from "@/store/ArtistInterface.ts";
 import { Axios } from "@/service/axios.service";
-import qs from "qs";
 
 const module: Module<ArtistModule, RootState> = {
   namespaced: true,
@@ -22,7 +21,7 @@ const module: Module<ArtistModule, RootState> = {
   actions: {
     FETCH_ARTIST({ commit }, start) {
       Axios.instance
-        .get("api/public/artiest/list", { params: { start } })
+        .get("api/public/artist/list", { params: { start } })
         .then(({ data }) => {
           commit("SET_ARTIST", data.data);
         })
@@ -32,25 +31,10 @@ const module: Module<ArtistModule, RootState> = {
     FETCH_SERCH_ARTIST({ commit }, { artistName, start }) {
       console.log(artistName + " " + start);
       Axios.instance
-        .get("api/public/artiest/find", { params: { artistName, start } })
+        .get("api/public/artist/find", { params: { artistName, start } })
         //불러온 데이터가 null이 아니라면 할당
         .then(({ data }) => {
-          if (data != null) {
-            commit("SET_ARTIST", data.data);
-          }
-        })
-        .catch(err => console.error(err));
-    },
-    //이동???
-    FETCH_MOVE_ARTIST({ commit }, { artistName, start }) {
-      console.log(artistName + " " + start);
-      Axios.instance
-        .get("api/public/artiest/find", { params: { artistName, start } })
-        //불러온 데이터가 null이 아니라면 할당
-        .then(({ data }) => {
-          if (data != null) {
-            commit("SET_ARTIST", data.data);
-          }
+          commit("SET_ARTIST", data.data);
         })
         .catch(err => console.error(err));
     }

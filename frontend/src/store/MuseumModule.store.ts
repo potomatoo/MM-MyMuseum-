@@ -2,7 +2,6 @@ import { Module } from "vuex";
 import { RootState } from "./index";
 import { MuseumModule, Museum } from "@/store/MuseumInterface.ts";
 import { Axios } from "@/service/axios.service";
-import qs from "qs";
 
 const module: Module<MuseumModule, RootState> = {
   namespaced: true,
