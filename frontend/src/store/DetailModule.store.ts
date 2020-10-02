@@ -23,6 +23,10 @@ const module: Module<DetailModule, RootState> = {
       console.log(artList.length);
     },
 
+    SET_ART_LIST_ZERO(state) {
+      state.artList = null;
+    },
+
     SET_ART(state, art: Art) {
       state.art = art;
     }
