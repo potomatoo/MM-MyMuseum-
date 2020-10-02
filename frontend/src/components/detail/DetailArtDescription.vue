@@ -136,6 +136,37 @@
         </v-dialog>
       </span>
     </div>
+
+    <div
+      class="art-show"
+      style="font-size: 18px; margin-top: 10px; text-align: end;"
+    >
+      <v-dialog
+        v-model="showDialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <span
+            style="font-family: 'Do Hyeon', sans-serif !important;"
+            v-bind="attrs"
+            v-on="on"
+            >작품감상</span
+          >
+        </template>
+        <v-card style="background: black">
+          <v-btn icon dark @click="showDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <div id="fade" class="art-image" v-if="art">
+            <div class="container">
+              <img :src="art.artUrl" />
+            </div>
+          </div>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -150,6 +181,7 @@ export default class DetailArtDescription extends Vue {
   @DetailModule.State art!: Art;
 
   dialog = false;
+  showDialog = false;
 }
 </script>
 
@@ -159,5 +191,26 @@ export default class DetailArtDescription extends Vue {
   color: inherit;
   border: 0;
   outline: none;
+}
+.art-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #000;
+}
+.container {
+  width: 1100px;
+  display: flex;
+  justify-content: center;
+}
+
+.container img {
+  max-width: 1100px;
+  transform-origin: center;
+  transform: perspective(800px) rotateY(0deg);
+  transition: 0.5s;
+  -webkit-box-reflect: below 1px
+    linear-gradient(transparent, transparent, #0004);
 }
 </style>
