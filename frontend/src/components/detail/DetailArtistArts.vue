@@ -32,46 +32,56 @@
             class="d-flex child-flex"
             cols="3"
           >
-            <v-hover v-slot:default="{ hover }">
-              <v-card
-                flat
-                tile
-                class="d-flex"
-                :elevation="hover ? 12 : 2"
-                :class="{ 'on-hover': hover }"
-              >
-                <v-img
-                  :src="art.artUrl"
-                  aspect-ratio="1"
-                  class="grey lighten-2 artist-card"
-                  @mouseenter="zoomIn"
-                  @mouseleave="zoomOut"
+            <router-link
+              class="router-link"
+              :to="{
+                name: 'DetailArtView',
+                params: {
+                  artNo: art.artNo
+                }
+              }"
+            >
+              <v-hover v-slot:default="{ hover }">
+                <v-card
+                  flat
+                  tile
+                  class="d-flex"
+                  :elevation="hover ? 12 : 2"
+                  :class="{ 'on-hover': hover }"
                 >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
+                  <v-img
+                    :src="art.artUrl"
+                    aspect-ratio="1"
+                    class="grey lighten-2 artist-card"
+                    @mouseenter="zoomIn"
+                    @mouseleave="zoomOut"
+                  >
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey lighten-5"
+                        ></v-progress-circular>
+                      </v-row>
+                    </template>
 
-                  <v-expand-transition>
-                    <div
-                      v-if="hover"
-                      class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
-                      style="width: 100%; height: 100%;"
-                    >
-                      {{ art.artTitle }}
-                    </div>
-                  </v-expand-transition>
-                </v-img>
-              </v-card>
-            </v-hover>
+                    <v-expand-transition>
+                      <div
+                        v-if="hover"
+                        class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
+                        style="width: 100%; height: 100%;"
+                      >
+                        {{ art.artTitle }}
+                      </div>
+                    </v-expand-transition>
+                  </v-img>
+                </v-card>
+              </v-hover>
+            </router-link>
           </v-col>
         </v-row>
       </v-container>

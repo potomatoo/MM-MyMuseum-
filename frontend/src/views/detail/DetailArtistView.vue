@@ -41,6 +41,7 @@ export default class DetailArtistView extends Vue {
   start = 0;
 
   scroll() {
+    console.log("얍!");
     window.onscroll = () => {
       const ceilBottomOfWindow =
         Math.ceil(window.pageYOffset) + window.innerHeight ===
