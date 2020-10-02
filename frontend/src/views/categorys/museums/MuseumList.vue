@@ -47,7 +47,7 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                :to="{ name: null }"
+                @click="moveDetail(value.museumName, 0)"
               >
                 <!-- 임시 이미지 입력 -->
                 <v-img
@@ -111,6 +111,13 @@ export default class MuseumList extends Vue {
 
   searchMuseum($event: KeyboardEvent) {
     this.FETCH_SERCH_MUSEUM({ museumName: this.inputText, start: this.start });
+  }
+
+  moveDetail(museum: string, start: number) {
+    this.$router.push({
+      name: "DetailArtist",
+      query: { museum: museum, start: start.toString() }
+    });
   }
 }
 </script>

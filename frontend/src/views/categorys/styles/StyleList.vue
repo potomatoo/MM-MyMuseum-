@@ -51,7 +51,7 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                :to="{ name: link }"
+                @click="moveDetail(value.genreName, 0)"
               >
                 <v-img
                   :src="value.genreUrl"
@@ -112,6 +112,13 @@ export default class StyleList extends Vue {
 
   searchStyle($event: KeyboardEvent) {
     this.FETCH_SERCH_STYLE(this.inputText);
+  }
+
+  moveDetail(genre: string, start: number) {
+    this.$router.push({
+      name: "DetailArtist",
+      query: { genre: genre, start: start.toString() }
+    });
   }
 }
 </script>
