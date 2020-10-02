@@ -1,8 +1,8 @@
 <template>
   <div id="fade" style="height: 100%" v-if="artList">
     <v-row style="height: 100vh">
-      <detail-artist-description :show="show" v-on:isArtsFlag="isArtsFlag" />
-      <detail-artist-img :show="show" />
+      <detail-artist-description v-on:isArtsFlag="isArtsFlag" />
+      <detail-artist-img />
     </v-row>
 
     <div>
@@ -32,16 +32,15 @@ const DetailModule = namespace("DetailModule");
 export default class DetailArtistView extends Vue {
   @DetailModule.State artList!: Art[] | null;
   @DetailModule.State scrollEnd!: boolean;
+  @DetailModule.Mutation SET_ART_LIST_ZERO!: any;
   @DetailModule.Action FETCH_ART_LIST: any;
   @DetailModule.Action ADD_ART_LIST: any;
 
   artsFlag = false;
-  show = false;
   scrollHeight = 0;
   start = 0;
 
   scroll() {
-    console.log("얍!");
     window.onscroll = () => {
       const ceilBottomOfWindow =
         Math.ceil(window.pageYOffset) + window.innerHeight ===
@@ -51,7 +50,12 @@ export default class DetailArtistView extends Vue {
         Math.ceil(window.pageYOffset) + window.innerHeight + 1 ===
         document.documentElement.offsetHeight;
 
-      if ((ceilBottomOfWindow || plusBottomOfWindow) && !this.scrollEnd) {
+      if (
+        (ceilBottomOfWindow || plusBottomOfWindow) &&
+        !this.scrollEnd &&
+        this.$route.name === "DetailArtistView"
+      ) {
+        console.log(this.$route.name);
         ++this.start;
         this.FETCH_ART_LIST({
           artist: this.$route.params.artist,
@@ -68,15 +72,20 @@ export default class DetailArtistView extends Vue {
 
   mounted() {
     this.scroll();
-    this.show = !this.show;
     this.scrollHeight = window.innerHeight;
   }
 
-  created() {
+  @Watch("$route", { immediate: true })
+  fetchArtList() {
+    this.start = 0;
     this.FETCH_ART_LIST({
       artist: this.$route.params.artist,
-      start: 0
+      start: this.start
     });
+  }
+
+  destroyed() {
+    this.SET_ART_LIST_ZERO();
   }
 }
 </script>

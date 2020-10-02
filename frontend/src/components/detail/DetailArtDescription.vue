@@ -1,18 +1,18 @@
 <template>
   <div
-    v-if="this.art"
+    v-if="art"
     style="min-width: 320px; color: white; font-family: Playfair Display, serif; align-self: center"
   >
     <div
-      v-if="this.art.artTitle"
+      v-if="art.artTitle"
       class="art-title"
       style="font-size: 25px; margin-top: 5px"
     >
-      {{ this.art.artTitle }}
+      {{ art.artTitle }}
     </div>
 
     <div
-      v-if="this.art.artArtist"
+      v-if="art.artArtist"
       class="art-artist"
       style="font-size: 18px; margin-top: 30px"
     >
@@ -25,18 +25,18 @@
         :to="{
           name: 'DetailArtistView',
           params: {
-            artist: this.art.artArtist
+            artist: art.artArtist
           }
         }"
       >
         <span>
-          {{ this.art.artArtist }}
+          {{ art.artArtist }}
         </span>
       </router-link>
     </div>
 
     <div
-      v-if="this.art.artAge"
+      v-if="art.artAge"
       class="art-age"
       style="font-size: 18px; margin-top: 10px"
     >
@@ -44,12 +44,12 @@
         제작연도:
       </span>
       <span>
-        {{ this.art.artAge }}
+        {{ art.artAge }}
       </span>
     </div>
 
     <div
-      v-if="this.art.artSize"
+      v-if="art.artSize"
       class="art-size"
       style="font-size: 18px; margin-top: 10px"
     >
@@ -57,12 +57,12 @@
         크기:
       </span>
       <span>
-        {{ this.art.artSize }}
+        {{ art.artSize }}
       </span>
     </div>
 
     <div
-      v-if="this.art.artType"
+      v-if="art.artType"
       class="art-type"
       style="font-size: 18px; margin-top: 10px"
     >
@@ -70,12 +70,12 @@
         작품유형:
       </span>
       <span>
-        {{ this.art.artType }}
+        {{ art.artType }}
       </span>
     </div>
 
     <div
-      v-if="this.art.artMehtod"
+      v-if="art.artMehtod"
       class="art-method"
       style="font-size: 18px; margin-top: 10px"
     >
@@ -83,12 +83,12 @@
         작품방식:
       </span>
       <span>
-        {{ this.art.artMehtod }}
+        {{ art.artMehtod }}
       </span>
     </div>
 
     <div
-      v-if="this.art.artGenre"
+      v-if="art.artGenre"
       class="art-genre"
       style="font-size: 18px; margin-top: 10px"
     >
@@ -96,17 +96,17 @@
         장르:
       </span>
       <span>
-        {{ this.art.artGenre }}
+        {{ art.artGenre }}
       </span>
     </div>
 
     <div
-      v-if="this.art.artDescription"
+      v-if="art.artDescription"
       class="art-description"
       style="font-size: 18px; margin-top: 10px"
     >
       <span
-        v-if="this.art.artDescription"
+        v-if="art.artDescription"
         style="font-family: 'Do Hyeon', sans-serif;"
       >
         상세설명:
@@ -130,7 +130,7 @@
             <v-card-text
               style="margin-top: 15px; font-family: 'Do Hyeon', sans-serif;"
             >
-              {{ this.art.artDescription }}
+              {{ art.artDescription }}
             </v-card-text>
           </v-card>
         </v-dialog>

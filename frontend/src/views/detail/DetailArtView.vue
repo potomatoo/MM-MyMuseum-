@@ -1,7 +1,7 @@
 <template>
-  <div id="fade" class="art-image" v-if="this.art">
+  <div id="fade" class="art-image" v-if="art">
     <div class="container">
-      <img :src="this.art.artUrl" />
+      <img :src="art.artUrl" />
       <detail-art-description />
     </div>
   </div>

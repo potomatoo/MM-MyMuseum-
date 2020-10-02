@@ -4,23 +4,17 @@
       <v-col class="align-self-center text-center">
         <div
           class="mb-5"
-          v-if="show"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
           {{ this.$route.params.artist }}
         </div>
 
-        <div
-          class="mb-5"
-          v-if="show"
-          style="font-family: Playfair Display, serif;"
-        >
+        <div class="mb-5" style="font-family: Playfair Display, serif;">
           Mar 30, 1853 - Jul 29, 1890
         </div>
 
         <button
           class="allArtBtn"
-          v-if="show"
           @click="isArtsFlag"
           style="font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
         >
@@ -36,8 +30,6 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class DetailArtistDescription extends Vue {
-  @Prop({ type: Boolean }) readonly show!: boolean;
-
   isArtsFlag() {
     this.$emit("isArtsFlag");
   }
