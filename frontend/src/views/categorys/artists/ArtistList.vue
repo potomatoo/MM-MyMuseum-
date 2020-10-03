@@ -52,7 +52,7 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                @click="moveDetail(value.artistName, 0)"
+                @click="moveDetail(value.artistName)"
               >
                 <!-- 임시 이미지 입력 -->
                 <v-img
@@ -117,10 +117,10 @@ export default class ArtistList extends Vue {
     this.FETCH_SERCH_ARTIST({ artistName: this.inputText, start: this.start });
   }
 
-  moveDetail(artist: string, start: number) {
+  moveDetail(artist: string) {
     this.$router.push({
-      name: "DetailArtist",
-      query: { artist: artist, start: start.toString() }
+      name: "DetailArtistView",
+      params: { artist: artist }
     });
   }
 }

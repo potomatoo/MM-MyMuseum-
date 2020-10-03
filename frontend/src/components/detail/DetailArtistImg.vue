@@ -1,22 +1,21 @@
 <template>
-  <v-col class="artist-img align-self-center">
+  <v-col class="artist-img align-self-center" v-if="artList">
     <v-row style="height: 100%">
       <v-col>
         <transition name="fade">
           <div
-            v-if="show"
             class="flip-container"
             ontouchstart="this.classList.toggle('hover');"
           >
             <div class="flipper">
               <img
-                src="https://lh3.ggpht.com/1wo8kpGuE45XUHjxLCgnVWnGVpxyasc4ENyvMmuou9IoI2DTJc_pztjmqXFW"
-                alt=""
+                v-if="artList[0].artUrl"
+                :src="artList[0].artUrl"
                 class="artist-img-front"
               />
               <img
-                src="https://lh3.ggpht.com/-6Qkc8AsUa8D7TE8uX-5urH4ehAh5BjjCA4fDgQcV_2YxASHiUMkQ3ZamZir"
-                alt=""
+                v-if="artList[1].artUrl"
+                :src="artList[1].artUrl"
                 class="artist-img-back"
               />
             </div>
@@ -30,8 +29,15 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 
+import { namespace } from "vuex-class";
+
+import { Art } from "../../store/Detail.interface";
+
+const DetailModule = namespace("DetailModule");
+
 @Component
 export default class DetailArtistImg extends Vue {
+  @DetailModule.State artList!: Art[] | null;
   @Prop({ type: Boolean }) readonly show!: boolean;
 }
 </script>
@@ -40,7 +46,6 @@ export default class DetailArtistImg extends Vue {
 .flip-container {
   perspective: 1000px;
   border: 2px solid rgba(0, 0, 0, 0) !important;
-
   margin: auto;
 }
 
@@ -48,11 +53,15 @@ export default class DetailArtistImg extends Vue {
   z-index: 2;
   transform: rotateY(0deg);
   background-size: 100% 100%;
+  border-radius: 5px !important;
+  box-shadow: 0px 0px 10px 5px;
 }
 
 .artist-img-back {
   transform: rotateY(180deg);
   background-size: 100% 100%;
+  border-radius: 5px !important;
+  box-shadow: 0px 0px 10px 5px;
 }
 
 .flip-container:hover .flipper,

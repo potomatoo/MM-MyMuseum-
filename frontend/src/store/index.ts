@@ -5,6 +5,7 @@ import museumModule from "./MuseumModule.store";
 import artistModule from "./ArtistModule.store";
 //삭제예정
 import articleModule from "./ArticleModule.store";
+import DetailModule from "./DetailModule.store";
 
 Vue.use(Vuex);
 
@@ -17,11 +18,12 @@ const store: StoreOptions<RootState> = {
     version: "1.0.0" // a simple property
   },
   modules: {
+    articleModule,
+    DetailModule,
     styleModule,
     museumModule,
-    artistModule,
+    artistModule
     //삭제예정
-    articleModule
   }
 };
 
