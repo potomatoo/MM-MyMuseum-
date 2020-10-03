@@ -23,7 +23,7 @@
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="test"
+        @keypress.enter="searchMuseum($event)"
       >
       </v-text-field>
     </v-row>
@@ -33,7 +33,7 @@
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="(value, n) in articles"
+            v-for="(value, n) in museums"
             :key="n"
             class="d-flex child-flex"
             cols="6"
@@ -47,10 +47,12 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                :to="{ name: link }"
+                @click="moveDetail(value.museumName, 0)"
               >
+                <!-- 임시 이미지 입력 -->
                 <v-img
-                  :src="require(`@/assets/dummydata/articles/${value.hero}`)"
+                  v-if="value.museumUrl == null"
+                  :src="require(`@/assets/dummydata/category/museum.jpg`)"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
                 >
@@ -73,7 +75,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.title }}
+                      {{ value.museumName }}
                     </div>
                   </v-expand-transition>
                 </v-img>
@@ -90,18 +92,32 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { Article } from "../../../store/ArticleInterface";
+import { Museum } from "../../../store/MuseumInterface";
 
-const articleModule = namespace("articleModule");
+const museumModule = namespace("museumModule");
 
 @Component
 export default class MuseumList extends Vue {
-  [x: string]: any;
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+  @museumModule.State museums!: Museum[] | null;
+  @museumModule.Action FETCH_MUSEUM: any;
+  @museumModule.Action FETCH_SERCH_MUSEUM: any;
+
+  inputText!: "";
+  start = 0;
 
   created() {
-    this.SET_ARTICLE();
+    this.FETCH_MUSEUM(this.start);
+  }
+
+  searchMuseum($event: KeyboardEvent) {
+    this.FETCH_SERCH_MUSEUM({ museumName: this.inputText, start: this.start });
+  }
+
+  moveDetail(museum: string, start: number) {
+    this.$router.push({
+      name: "DetailArtist",
+      query: { museum: museum, start: start.toString() }
+    });
   }
 }
 </script>
