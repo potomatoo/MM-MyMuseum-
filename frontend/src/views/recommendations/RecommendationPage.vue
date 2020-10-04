@@ -26,12 +26,12 @@
           </div>
         </div>
       </h1>
-      <vue-slick-carousel class="slick" v-bind="settings">
-        <div v-for="(article, i) in articles" :key="i">
+      <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settings">
+        <div v-for="art in userRecArts" :key="art.art_no">
           <img
             class="recommendation-img"
-            :src="require(`@/assets/dummydata/articles/${article.hero}`)"
-            :alt="article.author"
+            :src="art.art_url"
+            :alt="art.art_title"
           />
         </div>
       </vue-slick-carousel>
@@ -62,12 +62,12 @@
           </div>
         </div>
       </h1>
-      <vue-slick-carousel class="slick" v-bind="settingsrtl">
-        <div v-for="(article, i) in articles" :key="i">
+      <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settingsrtl">
+        <div v-for="art in userRecArts" :key="art.art_no">
           <img
             class="recommendation-img"
-            :src="require(`@/assets/dummydata/articles/${article.hero}`)"
-            :alt="article.author"
+            :src="art.art_url"
+            :alt="art.art_title"
           />
         </div>
       </vue-slick-carousel>
@@ -78,13 +78,13 @@
 <script>
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import { Article } from "../../store/ArticleInterface";
 
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 
 const articleModule = namespace("articleModule");
+const RecommendationModule = namespace("RecommendationModule");
 
 @Component({
   components: {
@@ -92,8 +92,9 @@ const articleModule = namespace("articleModule");
   }
 })
 export default class RecommendationPage extends Vue {
-  @articleModule.State articles;
-  @articleModule.Mutation SET_ARTICLE;
+  // @RecommendationModule.State arts;
+  @RecommendationModule.Getter userRecArts;
+  @RecommendationModule.Action FETCH_ART_LIST;
 
   get isRecHover() {
     return this.recTitle.user.wrapHover || this.recTitle.user.titleHover;
@@ -102,6 +103,10 @@ export default class RecommendationPage extends Vue {
   get isAuthorHover() {
     return this.recTitle.author.wrapHover || this.recTitle.author.titleHover;
   }
+
+  // get userRecArts() {
+  //   return this.arts.slice(0, 10);
+  // }
 
   window = {
     width: 0,
@@ -238,8 +243,8 @@ export default class RecommendationPage extends Vue {
   }
 
   @Watch("window", { deep: true })
-  setDot() {
-    const dots = document.querySelectorAll(".slick-dots");
+  async setDot() {
+    const dots = await document.querySelectorAll(".slick-dots");
     dots.forEach(el => {
       el.style.bottom = "-40px";
     });
@@ -251,12 +256,12 @@ export default class RecommendationPage extends Vue {
   }
 
   created() {
-    this.SET_ARTICLE();
+    this.FETCH_ART_LIST("test");
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
   }
 
-  mounted() {
+  updated() {
     this.setDot();
   }
 
