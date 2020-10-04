@@ -1,19 +1,28 @@
 package com.ssafy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ssafy.model.dto.LogDto;
+import com.ssafy.model.dto.UserDto;
 import com.ssafy.model.response.BasicResponse;
 import com.ssafy.model.service.ArtService;
+import com.ssafy.model.service.LogService;
 
 @Controller
 public class ArtController {
 	@Autowired
 	private ArtService artService;
+	@Autowired
+	private LogService logService;
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 
 	@GetMapping("/api/public/art/title")
 	public Object findArtByTitlelimit(@RequestParam String title, @RequestParam int start) {
@@ -80,8 +89,37 @@ public class ArtController {
 	}
 
 	@GetMapping("/api/public/art/detail")
-	public Object findArtByGenrelimit(@RequestParam int artNo) {
+	public Object findArtDetail(@RequestParam int artNo) {
 		BasicResponse response = new BasicResponse();
+
+		response.data = artService.findArtByArtNo(artNo);
+		if (response.data != null) {
+			response.status = true;
+			response.message = "조회에 성공하였습니다.";
+		} else {
+			response.status = false;
+			response.message = "조회에 실패하였습니다.";
+		}
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/api/private/art/detail")
+	public Object findArtDetail(@RequestHeader("Authorization") String jwtToken, @RequestParam int artNo) {
+		BasicResponse response = new BasicResponse();
+
+		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
+		if (user == null) {
+			System.out.println("잘못된 사용자 입니다.");
+		} else {
+			LogDto log = new LogDto();
+
+			log.setUser_id(user.getUserId());
+			log.setType(0);
+			log.setArtNo(artNo);
+
+			logService.SaveLog(log);
+		}
 
 		response.data = artService.findArtByArtNo(artNo);
 		if (response.data != null) {
