@@ -197,7 +197,6 @@ export default class RecommendationPage extends Vue {
   };
 
   onWrapHover(cate) {
-    console.log("onWrap");
     if (cate == "user") {
       this.recTitle.user.wrapHover = true;
     } else if (cate == "author") {
@@ -206,7 +205,6 @@ export default class RecommendationPage extends Vue {
   }
 
   outWrapHover(cate) {
-    console.log("outWrap");
     setTimeout(() => {
       if (cate == "user") {
         this.recTitle.user.wrapHover = false;
@@ -217,25 +215,21 @@ export default class RecommendationPage extends Vue {
   }
 
   onTitleHover(cate) {
-    console.log("onTitle");
     if (cate == "user") {
       this.recTitle.user.titleHover = true;
     } else if (cate == "author") {
       this.recTitle.author.titleHover = true;
     }
-    const icon = document.querySelector(".rec-icon");
-    if (icon) {
-      console.log("hihfilshflhlf");
-      icon.style.transform = "translateX(30px)";
-      icon.transition = "transform 2000ms";
-      // setTimeout(() => {
-      // }, 500);
-      console.log("style", icon.style);
-    }
+    // const icon = document.querySelector(".rec-icon");
+    // if (icon) {
+    // icon.style.transform = "translateX(30px)";
+    // icon.style.transition = "transform 5000ms";
+    // setTimeout(() => {
+    // }, 500);
+    // }
   }
 
   outTitleHover(cate) {
-    console.log("outTitle");
     if (cate == "user") {
       this.recTitle.user.titleHover = false;
     } else if (cate == "author") {
@@ -302,21 +296,17 @@ export default class RecommendationPage extends Vue {
 .rec-header {
   margin-bottom: 10px;
   color: white;
+  cursor: pointer;
 }
 
 .rec-title {
   display: inline-block;
 }
 
-/* .rec-icon {
-} */
-/* .rec-icon:hover {
-  transform: translate(30px);
-} */
-
 .see-all {
   display: inline-block;
   font-size: 20px;
+  margin-left: 20px;
 }
 
 .rec-header-title {
