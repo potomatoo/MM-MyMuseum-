@@ -34,19 +34,29 @@
               class="mb-3"
               v-model="userPassword"
               :rules="passwordRules"
+              type="password"
               solo
               label="비밀번호"
+              autocomplete
               required
             ></v-text-field>
             <v-text-field
               class="mb-3"
               v-model="userPasswordCheck"
               :rules="passwordCheckRules"
+              type="password"
               solo
               label="비밀번호 확인"
+              autocomplete
               required
             ></v-text-field>
-            <v-btn color="rgb(137,120,104)" width="100%" dark large>
+            <v-btn
+              color="rgb(137,120,104)"
+              width="100%"
+              dark
+              large
+              @click="signup"
+            >
               회원가입
             </v-btn>
           </v-form>
@@ -59,9 +69,14 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+
+const AccountsModule = namespace("AccountsModule");
 
 @Component
 export default class SignupView extends Vue {
+  @AccountsModule.Action SIGNUP: any;
+
   userEmail = "";
   userNickname = "";
   userPassword = "";
@@ -85,6 +100,14 @@ export default class SignupView extends Vue {
 
   checkPassword(password: string) {
     return this.userPassword == password;
+  }
+
+  signup() {
+    const userInfo = {
+      userId: this.userEmail,
+      userPassword: this.userPassword
+    };
+    this.SIGNUP(userInfo);
   }
 }
 </script>
