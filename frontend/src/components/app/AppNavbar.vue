@@ -30,7 +30,7 @@
       <v-btn class="navbar-btn" :to="{ name: 'CategoryList' }" text>
         <span>컬렉션</span>
       </v-btn>
-      <v-btn class="navbar-btn" text>
+      <v-btn class="navbar-btn" :to="{ name: 'MyGalleryView' }" text>
         <span>내 전시회</span>
       </v-btn>
     </span>

@@ -5,7 +5,7 @@
       <v-col class="align-self-center text-center">
         <img
           class="login-picture"
-          src="http://lh3.googleusercontent.com/vENTojlUPt9bsdozdur91HQz3VeA3-LPgA7Oq7K8iU9ftNYAuCGWBWm8nR3z33x87g"
+          src="https://lh3.googleusercontent.com/vENTojlUPt9bsdozdur91HQz3VeA3-LPgA7Oq7K8iU9ftNYAuCGWBWm8nR3z33x87g"
           alt="account-basic-picture"
         />
       </v-col>
