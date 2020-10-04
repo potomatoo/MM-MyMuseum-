@@ -25,6 +25,7 @@
           :key="i"
           cols="12"
           md="4"
+          style="padding: 20px"
         >
           <v-hover v-slot:default="{ hover }">
             <v-card
@@ -37,7 +38,7 @@
               <v-img
                 :src="require(`@/assets/dummydata/category/${hero}`)"
                 class="mb-4 category-card"
-                height="275"
+                height="420"
                 max-width="100%"
               >
                 <v-expand-transition>

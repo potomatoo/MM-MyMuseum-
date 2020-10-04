@@ -14,6 +14,9 @@ import ArtistList from "@/views/categorys/artists/ArtistList.vue";
 import MuseumList from "@/views/categorys/museums/MuseumList.vue";
 import StyleList from "@/views/categorys/styles/StyleList.vue";
 
+//requestamatuer
+import RequestAmateur from "@/views/requestamateur/RequestAmateur.vue";
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -33,7 +36,7 @@ const routes: Array<RouteConfig> = [
     component: SignupView
   },
   {
-    path: "/detail/artist",
+    path: "/artist/detail",
     name: "DetailArtist",
     component: DetailArtistView
   },
@@ -62,6 +65,11 @@ const routes: Array<RouteConfig> = [
     path: "/recommend",
     name: "RecommendView",
     component: RecommendationPage
+  },
+  {
+    path: "/requestamateur",
+    name: "RequestAmateur",
+    component: RequestAmateur
   }
 ];
 
