@@ -9,7 +9,7 @@ import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 
 // recommendation
 import RecommendationPage from "@/views/recommendations/RecommendationPage.vue";
-
+import ArtListView from "@/views/recommendations/ArtListView.vue";
 //categorys
 import CategoryList from "@/views/categorys/CategoryList.vue";
 import ArtistList from "@/views/categorys/artists/ArtistList.vue";
@@ -77,6 +77,11 @@ const routes: Array<RouteConfig> = [
     path: "/recommend",
     name: "RecommendView",
     component: RecommendationPage
+  },
+  {
+    path: "/recommend/arts",
+    name: "RecArtList",
+    component: ArtListView
   },
   {
     path: "/requestamateur",

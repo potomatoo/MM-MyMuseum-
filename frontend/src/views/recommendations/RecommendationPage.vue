@@ -16,7 +16,11 @@
           </div>
           <div class="rec-header-aro">
             <v-fade-transition mode="out-in">
-              <div v-if="recTitle.user.titleHover" class="see-all">
+              <div
+                v-if="recTitle.user.titleHover"
+                class="see-all"
+                @click="toAllUserRec"
+              >
                 모두보기
               </div>
             </v-fade-transition>
@@ -28,11 +32,16 @@
       </h1>
       <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settings">
         <div v-for="art in userRecArts" :key="art.art_no">
-          <img
-            class="recommendation-img"
-            :src="art.art_url"
-            :alt="art.art_title"
-          />
+          <router-link
+            class="router-link"
+            :to="{ name: 'DetailArtView', params: { artNo: art.art_no } }"
+          >
+            <img
+              class="recommendation-img"
+              :src="art.art_url"
+              :alt="art.art_title"
+            />
+          </router-link>
         </div>
       </vue-slick-carousel>
     </div>
@@ -92,7 +101,6 @@ const RecommendationModule = namespace("RecommendationModule");
   }
 })
 export default class RecommendationPage extends Vue {
-  // @RecommendationModule.State arts;
   @RecommendationModule.Getter userRecArts;
   @RecommendationModule.Action FETCH_ART_LIST;
 
@@ -103,10 +111,6 @@ export default class RecommendationPage extends Vue {
   get isAuthorHover() {
     return this.recTitle.author.wrapHover || this.recTitle.author.titleHover;
   }
-
-  // get userRecArts() {
-  //   return this.arts.slice(0, 10);
-  // }
 
   window = {
     width: 0,
@@ -268,10 +272,20 @@ export default class RecommendationPage extends Vue {
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
   }
+
+  toAllUserRec() {
+    this.$router.push({ name: "RecArtList" });
+  }
 }
 </script>
 
 <style scoped>
+.router-link {
+  text-decoration: none;
+  color: inherit;
+  border: 0;
+  outline: none;
+}
 .recommendation-page {
   margin: 5%;
 }
