@@ -74,6 +74,32 @@
                 </v-btn>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-btn
+                  class="pa-2"
+                  width="100%"
+                  color="rgb(137,120,104)"
+                  dark
+                  large
+                  @click="moveRequestAmateur(userEmail, userNickname)"
+                >
+                  작가 신청
+                </v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-btn
+                  class="pa-2"
+                  width="100%"
+                  color="rgb(137,120,104)"
+                  dark
+                  large
+                  @click="moveAmatuerArtView()"
+                >
+                  내작품 보기
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-form>
         </div>
       </v-col>
@@ -128,6 +154,21 @@ export default class MyPageView extends Vue {
     if (!this.user) {
       this.FETCH_USER_INFO();
     }
+  }
+
+  //이동
+  moveRequestAmateur(userEmail: string, userNickname: string) {
+    this.$router.push({
+      name: "RequestAmateur",
+      query: { userEmail: this.userEmail, userNickname: this.userNickname }
+    });
+  }
+
+  moveAmatuerArtView(userEmail: string) {
+    this.$router.push({
+      name: "AmateurArtView",
+      params: { userEmail: this.userEmail }
+    });
   }
 }
 </script>
