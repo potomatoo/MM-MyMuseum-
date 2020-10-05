@@ -63,13 +63,6 @@
               solo
               label="상세 설명"
               prepend-icon="mdi-message-text"
-<<<<<<< HEAD
-            ></v-text-field>
-            <v-btn color="rgb(137,120,104)" width="100%" dark large>
-              신청
-              <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
-            </v-btn>
-=======
             ></v-textarea>
             <div align="center" justify="center">
               <v-btn color="rgb(137,120,104)" width="50%" dark large>
@@ -78,7 +71,6 @@
                 <!-- Django admin 페이지 자동 생성 -> 여기서 업로드된 파일을 확인 할 수 있게... -->
               </v-btn>
             </div>
->>>>>>> f0e0708109fc65cf2466e1959d582038341494b5
           </v-form>
         </div>
       </v-col>
@@ -87,17 +79,6 @@
 </template>
 
 <script lang="ts">
-<<<<<<< HEAD
-import { Component, Vue } from "vue-property-decorator";
-
-@Component({})
-export default class RequestAmateur extends Vue {
-  userMail = "";
-  userNickname = "";
-  introduce = "";
-  files = "";
-  description = "";
-=======
 import { Component, Vue, Watch } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
@@ -120,7 +101,6 @@ export default class RequestAmateur extends Vue {
     this.userEmail = this.$route.query.userEmail;
     this.userNickname = this.$route.query.userNickname;
   }
->>>>>>> f0e0708109fc65cf2466e1959d582038341494b5
 }
 </script>
 
