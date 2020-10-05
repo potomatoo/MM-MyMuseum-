@@ -32,10 +32,10 @@ public class ArtistController {
 	}
 
 	@GetMapping("/api/public/artist/find")
-	public Object getMuseumList(@RequestParam String museumName, @RequestParam int start) {
+	public Object getMuseumList(@RequestParam String artistName, @RequestParam int start) {
 		BasicResponse response = new BasicResponse();
 
-		response.data = artistService.findArtistByArtistNamelimit('%' + museumName + '%', start);
+		response.data = artistService.findArtistByArtistNamelimit('%' + artistName + '%', start);
 		if (response.data != null) {
 			response.status = true;
 			response.message = "조회에 성공하였습니다.";
