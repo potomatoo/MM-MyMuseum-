@@ -34,7 +34,6 @@ def update_score():
 
     # add columns
     for event in events:
-        print(event)
         if event[1] not in art_table.columns:
             art_table[event[1]] = 0
 
@@ -91,16 +90,16 @@ def update_score():
         art_table.loc[event[2], event[1]] -= (COLOR_WEIGHT * CLICK_WEIGHT)
 
     
-    # Mysql에서 event 테이블의 행 삭제
+    # delete tuple
     db_cursor.execute("DELETE FROM log")
     db_connection.commit()
     db_cursor.close()
     db_connection.close()
 
-    # CSV파일 갱신
+    # CSV file update
     art_table.to_csv('../../../recommend/art_score.csv', encoding="utf-8-sig", index=False)
 
-    # 일정 시간마다 함수 실행
+    # routine
     threading.Timer(10, update_score).start()
 
 
@@ -111,14 +110,12 @@ def recommend_art(request):
     art_table.fillna('NaN', inplace=True)
 
     if request.headers.get('Authorization'):
-        print('aa')
         # jwt token decoding
         token_str = request.headers.get('Authorization')
         payload = jwt.decode(token_str[7:], SECRET_KEY, ALGORITHM)
         user_id = payload['sub']
 
         if user_id in art_table.columns:
-            print('bb')
             # sorting by user_id
             sort_table = art_table.sort_values(by=user_id, ascending=False)
 
@@ -129,15 +126,17 @@ def recommend_art(request):
             middle = 30
             rand = 10
 
+            # high score
             high_list = list(sort_table.index[:300])
             high_select = random.sample(high_list, high)
             recommend_list.extend(high_select)
-            # print('high', high_select)
-
+            
+            # middle score
             middle_list = list(sort_table.index[10000:10300])
             middle_select = random.sample(middle_list, middle)
             recommend_list.extend(middle_select)
 
+            # random
             random_select = random.sample(range(39740), rand)
             recommend_list.extend(random_select)
 
@@ -146,6 +145,7 @@ def recommend_art(request):
             arts = Art.objects.filter(art_no__in=recommend_list)
             serializer = ArtSerializer(arts, many=True)
 
+            # setting log type
             for i in range(len(recommend_list)):
                 if serializer.data[i]['art_no'] in high_select:
                     serializer.data[i]['log_type'] = 1
@@ -164,8 +164,12 @@ def recommend_art(request):
 
             arts = Art.objects.filter(art_no__in=recommend_list)
             serializer = ArtSerializer(arts, many=True)
-            return Response(serializer.data)
 
+            # setting log type
+            for i in range(len(recommend_list)):
+                serializer.data[i]['log_type'] = 0
+
+            return Response(serializer.data)
     else:
         art_table['scoreSum'] = art_table.iloc[:, 12:].sum(axis=1)
         sort_table = art_table.sort_values(by='scoreSum', ascending=False)
