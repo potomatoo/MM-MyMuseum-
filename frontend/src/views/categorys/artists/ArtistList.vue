@@ -30,7 +30,7 @@
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="searchArtist($event)"
+        @keypress.enter="searchArtist()"
       >
       </v-text-field>
     </v-row>
@@ -41,7 +41,7 @@
         <v-container fluid cols="12">
           <v-row>
             <v-col
-              v-for="(value, n) in artists"
+              v-for="(artist, n) in artists"
               :key="n"
               class="d-flex child-flex"
               cols="3"
@@ -53,11 +53,11 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveDetail(value.artistName)"
+                  @click="moveDetail(artist)"
                 >
                   <!-- 임시 이미지 입력 -->
                   <v-img
-                    :src="require(`@/assets/dummydata/category/museum.jpg`)"
+                    :src="value.artistImg"
                     aspect-ratio="1"
                     class="grey lighten-2 artist-card"
                   >
@@ -80,7 +80,7 @@
                         class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                         style="width: 100%; height: 100%;"
                       >
-                        {{ value.artistName }}
+                        {{ artist.artistName }}
                       </div>
                     </v-expand-transition>
                   </v-img>
@@ -117,25 +117,39 @@ export default class ArtistList extends Vue {
   searchstart = 0;
 
   created() {
-    this.FETCH_ARTIST(this.start);
+    if (sessionStorage.length) {
+      this.searchstart = Number(sessionStorage.key(0));
+      if (sessionStorage.getItem(this.searchstart.toString())) {
+        this.searchText = sessionStorage.getItem(this.searchstart.toString())!;
+      } else {
+        this.FETCH_ARTIST(this.start);
+      }
+    } else {
+      this.FETCH_ARTIST(this.start);
+    }
   }
 
-  searchArtist($event: KeyboardEvent) {
+  searchArtist() {
+    sessionStorage.clear();
     this.SET_ARTIST_ZERO();
     if (this.inputText) {
+      this.searchText = this.inputText;
+      if (this.searchText) {
+        this.searchstart = 0;
+      }
       this.FETCH_SERCH_ARTIST({
-        artistName: this.inputText,
+        artistName: this.searchText,
         start: this.searchstart
       });
     }
-    this.searchText = this.inputText;
-    this.inputText = "";
   }
 
-  moveDetail(artist: string) {
+  moveDetail(artist: Artist) {
+    sessionStorage.clear();
+    sessionStorage.setItem(this.searchstart.toString(), this.searchText);
     this.$router.push({
       name: "DetailArtistView",
-      params: { artist: artist }
+      params: { artist: artist.artistName }
     });
   }
 

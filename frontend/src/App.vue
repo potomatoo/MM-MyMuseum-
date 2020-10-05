@@ -26,25 +26,17 @@ export default class App extends Vue {}
 <style>
 #app {
   background-image: url("assets/backgoundColorImg.png");
-  animation: fadein 2s;
-  -webkit-animation: fadein 2s; /* Safari and Chrome */
+}
+
+img {
+  animation: fadein 3s linear forwards;
 }
 
 @keyframes fadein {
-  from {
+  0% {
     opacity: 0;
   }
-  to {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadein {
-  /* Safari and Chrome */
-  from {
-    opacity: 0;
-  }
-  to {
+  100% {
     opacity: 1;
   }
 }

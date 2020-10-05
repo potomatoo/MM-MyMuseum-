@@ -1,15 +1,15 @@
 <template>
   <div id="fade" style="height: 100%" v-if="artList">
     <v-row style="height: 100vh">
-      <detail-artist-description
+      <detail-museum-description
         v-on:isArtsFlag="isArtsFlag"
-        :artist="artist"
+        :museum="museum"
       />
-      <detail-artist-img />
+      <detail-museum-img :museum="museum" />
     </v-row>
 
     <div>
-      <detail-artist-arts :scrollHeight="scrollHeight" />
+      <detail-museum-arts :scrollHeight="scrollHeight" />
     </div>
   </div>
 </template>
@@ -17,28 +17,29 @@
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import DetailArtistImg from "@/components/detail/DetailArtistImg.vue";
-import DetailArtistDescription from "@/components/detail/DetailArtistDescription.vue";
-import DetailArtistArts from "@/components/detail/DetailArtistArts.vue";
+import DetailMuseumImg from "@/components/detail/DetailMuseumImg.vue";
+import DetailMuseumDescription from "@/components/detail/DetailMuseumDescription.vue";
+import DetailMuseumArts from "@/components/detail/DetailMuseumArts.vue";
 
-import { Art, Artist } from "../../store/Detail.interface";
+import { Art, Museum } from "../../store/Detail.interface";
 
 const DetailModule = namespace("DetailModule");
 
 @Component({
   components: {
-    DetailArtistImg,
-    DetailArtistDescription,
-    DetailArtistArts
+    DetailMuseumImg,
+    DetailMuseumDescription,
+    DetailMuseumArts
   }
 })
 export default class DetailArtistView extends Vue {
   @DetailModule.State artList!: Art[] | null;
+  @DetailModule.State museum!: Museum | null;
   @DetailModule.State scrollEnd!: boolean;
-  @DetailModule.State artist!: Artist;
   @DetailModule.Mutation SET_ART_LIST_ZERO!: any;
-  @DetailModule.Action FETCH_ARTIST_ART_LIST: any;
-  @DetailModule.Action FETCH_ARTIST: any;
+  @DetailModule.Action FETCH_MUSEUM_ART_LIST: any;
+  @DetailModule.Action ADD_ART_LIST: any;
+  @DetailModule.Action FETCH_MUSEUM: any;
 
   artsFlag = false;
   scrollHeight = 0;
@@ -61,8 +62,8 @@ export default class DetailArtistView extends Vue {
       ) {
         console.log(this.$route.name);
         ++this.start;
-        this.FETCH_ARTIST_ART_LIST({
-          artist: this.$route.params.artist,
+        this.FETCH_MUSEUM_ART_LIST({
+          museum: this.$route.params.museum,
           start: this.start
         });
       }
@@ -81,14 +82,14 @@ export default class DetailArtistView extends Vue {
 
   @Watch("$route", { immediate: true })
   fetchArtist() {
-    this.FETCH_ARTIST({ artistName: this.$route.params.artist });
+    this.FETCH_MUSEUM({ museumName: this.$route.params.museum });
   }
 
   @Watch("$route", { immediate: true })
   fetchArtList() {
     this.start = 0;
-    this.FETCH_ARTIST_ART_LIST({
-      artist: this.$route.params.artist,
+    this.FETCH_MUSEUM_ART_LIST({
+      museum: this.$route.params.museum,
       start: this.start
     });
   }
