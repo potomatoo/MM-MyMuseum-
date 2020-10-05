@@ -7,7 +7,7 @@ import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 import DetailArtView from "@/views/detail/DetailArtView.vue";
 import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 
-// recommendation
+//recommendation
 import RecommendationPage from "@/views/recommendations/RecommendationPage.vue";
 
 //categorys
@@ -18,6 +18,9 @@ import StyleList from "@/views/categorys/styles/StyleList.vue";
 
 //requestamatuer
 import RequestAmateur from "@/views/requestamateur/RequestAmateur.vue";
+
+//userartview
+import AmateurArtView from "@/views/amateurart/AmateurArtView.vue";
 
 Vue.use(VueRouter);
 
@@ -82,6 +85,11 @@ const routes: Array<RouteConfig> = [
     path: "/requestamateur",
     name: "RequestAmateur",
     component: RequestAmateur
+  },
+  {
+    path: "/amateurart",
+    name: "AmateurArtView",
+    component: AmateurArtView
   }
 ];
 
