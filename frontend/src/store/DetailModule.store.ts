@@ -1,15 +1,13 @@
 import { Module } from "vuex";
 import { RootState } from "./index";
 import { Axios } from "@/service/axios.service";
-import { DetailModule, Art, Artist, Museum } from "./Detail.interface";
+import { DetailModule, Art } from "./Detail.interface";
 
 const module: Module<DetailModule, RootState> = {
   namespaced: true,
   state: {
     artList: null,
     art: null,
-    artist: null,
-    museum: null,
     scrollEnd: false
   },
   getters: {},
@@ -34,36 +32,6 @@ const module: Module<DetailModule, RootState> = {
     }
   },
   actions: {
-    FETCH_ARTIST(
-      { commit },
-      { artist, start }: { artist: string; start: number }
-    ) {
-      Axios.instance
-        .get("/api/public/artist/find", { params: { artist, start } })
-        .then(({ data }) => commit("SET_ART_LIST", data.data))
-        .catch(err => console.error(err));
-    },
-
-    FETCH_MUSEUM(
-      { commit },
-      { museum, start }: { museum: string; start: number }
-    ) {
-      Axios.instance
-        .get("/api/public/museum/find", { params: { museum, start } })
-        .then(({ data }) => commit("SET_ART_LIST", data.data))
-        .catch(err => console.error(err));
-    },
-
-    FETCH_GENRE(
-      { commit },
-      { genre, start }: { genre: string; start: number }
-    ) {
-      Axios.instance
-        .get("/api/public/genre/find", { params: { genre, start } })
-        .then(({ data }) => commit("SET_ART_LIST", data.data))
-        .catch(err => console.error(err));
-    },
-
     FETCH_ARTIST_ART_LIST(
       { commit },
       { artist, start }: { artist: string; start: number }
