@@ -23,7 +23,7 @@
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="searchMuseum($event)"
+        @keypress.enter="searchMuseum()"
       >
       </v-text-field>
     </v-row>
@@ -113,23 +113,40 @@ export default class MuseumList extends Vue {
   searchstart = 0;
 
   created() {
-    this.FETCH_MUSEUM(this.start);
+    if (sessionStorage.length) {
+      this.searchstart = Number(sessionStorage.key(0));
+      if (sessionStorage.getItem(this.searchstart.toString())) {
+        this.searchText = sessionStorage.getItem(this.searchstart.toString())!;
+      } else {
+        this.FETCH_MUSEUM(this.start);
+      }
+    } else {
+      this.FETCH_MUSEUM(this.start);
+    }
   }
 
-  searchMuseum($event: KeyboardEvent) {
+  searchMuseum() {
+    sessionStorage.clear();
     this.SET_MUSEUM_ZERO();
-    this.FETCH_SERCH_MUSEUM({
-      museumName: this.inputText,
-      start: this.searchstart
-    });
-    this.searchText = this.inputText;
+    if (this.inputText) {
+      this.searchText = this.inputText;
+      if (this.searchText) {
+        this.searchstart = 0;
+      }
+      this.FETCH_SERCH_MUSEUM({
+        museumName: this.inputText,
+        start: this.searchstart
+      });
+    }
     this.inputText = "";
   }
 
-  moveDetail(museum: string, start: number) {
+  moveDetail(museum: string) {
+    sessionStorage.clear();
+    sessionStorage.setItem(this.searchstart.toString(), this.searchText);
     this.$router.push({
-      name: "DetailArtist",
-      query: { museum: museum, start: start.toString() }
+      name: "DetailArtistView",
+      params: { museum: museum }
     });
   }
 

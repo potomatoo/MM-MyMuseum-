@@ -6,4 +6,5 @@ export interface ArtistModule {
 export interface Artist {
   artistName: string;
   artistAge: string;
+  artistImg: string;
 }
