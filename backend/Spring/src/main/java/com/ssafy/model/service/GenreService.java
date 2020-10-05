@@ -11,4 +11,6 @@ public interface GenreService {
 	public List<GenreDto> getGenrelist();
 
 	public List<GenreDto> findGenreByNameLike(String GenreName);
+
+	public GenreDto findGenreDetail(String genreName);
 }

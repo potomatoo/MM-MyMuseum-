@@ -47,4 +47,20 @@ public class GenreController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	@GetMapping("/api/public/genre/detail")
+	public Object FindGenreDetail(@RequestParam String genreName) {
+		BasicResponse response = new BasicResponse();
+
+		response.data = genreService.findGenreDetail(genreName);
+		response.status = (response.data != null) ? true : false;
+
+		if (response.status) {
+			response.message = "조회에 성공하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			response.message = "조회에 실패하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+
+	}
 }
