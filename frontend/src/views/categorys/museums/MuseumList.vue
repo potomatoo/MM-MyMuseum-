@@ -118,11 +118,16 @@ export default class MuseumList extends Vue {
 
   searchMuseum($event: KeyboardEvent) {
     this.SET_MUSEUM_ZERO();
-    this.FETCH_SERCH_MUSEUM({
-      museumName: this.inputText,
-      start: this.searchstart
-    });
-    this.searchText = this.inputText;
+    if (this.inputText) {
+      this.searchText = this.inputText;
+      if (this.searchText) {
+        this.searchstart = 0;
+      }
+      this.FETCH_SERCH_MUSEUM({
+        museumName: this.inputText,
+        start: this.searchstart
+      });
+    }
     this.inputText = "";
   }
 

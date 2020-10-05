@@ -57,7 +57,7 @@
                 >
                   <!-- 임시 이미지 입력 -->
                   <v-img
-                    :src="require(`@/assets/dummydata/category/museum.jpg`)"
+                    :src="value.artistImg"
                     aspect-ratio="1"
                     class="grey lighten-2 artist-card"
                   >
@@ -123,12 +123,15 @@ export default class ArtistList extends Vue {
   searchArtist($event: KeyboardEvent) {
     this.SET_ARTIST_ZERO();
     if (this.inputText) {
+      this.searchText = this.inputText;
+      if (this.searchText) {
+        this.searchstart = 0;
+      }
       this.FETCH_SERCH_ARTIST({
-        artistName: this.inputText,
+        artistName: this.searchText,
         start: this.searchstart
       });
     }
-    this.searchText = this.inputText;
     this.inputText = "";
   }
 
