@@ -114,7 +114,7 @@ public class GoogleLoginController {
 	@PostMapping("/api/public/google/login")
 	public Object googleLogin(@RequestBody String authToken, RedirectAttributes rediAttributes) {
 		MultiValueMap<String, String> parma = new LinkedMultiValueMap<String, String>();
-		parma.add("code", authToken);
+		parma.add("code", authToken.replace("\"", ""));
 		parma.add("client_id", GoogleLoginConfig.GOOGLE_CLIENT_ID);
 		parma.add("client_secret", GoogleLoginConfig.GOOGLE_SECRIT_ID);
 		parma.add("redirect_uri", "postmessage");
@@ -125,7 +125,7 @@ public class GoogleLoginController {
 		factory.setConnectTimeout(3000);
 		HttpClient httpClient = HttpClientBuilder.create().setMaxConnTotal(100).setMaxConnPerRoute(5).build();
 		factory.setHttpClient(httpClient);
-
+		
 		RestTemplate restTemplate = new RestTemplate(factory);
 		String url = "https://accounts.google.com/o/oauth2/token";
 		String obj = restTemplate.postForEntity(url, parma, String.class).getBody();
