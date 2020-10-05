@@ -45,4 +45,13 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public boolean CheckEmail(String email) {
+		// TODO Auto-generated method stub
+
+		Optional<UserDto> user = userRepository.findById(email);
+
+		return !user.isPresent();
+	}
+
 }
