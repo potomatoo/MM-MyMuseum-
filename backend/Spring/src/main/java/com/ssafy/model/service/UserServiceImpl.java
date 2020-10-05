@@ -38,8 +38,7 @@ public class UserServiceImpl implements UserService {
 
 			newUser.setUserId(userId);
 			newUser.setUserPassword(encoder.encode(userId + "google"));
-			newUser.setUserAge(0);
-			newUser.setUserGender(0);
+			newUser.setUserName(userId.split("@")[0]);
 			newUser.setUserType(1);
 
 			return userRepository.save(newUser);
