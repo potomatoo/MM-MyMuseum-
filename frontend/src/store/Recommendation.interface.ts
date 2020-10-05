@@ -14,5 +14,5 @@ export interface Art {
   art_size: string;
   art_no: number;
   art_method: string;
-  click_type: number;
+  log_type?: number;
 }
