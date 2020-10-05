@@ -39,7 +39,7 @@
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="(value, n) in styles"
+            v-for="(genre, n) in styles"
             :key="n"
             class="d-flex child-flex"
             cols="3"
@@ -51,10 +51,10 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                @click="moveDetail(value.genreName, 0)"
+                @click="moveDetail(genre.genreName, 0)"
               >
                 <v-img
-                  :src="value.genreUrl"
+                  :src="genre.genreUrl"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
                 >
@@ -77,7 +77,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.genreName }}
+                      {{ genre.genreName }}
                     </div>
                   </v-expand-transition>
                 </v-img>
@@ -97,10 +97,12 @@ import { namespace } from "vuex-class";
 import { Style } from "../../../store/StyleInterface";
 
 const styleModule = namespace("styleModule");
+const DetailModule = namespace("DetailModule");
 
 @Component
 export default class StyleList extends Vue {
   @styleModule.State styles!: Style[] | null;
+  @DetailModule.Mutation SET_GENRE!: any;
   @styleModule.Action FETCH_STYLE: any;
   @styleModule.Action FETCH_SERCH_STYLE: any;
 
@@ -114,10 +116,11 @@ export default class StyleList extends Vue {
     this.FETCH_SERCH_STYLE(this.inputText);
   }
 
-  moveDetail(genre: string, start: number) {
+  moveDetail(genre: Style) {
+    this.SET_GENRE(genre);
     this.$router.push({
-      name: "DetailArtist",
-      query: { genre: genre, start: start.toString() }
+      name: "DetailGenreView",
+      params: { genre: genre.genreName }
     });
   }
 }
