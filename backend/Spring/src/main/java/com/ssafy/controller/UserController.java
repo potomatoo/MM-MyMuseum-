@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssafy.model.dto.UserDto;
 import com.ssafy.model.response.BasicResponse;
@@ -51,6 +52,22 @@ public class UserController {
 		response.message = "사용자 정보입니다.";
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/api/public/user/checkemail")
+	public Object CheckEmamil(@RequestParam("email") String email) {
+		BasicResponse response = new BasicResponse();
+
+		response.status = userService.CheckEmail(email);
+
+		if (response.status) {
+			response.message = "사용 가능한 이메일 입니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			response.message = "중복된 이메일 입니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		}
 	}
 
 }
