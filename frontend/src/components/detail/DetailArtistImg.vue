@@ -14,8 +14,13 @@
                 class="artist-img-front"
               />
               <img
-                v-if="artList[1].artUrl"
+                v-if="artList.length >= 2"
                 :src="artList[1].artUrl"
+                class="artist-img-back"
+              />
+              <img
+                v-if="artList.length < 2"
+                :src="artList[0].artUrl"
                 class="artist-img-back"
               />
             </div>
