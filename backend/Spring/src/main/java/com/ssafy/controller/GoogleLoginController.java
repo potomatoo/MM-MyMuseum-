@@ -69,7 +69,7 @@ public class GoogleLoginController {
 		parma.add("code", request.getParameter("code"));
 		parma.add("client_id", GoogleLoginConfig.GOOGLE_CLIENT_ID);
 		parma.add("client_secret", GoogleLoginConfig.GOOGLE_SECRIT_ID);
-		parma.add("redirect_uri", "http://i3b107.p.ssafy.io/api/public/google/redirect");
+		parma.add("redirect_uri", "http://j3b205.p.ssafy.io/api/public/google/redirect");
 		parma.add("grant_type", "authorization_code");
 
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
