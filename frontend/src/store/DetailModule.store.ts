@@ -47,6 +47,33 @@ const module: Module<DetailModule, RootState> = {
     }
   },
   actions: {
+    FETCH_ARTIST({ commit }, { artistName }: { artistName: string }) {
+      Axios.instance
+        .get("/api/public/artist/detail", { params: { artistName } })
+        .then(({ data }) => commit("SET_ARTIST", data.data))
+        .catch(err => console.error(err));
+    },
+
+    FETCH_MUSEUM(
+      { commit },
+      { artist, start }: { artist: string; start: number }
+    ) {
+      Axios.instance
+        .get("/api/public/art/artist", { params: { artist, start } })
+        .then(({ data }) => commit("SET_ART_LIST", data.data))
+        .catch(err => console.error(err));
+    },
+
+    FETCH_GENRE(
+      { commit },
+      { artist, start }: { artist: string; start: number }
+    ) {
+      Axios.instance
+        .get("/api/public/art/artist", { params: { artist, start } })
+        .then(({ data }) => commit("SET_ART_LIST", data.data))
+        .catch(err => console.error(err));
+    },
+
     FETCH_ARTIST_ART_LIST(
       { commit },
       { artist, start }: { artist: string; start: number }
