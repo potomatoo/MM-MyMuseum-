@@ -16,14 +16,14 @@ public class ArtistServiceImpl implements ArtistService {
 
 	@Override
 	public List<ArtistDto> findArtistlimit(Integer start) {
-		int index = start * 16 + 1;
+		int index = start * 16;
 
 		return artistRepository.findArtistlimit(index);
 	}
 
 	@Override
 	public List<ArtistDto> findArtistByArtistNamelimit(String artistName, Integer start) {
-		int index = start * 16 + 1;
+		int index = start * 16;
 
 		return artistRepository.findArtistByArtistNamelimit(artistName, index);
 	}

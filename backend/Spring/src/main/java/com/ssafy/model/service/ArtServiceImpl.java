@@ -17,28 +17,28 @@ public class ArtServiceImpl implements ArtService {
 
 	@Override
 	public List<ArtDto> findArtByTitlelimit(String title, Integer start) {
-		int index = start * 16 + 1;
+		int index = start * 16;
 
 		return artRepository.findArtByTitlelimit(title, index);
 	}
 
 	@Override
 	public List<ArtDto> findArtByArtistlimit(String artist, Integer start) {
-		int index = start * 16 + 1;
+		int index = start * 16;
 
 		return artRepository.findArtByArtistlimit(artist, index);
 	}
 
 	@Override
 	public List<ArtDto> findArtByMuseumlimit(String museum, Integer start) {
-		int index = start * 16 + 1;
+		int index = start * 16;
 
 		return artRepository.findArtByMuseumlimit(museum, index);
 	}
 
 	@Override
 	public List<ArtDto> findArtByGenrelimit(String genre, Integer start) {
-		int index = start * 16 + 1;
+		int index = start * 16;
 
 		return artRepository.findArtByGenrelimit(genre, index);
 	}
