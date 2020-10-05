@@ -77,12 +77,12 @@ export default class DetailArtistView extends Vue {
   }
 
   @Watch("$route", { immediate: true })
-  fetchArtist() {
+  fetchGenre() {
     this.FETCH_GENRE({ genreName: this.$route.params.genre });
   }
 
   @Watch("$route", { immediate: true })
-  fetchArtList() {
+  fetchGenreList() {
     this.start = 0;
     this.FETCH_GENRE_ART_LIST({
       genre: this.$route.params.genre,
