@@ -35,29 +35,40 @@
       </v-btn>
     </span>
     <!-- v-btn--active 삭제 시키기 -->
-    <v-btn class="navbar-btn" :to="{ name: 'Login' }" text>
+    <v-btn v-if="!isLoggedIn" class="navbar-btn" :to="{ name: 'Login' }" text>
       <span>로그인</span>
     </v-btn>
-    <v-btn class="navbar-btn" :to="{ name: 'Signup' }" text>
+    <v-btn v-if="!isLoggedIn" class="navbar-btn" :to="{ name: 'Signup' }" text>
       <span>회원가입</span>
+    </v-btn>
+    <v-btn v-if="isLoggedIn" class="navbar-btn" @click="logout" text>
+      <span>로그아웃</span>
     </v-btn>
   </v-app-bar>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+
+const AccountsModule = namespace("AccountsModule");
 
 @Component
 export default class AppNavbar extends Vue {
+  @AccountsModule.Getter isLoggedIn!: boolean;
+  @AccountsModule.Action LOGOUT: any;
+  @AccountsModule.Mutation REMOVE_TOKEN: any;
+
   isHome = false;
 
   @Watch("$route", { immediate: true })
   checkRoute() {
-    if (this.$route.name === "Home") {
-      this.isHome = true;
-    } else {
-      this.isHome = false;
-    }
+    this.isHome = this.$route.name === "Home";
+  }
+
+  logout() {
+    // this.LOGOUT();
+    this.REMOVE_TOKEN();
   }
 }
 </script>

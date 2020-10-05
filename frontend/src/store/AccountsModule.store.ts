@@ -11,7 +11,11 @@ const module: Module<AccountsModule, RootState> = {
     token: null || window.sessionStorage.getItem("jwt-token")
   },
 
-  getters: {},
+  getters: {
+    isLoggedIn(state) {
+      return !!state.token;
+    }
+  },
 
   mutations: {
     SET_TOKEN(state, token) {
@@ -19,6 +23,10 @@ const module: Module<AccountsModule, RootState> = {
       window.sessionStorage.setItem("jwt-token", token);
       Axios.instance.defaults.headers.common["Authorization"] = token;
       // Axios.instanceRec.defaults.headers.common["Authorization"] = token
+    },
+    REMOVE_TOKEN(state) {
+      state.token = null;
+      window.sessionStorage.removeItem("jwt-token");
     }
   },
 
@@ -44,8 +52,14 @@ const module: Module<AccountsModule, RootState> = {
         })
         .catch(err => {
           console.error(err);
-          alert("아이디 또는 비밀번호가 옳지 않습니다.");
+          alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
         });
+    },
+    LOGOUT({ commit }) {
+      Axios.instance
+        .get("/api/public/logout")
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
     }
   }
 };
