@@ -41,7 +41,7 @@
         <v-container fluid cols="12">
           <v-row>
             <v-col
-              v-for="(value, n) in artists"
+              v-for="(artist, n) in artists"
               :key="n"
               class="d-flex child-flex"
               cols="3"
@@ -53,7 +53,7 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveDetail(value.artistName)"
+                  @click="moveDetail(artist)"
                 >
                   <!-- 임시 이미지 입력 -->
                   <v-img
@@ -80,7 +80,7 @@
                         class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                         style="width: 100%; height: 100%;"
                       >
-                        {{ value.artistName }}
+                        {{ artist.artistName }}
                       </div>
                     </v-expand-transition>
                   </v-img>
@@ -101,6 +101,7 @@ import { namespace } from "vuex-class";
 import { Artist } from "../../../store/ArtistInterface";
 
 const artistModule = namespace("artistModule");
+const DetailModule = namespace("DetailModule");
 
 @Component
 export default class ArtistList extends Vue {
@@ -109,6 +110,7 @@ export default class ArtistList extends Vue {
   @artistModule.Action FETCH_SERCH_ARTIST: any;
   @artistModule.State scrollEnd!: boolean;
   @artistModule.Mutation SET_ARTIST_ZERO: any;
+  @DetailModule.Mutation SET_ARTIST: any;
 
   inputText = "";
   start = 0;
@@ -132,10 +134,11 @@ export default class ArtistList extends Vue {
     this.inputText = "";
   }
 
-  moveDetail(artist: string) {
+  moveDetail(artist: Artist) {
+    this.SET_ARTIST(artist);
     this.$router.push({
       name: "DetailArtistView",
-      params: { artist: artist }
+      params: { artist: artist.artistName }
     });
   }
 

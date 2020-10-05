@@ -1,13 +1,16 @@
 import { Module } from "vuex";
 import { RootState } from "./index";
 import { Axios } from "@/service/axios.service";
-import { DetailModule, Art } from "./Detail.interface";
+import { DetailModule, Art, Artist, Museum, Genre } from "./Detail.interface";
 
 const module: Module<DetailModule, RootState> = {
   namespaced: true,
   state: {
     artList: null,
     art: null,
+    artist: null,
+    museum: null,
+    genre: null,
     scrollEnd: false
   },
   getters: {},
@@ -29,6 +32,18 @@ const module: Module<DetailModule, RootState> = {
 
     SET_ART(state, art: Art) {
       state.art = art;
+    },
+
+    SET_ARTIST(state, artist: Artist) {
+      state.artist = artist;
+    },
+
+    SET_MUSEUM(state, museum: Museum) {
+      state.museum = museum;
+    },
+
+    SET_GENRE(state, genre: Genre) {
+      state.genre = genre;
     }
   },
   actions: {

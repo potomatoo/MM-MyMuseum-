@@ -6,11 +6,11 @@
           class="mb-5"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
-          {{ this.$route.params.artist }}
+          {{ this.artist.artistName }}
         </div>
 
         <div class="mb-5" style="font-family: Playfair Display, serif;">
-          Mar 30, 1853 - Jul 29, 1890
+          {{ this.artist.artistAge }}
         </div>
 
         <button
@@ -27,9 +27,15 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import { Artist } from "../../store/Detail.interface";
+
+const DetailModule = namespace("DetailModule");
 
 @Component
 export default class DetailArtistDescription extends Vue {
+  @DetailModule.State artist!: Artist;
+
   isArtsFlag() {
     this.$emit("isArtsFlag");
   }
