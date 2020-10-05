@@ -1,8 +1,11 @@
 <template>
   <div id="fade" style="height: 100%" v-if="artList">
     <v-row style="height: 100vh">
-      <detail-museum-description v-on:isArtsFlag="isArtsFlag" />
-      <detail-museum-img />
+      <detail-museum-description
+        v-on:isArtsFlag="isArtsFlag"
+        :museum="museum"
+      />
+      <detail-museum-img :museum="museum" />
     </v-row>
 
     <div>
@@ -18,7 +21,7 @@ import DetailMuseumImg from "@/components/detail/DetailMuseumImg.vue";
 import DetailMuseumDescription from "@/components/detail/DetailMuseumDescription.vue";
 import DetailMuseumArts from "@/components/detail/DetailMuseumArts.vue";
 
-import { Art } from "../../store/Detail.interface";
+import { Art, Museum } from "../../store/Detail.interface";
 
 const DetailModule = namespace("DetailModule");
 
@@ -31,6 +34,7 @@ const DetailModule = namespace("DetailModule");
 })
 export default class DetailArtistView extends Vue {
   @DetailModule.State artList!: Art[] | null;
+  @DetailModule.State museum!: Museum | null;
   @DetailModule.State scrollEnd!: boolean;
   @DetailModule.Mutation SET_ART_LIST_ZERO!: any;
   @DetailModule.Action FETCH_MUSEUM_ART_LIST: any;

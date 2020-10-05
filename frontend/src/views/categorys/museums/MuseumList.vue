@@ -34,7 +34,7 @@
         <v-container fluid cols="12">
           <v-row>
             <v-col
-              v-for="(value, n) in museums"
+              v-for="(museum, n) in museums"
               :key="n"
               class="d-flex child-flex"
               cols="6"
@@ -48,11 +48,11 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveDetail(value.museumName, 0)"
+                  @click="moveDetail(museum)"
                 >
                   <!-- 임시 이미지 입력 -->
                   <v-img
-                    v-if="value.museumUrl == null"
+                    v-if="museum.museumUrl == null"
                     :src="require(`@/assets/dummydata/category/museum.jpg`)"
                     aspect-ratio="1"
                     class="grey lighten-2 artist-card"
@@ -76,7 +76,7 @@
                         class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                         style="width: 100%; height: 100%;"
                       >
-                        {{ value.museumName }}
+                        {{ museum.museumName }}
                       </div>
                     </v-expand-transition>
                   </v-img>
@@ -97,6 +97,7 @@ import { namespace } from "vuex-class";
 import { Museum } from "../../../store/MuseumInterface";
 
 const museumModule = namespace("museumModule");
+const DetailModule = namespace("DetailModule");
 
 @Component
 export default class MuseumList extends Vue {
@@ -105,6 +106,7 @@ export default class MuseumList extends Vue {
   @museumModule.Action FETCH_SERCH_MUSEUM: any;
   @museumModule.State scrollEnd!: boolean;
   @museumModule.Mutation SET_MUSEUM_ZERO: any;
+  @DetailModule.Mutation SET_MUSEUM: any;
 
   inputText = "";
   start = 0;
@@ -126,10 +128,11 @@ export default class MuseumList extends Vue {
     this.inputText = "";
   }
 
-  moveDetail(museum: string, start: number) {
+  moveDetail(museum: Museum) {
+    this.SET_MUSEUM(museum);
     this.$router.push({
-      name: "DetailArtist",
-      query: { museum: museum, start: start.toString() }
+      name: "DetailMuseumView",
+      params: { museum: museum.museumName }
     });
   }
 

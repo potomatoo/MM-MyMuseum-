@@ -6,11 +6,11 @@
           class="mb-5"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
-          {{ this.$route.params.artist }}
+          {{ this.museum.museumName }}
         </div>
 
         <div class="mb-5" style="font-family: Playfair Display, serif;">
-          Mar 30, 1853 - Jul 29, 1890
+          {{ this.museum.museumCountry }}
         </div>
 
         <button
@@ -27,9 +27,11 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { Museum } from "../../store/Detail.interface";
 
 @Component
 export default class DetailArtistDescription extends Vue {
+  @Prop({ type: Object }) readonly museum!: Museum;
   isArtsFlag() {
     this.$emit("isArtsFlag");
   }

@@ -9,16 +9,11 @@
           >
             <div class="flipper">
               <img
-                v-if="artList[0].artUrl"
-                :src="artList[0].artUrl"
+                v-if="museum.museumUrl"
+                :src="museum.museumUrl"
                 class="artist-img-front"
               />
-              <img
-                v-if="artList[1].artUrl"
-                :src="artList[1].artUrl"
-                class="artist-img-back"
-              />
-            </div>
+              
           </div>
         </transition>
       </v-col>
@@ -31,13 +26,14 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
 
-import { Art } from "../../store/Detail.interface";
+import { Art, Museum } from "../../store/Detail.interface";
 
 const DetailModule = namespace("DetailModule");
 
 @Component
 export default class DetailArtistImg extends Vue {
   @DetailModule.State artList!: Art[] | null;
+  @Prop({ type: Object }) readonly museum!: Museum;
   @Prop({ type: Boolean }) readonly show!: boolean;
 }
 </script>
