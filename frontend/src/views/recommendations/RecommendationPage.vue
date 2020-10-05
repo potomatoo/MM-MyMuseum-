@@ -1,85 +1,92 @@
 <template>
-  <div class="recommendation-page">
-    <div
-      class="rec-section"
-      @mouseover="onWrapHover('user')"
-      @mouseleave="outWrapHover('user')"
-    >
-      <h1 class="rec-header">
-        <div
-          class="rec-title"
-          @mouseover="onTitleHover('user')"
-          @mouseleave="outTitleHover('user')"
-        >
-          <div class="rec-header-title">
-            니가 좋아할만한 작품
-          </div>
-          <div class="rec-header-aro">
-            <v-fade-transition mode="out-in">
-              <div
-                v-if="recTitle.user.titleHover"
-                class="see-all"
-                @click="toAllUserRec"
-              >
-                모두보기
-              </div>
-            </v-fade-transition>
-            <v-icon class="rec-icon" v-if="isRecHover" dark>
-              mdi-36px mdi-chevron-right
-            </v-icon>
-          </div>
-        </div>
-      </h1>
-      <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settings">
-        <div v-for="art in userRecArts" :key="art.art_no">
-          <router-link
-            class="router-link"
-            :to="{ name: 'DetailArtView', params: { artNo: art.art_no } }"
+  <div>
+    <detail-art-rotate :arts="userRecArts" />
+    <div class="recommendation-page">
+      <div
+        class="rec-section"
+        @mouseover="onWrapHover('user')"
+        @mouseleave="outWrapHover('user')"
+      >
+        <h1 class="rec-header">
+          <div
+            class="rec-title"
+            @mouseover="onTitleHover('user')"
+            @mouseleave="outTitleHover('user')"
           >
+            <div class="rec-header-title">
+              니가 좋아할만한 작품
+            </div>
+            <div class="rec-header-aro">
+              <v-fade-transition mode="out-in">
+                <div
+                  v-if="recTitle.user.titleHover"
+                  class="see-all"
+                  @click="toAllUserRec"
+                >
+                  모두보기
+                </div>
+              </v-fade-transition>
+              <v-icon class="rec-icon" v-if="isRecHover" dark>
+                mdi-36px mdi-chevron-right
+              </v-icon>
+            </div>
+          </div>
+        </h1>
+        <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settings">
+          <div v-for="art in userRecArts" :key="art.art_no">
+            <router-link
+              class="router-link"
+              :to="{ name: 'DetailArtView', params: { artNo: art.art_no } }"
+            >
+              <img
+                class="recommendation-img"
+                :src="art.art_url"
+                :alt="art.art_title"
+              />
+            </router-link>
+          </div>
+        </vue-slick-carousel>
+      </div>
+      <div
+        class="rec-section"
+        @mouseover="onWrapHover('author')"
+        @mouseleave="outWrapHover('author')"
+      >
+        <h1 class="rec-header">
+          <div
+            class="rec-title"
+            @mouseover="onTitleHover('author')"
+            @mouseleave="outTitleHover('author')"
+          >
+            <div class="rec-header-title">
+              작가 추천
+            </div>
+            <div class="rec-header-aro">
+              <v-fade-transition mode="out-in">
+                <div v-if="recTitle.author.titleHover" class="see-all">
+                  모두보기
+                </div>
+              </v-fade-transition>
+              <v-icon class="rec-icon" v-if="isAuthorHover" dark>
+                mdi-36px mdi-chevron-right
+              </v-icon>
+            </div>
+          </div>
+        </h1>
+        <vue-slick-carousel
+          v-if="userRecArts"
+          class="slick"
+          v-bind="settingsrtl"
+        >
+          <div v-for="art in userRecArts" :key="art.art_no">
             <img
               class="recommendation-img"
               :src="art.art_url"
               :alt="art.art_title"
             />
-          </router-link>
-        </div>
-      </vue-slick-carousel>
-    </div>
-    <div
-      class="rec-section"
-      @mouseover="onWrapHover('author')"
-      @mouseleave="outWrapHover('author')"
-    >
-      <h1 class="rec-header">
-        <div
-          class="rec-title"
-          @mouseover="onTitleHover('author')"
-          @mouseleave="outTitleHover('author')"
-        >
-          <div class="rec-header-title">
-            작가 추천
           </div>
-          <div class="rec-header-aro">
-            <v-fade-transition mode="out-in">
-              <div v-if="recTitle.author.titleHover" class="see-all">
-                모두보기
-              </div>
-            </v-fade-transition>
-            <v-icon class="rec-icon" v-if="isAuthorHover" dark>
-              mdi-36px mdi-chevron-right
-            </v-icon>
-          </div>
-        </div>
-      </h1>
-      <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settingsrtl">
-        <div v-for="art in userRecArts" :key="art.art_no">
-          <img
-            class="recommendation-img"
-            :src="art.art_url"
-            :alt="art.art_title"
-          />
-        </div>
-      </vue-slick-carousel>
+        </vue-slick-carousel>
+      </div>
     </div>
   </div>
 </template>
@@ -91,13 +98,15 @@ import { namespace } from "vuex-class";
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+import DetailArtRotate from "@/components/detail/DetailArtRotate.vue";
 
 const articleModule = namespace("articleModule");
 const RecommendationModule = namespace("RecommendationModule");
 
 @Component({
   components: {
-    VueSlickCarousel
+    VueSlickCarousel,
+    DetailArtRotate
   }
 })
 export default class RecommendationPage extends Vue {
@@ -287,7 +296,7 @@ export default class RecommendationPage extends Vue {
   outline: none;
 }
 .recommendation-page {
-  margin: 5%;
+  margin: 20px 60px;
 }
 
 .recommendation-img {
