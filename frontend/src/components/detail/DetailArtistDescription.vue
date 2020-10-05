@@ -88,7 +88,7 @@ export default class DetailArtistDescription extends Vue {
 }
 @keyframes fadeInBottom {
   0% {
-    transform: translateY(50px);
+    transform: translateY(20px);
     opacity: 0;
   }
   100% {
