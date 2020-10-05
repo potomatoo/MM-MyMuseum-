@@ -54,23 +54,17 @@ const module: Module<DetailModule, RootState> = {
         .catch(err => console.error(err));
     },
 
-    FETCH_MUSEUM(
-      { commit },
-      { artist, start }: { artist: string; start: number }
-    ) {
+    FETCH_MUSEUM({ commit }, { museumName }: { museumName: string }) {
       Axios.instance
-        .get("/api/public/art/artist", { params: { artist, start } })
-        .then(({ data }) => commit("SET_ART_LIST", data.data))
+        .get("/api/public/museum/detail", { params: { museumName } })
+        .then(({ data }) => commit("SET_MUSEUM", data.data))
         .catch(err => console.error(err));
     },
 
-    FETCH_GENRE(
-      { commit },
-      { artist, start }: { artist: string; start: number }
-    ) {
+    FETCH_GENRE({ commit }, { genreName }: { genreName: string }) {
       Axios.instance
-        .get("/api/public/art/artist", { params: { artist, start } })
-        .then(({ data }) => commit("SET_ART_LIST", data.data))
+        .get("/api/public/genre/detail", { params: { genreName } })
+        .then(({ data }) => commit("SET_GENRE", data.data))
         .catch(err => console.error(err));
     },
 

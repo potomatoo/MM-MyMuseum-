@@ -35,6 +35,7 @@ export default class DetailArtistView extends Vue {
   @DetailModule.State scrollEnd!: boolean;
   @DetailModule.Mutation SET_ART_LIST_ZERO!: any;
   @DetailModule.Action FETCH_GENRE_ART_LIST: any;
+  @DetailModule.Action FETCH_GENRE: any;
 
   artsFlag = false;
   scrollHeight = 0;
@@ -73,6 +74,11 @@ export default class DetailArtistView extends Vue {
   mounted() {
     this.scroll();
     this.scrollHeight = window.innerHeight;
+  }
+
+  @Watch("$route", { immediate: true })
+  fetchArtist() {
+    this.FETCH_GENRE({ genreName: this.$route.params.genre });
   }
 
   @Watch("$route", { immediate: true })
