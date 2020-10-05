@@ -125,7 +125,7 @@ public class GoogleLoginController {
 		factory.setConnectTimeout(3000);
 		HttpClient httpClient = HttpClientBuilder.create().setMaxConnTotal(100).setMaxConnPerRoute(5).build();
 		factory.setHttpClient(httpClient);
-		
+
 		RestTemplate restTemplate = new RestTemplate(factory);
 		String url = "https://accounts.google.com/o/oauth2/token";
 		String obj = restTemplate.postForEntity(url, parma, String.class).getBody();
@@ -151,7 +151,7 @@ public class GoogleLoginController {
 		}
 
 		rediAttributes.addAttribute("userId", user.getUserId());
-		rediAttributes.addAttribute("userPassword", user.getUserId());
+		rediAttributes.addAttribute("userPassword", user.getUserId()+"google");
 
 		String redirectUrl = "redirect:/api/public/login";
 
