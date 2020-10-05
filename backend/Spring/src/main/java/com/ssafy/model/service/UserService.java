@@ -9,4 +9,8 @@ public interface UserService {
 	public UserDto Signup(UserDto user);
 
 	public UserDto GoogleLogin(String email);
+
+	public boolean CheckEmail(String email);
+
+	public UserDto UpdateUserName(String userId, String userName);
 }

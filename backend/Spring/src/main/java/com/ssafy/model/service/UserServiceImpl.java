@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto Signup(UserDto user) {
 		// TODO Auto-generated method stub
-		System.out.println(user.toString());
 		return userRepository.save(user);
 	}
 
@@ -43,6 +42,27 @@ public class UserServiceImpl implements UserService {
 
 			return userRepository.save(newUser);
 		}
+	}
+
+	@Override
+	public boolean CheckEmail(String email) {
+		// TODO Auto-generated method stub
+
+		Optional<UserDto> user = userRepository.findById(email);
+
+		return !user.isPresent();
+	}
+
+	@Override
+	public UserDto UpdateUserName(String userId, String userName) {
+		// TODO Auto-generated method stub
+		int result = userRepository.updateUserName(userId, userName);
+		if (result != 0) {
+			UserDto user = userRepository.findById(userId).get();
+			user.setUserPassword("");
+			return user;
+		}
+		return null;
 	}
 
 }
