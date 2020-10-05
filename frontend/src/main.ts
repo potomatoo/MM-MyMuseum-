@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import GAuth from "vue-google-oauth2";
+import Vuelidate from "vuelidate";
 
 const gauthOption = {
   clientId: process.env.VUE_APP_CLIENT_ID,
@@ -12,7 +13,7 @@ const gauthOption = {
 };
 
 Vue.use(GAuth, gauthOption);
-
+Vue.use(Vuelidate);
 Vue.config.productionTip = false;
 
 new Vue({
