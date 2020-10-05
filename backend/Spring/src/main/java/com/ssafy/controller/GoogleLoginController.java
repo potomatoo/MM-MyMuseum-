@@ -119,7 +119,7 @@ public class GoogleLoginController {
 		parma.add("client_secret", GoogleLoginConfig.GOOGLE_SECRIT_ID);
 		parma.add("redirect_uri", "postmessage");
 		parma.add("grant_type", "authorization_code");
-
+		System.out.println(authToken);
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 		factory.setReadTimeout(5000);
 		factory.setConnectTimeout(3000);
