@@ -6,11 +6,11 @@
           class="mb-5"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
-          {{ this.$route.params.artist }}
+          {{ this.$route.params.genre }}
         </div>
 
         <div class="mb-5" style="font-family: Playfair Display, serif;">
-          Mar 30, 1853 - Jul 29, 1890
+          {{ genre.genreDescription }}
         </div>
 
         <button
@@ -27,9 +27,11 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
+import { Genre } from "../../store/Detail.interface";
 
 @Component
 export default class DetailArtistDescription extends Vue {
+  @Prop({ type: Object }) readonly genre!: Genre;
   isArtsFlag() {
     this.$emit("isArtsFlag");
   }
