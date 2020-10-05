@@ -22,7 +22,7 @@
       cols="12"
       align="center"
       justify="center"
-      style="margin : 1px 20%; background-color:white;"
+      style="margin : 1px 20%; background-color: white;"
     >
       <v-col class="align-self-center">
         <div class="request">
@@ -34,7 +34,6 @@
               readonly
               solo
               prepend-icon="mdi-email"
-              label="이메일 값"
             ></v-text-field>
             <v-text-field
               class="mb-3"
@@ -58,17 +57,28 @@
               label="포트폴리오나 작품을 올려주세요"
               prepend-icon="mdi-camera"
             ></v-file-input>
-            <v-text-field
+            <v-textarea
               class="mb-3"
               v-model="decription"
               solo
               label="상세 설명"
               prepend-icon="mdi-message-text"
+<<<<<<< HEAD
             ></v-text-field>
             <v-btn color="rgb(137,120,104)" width="100%" dark large>
               신청
               <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
             </v-btn>
+=======
+            ></v-textarea>
+            <div align="center" justify="center">
+              <v-btn color="rgb(137,120,104)" width="50%" dark large>
+                신청
+                <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
+                <!-- Django admin 페이지 자동 생성 -> 여기서 업로드된 파일을 확인 할 수 있게... -->
+              </v-btn>
+            </div>
+>>>>>>> f0e0708109fc65cf2466e1959d582038341494b5
           </v-form>
         </div>
       </v-col>
@@ -77,6 +87,7 @@
 </template>
 
 <script lang="ts">
+<<<<<<< HEAD
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
@@ -86,6 +97,30 @@ export default class RequestAmateur extends Vue {
   introduce = "";
   files = "";
   description = "";
+=======
+import { Component, Vue, Watch } from "vue-property-decorator";
+
+import { namespace } from "vuex-class";
+import { User } from "../../store/Accounts.interface";
+
+const AccountsModule = namespace("AccountsModule");
+
+@Component({})
+export default class RequestAmateur extends Vue {
+  @AccountsModule.State user!: User;
+
+  userEmail: string | null = "";
+  userNickname: string | null = "";
+  introduce = "";
+  files = [];
+  decription = "";
+
+  @Watch("$route", { immediate: true })
+  setUserInfo() {
+    this.userEmail = this.$route.query.userEmail;
+    this.userNickname = this.$route.query.userNickname;
+  }
+>>>>>>> f0e0708109fc65cf2466e1959d582038341494b5
 }
 </script>
 
