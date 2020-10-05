@@ -7,14 +7,24 @@ const module: Module<ArtistModule, RootState> = {
   namespaced: true,
 
   state: {
-    artists: []
+    artists: [],
+    scrollEnd: false
   },
 
   getters: {},
 
   mutations: {
     SET_ARTIST(state, artists: Artist[]) {
-      state.artists = artists;
+      if (state.artists === null) {
+        state.artists = artists;
+      } else if (artists.length && !state.scrollEnd) {
+        state.artists = state.artists?.concat(artists);
+      } else if (!artists.length) {
+        state.scrollEnd = true;
+      }
+    },
+    SET_ARTIST_ZERO(state) {
+      state.artists = null;
     }
   },
 
@@ -32,7 +42,6 @@ const module: Module<ArtistModule, RootState> = {
       console.log(artistName + " " + start);
       Axios.instance
         .get("api/public/artist/find", { params: { artistName, start } })
-        //불러온 데이터가 null이 아니라면 할당
         .then(({ data }) => {
           commit("SET_ARTIST", data.data);
         })
