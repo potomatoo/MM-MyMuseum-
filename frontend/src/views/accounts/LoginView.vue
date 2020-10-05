@@ -31,7 +31,13 @@
               solo
               required
             ></v-text-field>
-            <v-btn color="rgb(137,120,104)" width="100%" dark large>
+            <v-btn
+              color="rgb(137,120,104)"
+              width="100%"
+              dark
+              large
+              @click="login"
+            >
               로그인
             </v-btn>
             <p class="text-center my-3 login-text">or</p>
@@ -63,9 +69,14 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+
+const AccountsModule = namespace("AccountsModule");
 
 @Component
 export default class LoginView extends Vue {
+  @AccountsModule.Action LOGIN: any;
+
   userEmail = "";
   userPassword = "";
   emailRules = [
@@ -77,6 +88,14 @@ export default class LoginView extends Vue {
     (v: string) => v.length >= 8 || "비밀번호는 8자 이상 입력해주세요"
   ];
   $gAuth: any;
+
+  login() {
+    const userInfo = {
+      userId: this.userEmail,
+      userPassword: this.userPassword
+    };
+    this.LOGIN(userInfo);
+  }
 
   toSignup() {
     this.$router.push({ name: "Signup" });
