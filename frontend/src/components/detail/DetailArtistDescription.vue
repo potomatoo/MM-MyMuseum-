@@ -27,15 +27,11 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { namespace } from "vuex-class";
 import { Artist } from "../../store/Detail.interface";
-
-const DetailModule = namespace("DetailModule");
 
 @Component
 export default class DetailArtistDescription extends Vue {
-  @DetailModule.State artist!: Artist;
-
+  @Prop({ type: Object }) readonly artist!: Artist;
   isArtsFlag() {
     this.$emit("isArtsFlag");
   }
