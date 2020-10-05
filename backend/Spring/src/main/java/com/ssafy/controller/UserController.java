@@ -8,11 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssafy.model.dto.UserDto;
+import com.ssafy.model.repository.UserRepository;
 import com.ssafy.model.response.BasicResponse;
 import com.ssafy.model.service.UserService;
 
@@ -62,11 +64,34 @@ public class UserController {
 
 		if (response.status) {
 			response.message = "사용 가능한 이메일 입니다.";
+			response.data = true;
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} else {
+			response.data = false;
 			response.message = "중복된 이메일 입니다.";
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
+		}
+	}
+
+	@PutMapping("/api/priavet/user/changeusername")
+	public Object ChangeUserName(@RequestHeader("Authorization") String jwtToken, @RequestBody String userName) {
+		BasicResponse response = new BasicResponse();
+
+		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
+		if (user == null) {
+			response.status = false;
+			response.message = "잘못된 사용자 입니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
+		response.data = userService.UpdateUserName(user.getUserId(), userName);
+		response.status = (response.data != null) ? true : false;
+		
+		if (response.status) {
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 	}
 
