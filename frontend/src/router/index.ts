@@ -5,7 +5,7 @@ import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
 import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 import DetailMuseumView from "@/views/detail/DetailMuseumView.vue";
-import DetailGenreView from "@/views/detail/DetailStyleView.vue";
+import DetailGenreView from "@/views/detail/DetailGenreView.vue";
 import DetailArtView from "@/views/detail/DetailArtView.vue";
 import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 
@@ -51,7 +51,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/genre/:genre",
-    name: "DetaiGenreView",
+    name: "DetailGenreView",
     component: DetailGenreView
   },
   {
