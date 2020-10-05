@@ -23,7 +23,9 @@ const module: Module<ArtistModule, RootState> = {
         state.scrollEnd = true;
       }
     },
+
     SET_ARTIST_ZERO(state) {
+      state.scrollEnd = false;
       state.artists = null;
     }
   },
