@@ -20,6 +20,7 @@ export interface Artist {
 
 export interface Genre {
   genreName: string | null;
+  genreDescription: string | null;
   genreUrl: string | null;
 }
 
