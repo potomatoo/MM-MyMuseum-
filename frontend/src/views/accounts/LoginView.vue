@@ -76,6 +76,7 @@ const AccountsModule = namespace("AccountsModule");
 @Component
 export default class LoginView extends Vue {
   @AccountsModule.Action LOGIN: any;
+  @AccountsModule.Action GOOGLE_LOGIN: any;
 
   userEmail = "";
   userPassword = "";
@@ -104,7 +105,7 @@ export default class LoginView extends Vue {
   toGoogleLogin() {
     this.$gAuth
       .getAuthCode()
-      .then((authToken: string) => console.log(authToken));
+      .then((authToken: string) => this.GOOGLE_LOGIN(authToken));
   }
 }
 </script>
