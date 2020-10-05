@@ -3,17 +3,14 @@
     <v-row style="height: 100%">
       <v-col>
         <transition name="fade">
-          <div
-            class="flip-container"
-            ontouchstart="this.classList.toggle('hover');"
-          >
-            <div class="flipper">
+          <div class="flip-container">
+            <div>
               <img
                 v-if="museum.museumUrl"
                 :src="museum.museumUrl"
                 class="artist-img-front"
               />
-              
+            </div>
           </div>
         </transition>
       </v-col>
@@ -53,34 +50,9 @@ export default class DetailArtistImg extends Vue {
   box-shadow: 0px 0px 10px 5px;
 }
 
-.artist-img-back {
-  transform: rotateY(180deg);
-  background-size: 100% 100%;
-  border-radius: 5px !important;
-  box-shadow: 0px 0px 10px 5px;
-}
-
-.flip-container:hover .flipper,
-.flip-container.hover .flipper {
-  transform: rotateY(180deg);
-}
-
 .flip-container,
-.artist-img-front,
-.artist-img-back {
+.artist-img-front {
   width: 400px;
   height: 500px;
-}
-
-.flipper {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
-}
-
-.artist-img-front,
-.artist-img-back {
-  position: absolute;
-  backface-visibility: hidden;
 }
 </style>
