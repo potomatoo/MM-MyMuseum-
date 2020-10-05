@@ -20,6 +20,7 @@
               :rules="emailRules"
               label="이메일"
               solo
+              autocomplete
               required
             ></v-text-field>
             <v-text-field
@@ -29,9 +30,16 @@
               label="비밀번호"
               type="password"
               solo
+              autocomplete
               required
             ></v-text-field>
-            <v-btn color="rgb(137,120,104)" width="100%" dark large>
+            <v-btn
+              color="rgb(137,120,104)"
+              width="100%"
+              dark
+              large
+              @click="login"
+            >
               로그인
             </v-btn>
             <p class="text-center my-3 login-text">or</p>
@@ -63,9 +71,15 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+
+const AccountsModule = namespace("AccountsModule");
 
 @Component
 export default class LoginView extends Vue {
+  @AccountsModule.Action LOGIN: any;
+  @AccountsModule.Action GOOGLE_LOGIN: any;
+
   userEmail = "";
   userPassword = "";
   emailRules = [
@@ -78,6 +92,14 @@ export default class LoginView extends Vue {
   ];
   $gAuth: any;
 
+  login() {
+    const userInfo = {
+      userId: this.userEmail,
+      userPassword: this.userPassword
+    };
+    this.LOGIN(userInfo);
+  }
+
   toSignup() {
     this.$router.push({ name: "Signup" });
   }
@@ -85,7 +107,7 @@ export default class LoginView extends Vue {
   toGoogleLogin() {
     this.$gAuth
       .getAuthCode()
-      .then((authToken: string) => console.log(authToken));
+      .then((authToken: string) => this.GOOGLE_LOGIN(authToken));
   }
 }
 </script>
