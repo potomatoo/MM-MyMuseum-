@@ -33,7 +33,7 @@
               tile
               :elevation="hover ? 12 : 2"
               :class="{ 'on-hover': hover }"
-              :to="{ name: link }"
+              @click="moveCategory(link)"
             >
               <v-img
                 :src="require(`@/assets/dummydata/category/${hero}`)"
@@ -60,12 +60,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+
+import { namespace } from "vuex-class";
+const artistModule = namespace("artistModule");
+const museumModule = namespace("museumModule");
 
 @Component({
   components: {}
 })
 export default class CategoryView extends Vue {
+  @artistModule.Mutation SET_ARTIST_ZERO: any;
+  @museumModule.Mutation SET_MUSEUM_ZERO: any;
+
   data() {
     return {
       articles: [
@@ -87,20 +94,27 @@ export default class CategoryView extends Vue {
       ]
     };
   }
+
+  moveCategory(link: string) {
+    sessionStorage.clear();
+    this.SET_ARTIST_ZERO();
+    this.SET_MUSEUM_ZERO();
+    this.$router.push({
+      name: link
+    });
+  }
 }
 </script>
 
 <style scoped>
 .v-card {
   transition: opacity 0.4s ease-in-out;
-  transform: perspective(800px) rotateY(0deg);
 }
 
 .v-card:not(.on-hover) {
   opacity: 0.9;
   transition: 0.5s;
   transform-origin: center;
-  transform: perspective(800px) rotateY(20deg);
   -webkit-box-reflect: below 1px liner-gradient(transparent, transparent, #000f);
 }
 
