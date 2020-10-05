@@ -1,6 +1,7 @@
 package com.ssafy.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,18 @@ public class MuseumServiceImpl implements MuseumService {
 		int index = start * 16;
 
 		return museumRepository.findMuseumByMuseumNamelimit(museumName, index);
+	}
+
+	@Override
+	public MuseumDto findMuseumDetail(String museumName) {
+		// TODO Auto-generated method stub
+
+		Optional<MuseumDto> museum = museumRepository.findById(museumName);
+
+		if (museum.isPresent())
+			return museum.get();
+		else
+			return null;
 	}
 
 }
