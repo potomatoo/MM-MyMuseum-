@@ -10,7 +10,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white; font-family: Playfair Display, serif !important;"
     >
-      {{ this.$route.params.artist }}
+      {{ this.$route.params.genre }}
     </h2>
     <v-row
       cols="12"
