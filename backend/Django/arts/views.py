@@ -182,4 +182,162 @@ def recommend_art(request):
 
         return Response(serializer.data)
 
+@api_view(['GET'])
+def recommend_yellow(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'YELLOW'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_blue(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'BLUE'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_brown(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'BROWN'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_green(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'GREEN'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_black(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'BLACK'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_teal(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'TEAL'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_red(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'RED'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    print(len(arr_select))
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_orange(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'ORANGE'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_pink(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'PINK'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, len(arr_color))
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_gray(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'GRAY'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_white(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'BROWN'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, 50)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def recommend_purple(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color = art_table[art_table['art_color'] == 'PURPLE'].index
+    arr_color = list(arr_color)
+    arr_select = random.sample(arr_color, len(arr_color))
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+
 update_score()
