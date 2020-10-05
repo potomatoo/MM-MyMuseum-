@@ -34,7 +34,7 @@
         <v-container fluid cols="12">
           <v-row>
             <v-col
-              v-for="(value, n) in museums"
+              v-for="(museum, n) in museums"
               :key="n"
               class="d-flex child-flex"
               cols="6"
@@ -48,11 +48,11 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveDetail(value.museumName, 0)"
+                  @click="moveDetail(museum)"
                 >
                   <!-- 임시 이미지 입력 -->
                   <v-img
-                    v-if="value.museumUrl == null"
+                    v-if="museum.museumUrl == null"
                     :src="require(`@/assets/dummydata/category/museum.jpg`)"
                     aspect-ratio="1"
                     class="grey lighten-2 artist-card"
@@ -76,7 +76,7 @@
                         class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                         style="width: 100%; height: 100%;"
                       >
-                        {{ value.museumName }}
+                        {{ museum.museumName }}
                       </div>
                     </v-expand-transition>
                   </v-img>
@@ -141,12 +141,12 @@ export default class MuseumList extends Vue {
     this.inputText = "";
   }
 
-  moveDetail(museum: string) {
+  moveDetail(museum: Museum) {
     sessionStorage.clear();
     sessionStorage.setItem(this.searchstart.toString(), this.searchText);
     this.$router.push({
-      name: "DetailArtistView",
-      params: { museum: museum }
+      name: "DetailMuseumView",
+      params: { museum: museum.museumName }
     });
   }
 
