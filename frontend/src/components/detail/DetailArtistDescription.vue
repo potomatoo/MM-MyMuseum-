@@ -3,14 +3,19 @@
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <div
+          v-if="artist.artistName"
           class="mb-5"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
-          {{ this.artist.artistName }}
+          {{ artist.artistName }}
         </div>
 
-        <div class="mb-5" style="font-family: Playfair Display, serif;">
-          {{ this.artist.artistAge }}
+        <div
+          v-if="artist.artistAge"
+          class="mb-5"
+          style="font-family: Playfair Display, serif;"
+        >
+          {{ artist.artistAge }}
         </div>
 
         <button

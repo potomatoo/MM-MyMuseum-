@@ -3,14 +3,19 @@
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <div
+          v-if="museum.museumName"
           class="mb-5"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
-          {{ this.museum.museumName }}
+          {{ museum.museumName }}
         </div>
 
-        <div class="mb-5" style="font-family: Playfair Display, serif;">
-          {{ this.museum.museumCountry }}
+        <div
+          class="mb-5"
+          v-if="museum.museumCountry"
+          style="font-family: Playfair Display, serif;"
+        >
+          {{ museum.museumCountry }}
         </div>
 
         <button
