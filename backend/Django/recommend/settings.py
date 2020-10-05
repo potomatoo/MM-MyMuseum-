@@ -25,7 +25,7 @@ SECRET_KEY = '@apyydox(5nvi8qoo2p^yksjur)6@ei%@=^&bqh9!isxyh@-z3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['j3b205.p.ssafy.io']
 
 
 # Application definition
@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     # crontab
     'django_crontab',
 
+    # cors
+    'corsheaders',
+
     # apps
     'arts',
 ]
@@ -56,6 +59,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # cors
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'recommend.urls'
@@ -139,3 +145,27 @@ STATIC_URL = '/static/'
 CRONJOBS = [
     ('* * * * *', 'recommend.cron.test_hello'),
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)

@@ -7,4 +7,6 @@ import com.ssafy.model.dto.UserDto;
 @Service
 public interface UserService {
 	public UserDto Signup(UserDto user);
+
+	public UserDto GoogleLogin(String email);
 }
