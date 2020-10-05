@@ -105,7 +105,8 @@ public class ArtController {
 	}
 
 	@GetMapping("/api/private/art/detail")
-	public Object findArtDetail(@RequestHeader("Authorization") String jwtToken, @RequestParam int artNo) {
+	public Object findArtDetail(@RequestHeader("Authorization") String jwtToken, @RequestParam int artNo,
+			@RequestParam int type) {
 		BasicResponse response = new BasicResponse();
 
 		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
@@ -115,7 +116,7 @@ public class ArtController {
 			LogDto log = new LogDto();
 
 			log.setUser_id(user.getUserId());
-			log.setType(0);
+			log.setType(type);
 			log.setArtNo(artNo);
 
 			logService.SaveLog(log);
