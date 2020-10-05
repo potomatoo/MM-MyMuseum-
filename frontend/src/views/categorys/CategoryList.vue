@@ -109,14 +109,12 @@ export default class CategoryView extends Vue {
 <style scoped>
 .v-card {
   transition: opacity 0.4s ease-in-out;
-  transform: perspective(800px) rotateY(0deg);
 }
 
 .v-card:not(.on-hover) {
   opacity: 0.9;
   transition: 0.5s;
   transform-origin: center;
-  transform: perspective(800px) rotateY(20deg);
   -webkit-box-reflect: below 1px liner-gradient(transparent, transparent, #000f);
 }
 
