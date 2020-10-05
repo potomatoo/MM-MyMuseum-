@@ -22,10 +22,10 @@ const module: Module<MuseumModule, RootState> = {
       } else if (!museums.length) {
         state.scrollEnd = true;
       }
-      console.log(museums.length);
     },
 
     SET_MUSEUM_ZERO(state) {
+      state.scrollEnd = false;
       state.museums = null;
     }
   },
