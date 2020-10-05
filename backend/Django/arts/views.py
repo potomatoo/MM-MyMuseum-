@@ -49,13 +49,13 @@ def update_score():
     for event in events:
         # click weight
         if event[3] == 0:
-            CLICK_WEIGHT = 1.4
+            CLICK_WEIGHT = 1.3
         elif event[3] == 1:
             CLICK_WEIGHT = 1
         elif event[3] == 2:
-            CLICK_WEIGHT = 1.15
+            CLICK_WEIGHT = 1.1
         elif event[3] == 3:
-            CLICK_WEIGHT = 1.3
+            CLICK_WEIGHT = 1.2
         # target weight
         art_table.loc[event[2], event[1]] += (TARGET_WEIGHT * CLICK_WEIGHT)
 
