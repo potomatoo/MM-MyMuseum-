@@ -17,6 +17,9 @@ public class ArtistDto implements Serializable {
 	@Column(name = "artist_age")
 	private String artistAge;
 
+	@Column(name = "artist_img")
+	private String artistImg;
+
 	public String getArtistName() {
 		return artistName;
 	}
@@ -33,9 +36,17 @@ public class ArtistDto implements Serializable {
 		this.artistAge = artistAge;
 	}
 
+	public String getArtistImg() {
+		return artistImg;
+	}
+
+	public void setArtistImg(String artistImg) {
+		this.artistImg = artistImg;
+	}
+
 	@Override
 	public String toString() {
-		return "ArtistDto [artistName=" + artistName + ", artistAge=" + artistAge + "]";
+		return "ArtistDto [artistName=" + artistName + ", artistAge=" + artistAge + ", artistImg=" + artistImg + "]";
 	}
 
 }
