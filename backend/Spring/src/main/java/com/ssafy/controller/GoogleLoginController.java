@@ -16,6 +16,7 @@ import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ import com.ssafy.model.dto.UserDto;
 import com.ssafy.model.response.BasicResponse;
 import com.ssafy.model.service.UserService;
 
+@Controller
 public class GoogleLoginController {
 	@Autowired
 	private GoogleConnectionFactory googleConnectionFactory;
