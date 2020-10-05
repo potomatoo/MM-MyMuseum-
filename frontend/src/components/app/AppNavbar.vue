@@ -41,6 +41,9 @@
     <v-btn v-if="!isLoggedIn" class="navbar-btn" :to="{ name: 'Signup' }" text>
       <span>회원가입</span>
     </v-btn>
+    <v-btn v-if="isLoggedIn" class="navbar-btn" :to="{ name: 'MyPage' }" text>
+      <span>마이페이지</span>
+    </v-btn>
     <v-btn v-if="isLoggedIn" class="navbar-btn" @click="logout" text>
       <span>로그아웃</span>
     </v-btn>

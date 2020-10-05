@@ -75,6 +75,12 @@ const module: Module<AccountsModule, RootState> = {
         .get("/api/public/logout")
         .then(res => console.log(res))
         .catch(err => console.error(err));
+    },
+    FETCH_USER_INFO({ commit }) {
+      Axios.instance
+        .get("/api/private/user/detail")
+        .then(({ data }) => commit("SET_USER_INFO", data.data))
+        .catch(err => console.error(err));
     }
   }
 };
