@@ -104,7 +104,7 @@ export default class StyleList extends Vue {
   @styleModule.Action FETCH_STYLE: any;
   @styleModule.Action FETCH_SERCH_STYLE: any;
 
-  inputText!: "";
+  inputText = "";
 
   created() {
     this.FETCH_STYLE();
