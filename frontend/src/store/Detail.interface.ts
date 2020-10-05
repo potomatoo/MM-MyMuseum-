@@ -13,8 +13,22 @@ export interface Art {
   art_color: string | null;
 }
 
+export interface Artist {
+  artistName: string | null;
+  artistAge: string | null;
+}
+
+export interface Museum {
+  museumName: string | null;
+  museumCountry: string | null;
+  museumDescription: string | null;
+  museumUrl: string | null;
+}
+
 export interface DetailModule {
   artList: Art[] | null;
   art: Art | null;
+  artist: Artist[] | null;
+  museum: Museum[] | null;
   scrollEnd: boolean;
 }

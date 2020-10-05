@@ -1,12 +1,12 @@
 <template>
   <div id="fade" style="height: 100%" v-if="artList">
     <v-row style="height: 100vh">
-      <detail-artist-description v-on:isArtsFlag="isArtsFlag" />
-      <detail-artist-img />
+      <detail-style-description v-on:isArtsFlag="isArtsFlag" />
+      <detail-style-img />
     </v-row>
 
     <div>
-      <detail-artist-arts :scrollHeight="scrollHeight" />
+      <detail-style-arts :scrollHeight="scrollHeight" />
     </div>
   </div>
 </template>
@@ -14,9 +14,9 @@
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import DetailArtistImg from "@/components/detail/DetailArtistImg.vue";
-import DetailArtistDescription from "@/components/detail/DetailArtistDescription.vue";
-import DetailArtistArts from "@/components/detail/DetailArtistArts.vue";
+import DetailStyleImg from "@/components/detail/DetailStyleImg.vue";
+import DetailStyleDescription from "@/components/detail/DetailStyleDescription.vue";
+import DetailStyleArts from "@/components/detail/DetailStyleArts.vue";
 
 import { Art } from "../../store/Detail.interface";
 
@@ -24,16 +24,16 @@ const DetailModule = namespace("DetailModule");
 
 @Component({
   components: {
-    DetailArtistImg,
-    DetailArtistDescription,
-    DetailArtistArts
+    DetailStyleImg,
+    DetailStyleDescription,
+    DetailStyleArts
   }
 })
 export default class DetailArtistView extends Vue {
   @DetailModule.State artList!: Art[] | null;
   @DetailModule.State scrollEnd!: boolean;
   @DetailModule.Mutation SET_ART_LIST_ZERO!: any;
-  @DetailModule.Action FETCH_ARTIST_ART_LIST: any;
+  @DetailModule.Action FETCH_GENRE_ART_LIST: any;
 
   artsFlag = false;
   scrollHeight = 0;
@@ -56,8 +56,8 @@ export default class DetailArtistView extends Vue {
       ) {
         console.log(this.$route.name);
         ++this.start;
-        this.FETCH_ARTIST_ART_LIST({
-          artist: this.$route.params.artist,
+        this.FETCH_GENRE_ART_LIST({
+          genre: this.$route.params.artist,
           start: this.start
         });
       }
@@ -77,8 +77,8 @@ export default class DetailArtistView extends Vue {
   @Watch("$route", { immediate: true })
   fetchArtList() {
     this.start = 0;
-    this.FETCH_ARTIST_ART_LIST({
-      artist: this.$route.params.artist,
+    this.FETCH_GENRE_ART_LIST({
+      genre: this.$route.params.artist,
       start: this.start
     });
   }
