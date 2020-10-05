@@ -11,4 +11,6 @@ public interface ArtistService {
 	public List<ArtistDto> findArtistlimit(Integer start);
 
 	public List<ArtistDto> findArtistByArtistNamelimit(String artistName, Integer start);
+
+	public ArtistDto findArtistDetail(String artistName);
 }
