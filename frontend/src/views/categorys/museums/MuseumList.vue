@@ -97,7 +97,6 @@ import { namespace } from "vuex-class";
 import { Museum } from "../../../store/MuseumInterface";
 
 const museumModule = namespace("museumModule");
-const DetailModule = namespace("DetailModule");
 
 @Component
 export default class MuseumList extends Vue {
@@ -106,7 +105,6 @@ export default class MuseumList extends Vue {
   @museumModule.Action FETCH_SERCH_MUSEUM: any;
   @museumModule.State scrollEnd!: boolean;
   @museumModule.Mutation SET_MUSEUM_ZERO: any;
-  @DetailModule.Mutation SET_MUSEUM: any;
 
   inputText = "";
   start = 0;
@@ -129,7 +127,6 @@ export default class MuseumList extends Vue {
   }
 
   moveDetail(museum: Museum) {
-    this.SET_MUSEUM(museum);
     this.$router.push({
       name: "DetailMuseumView",
       params: { museum: museum.museumName }

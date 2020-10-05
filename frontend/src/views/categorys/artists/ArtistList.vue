@@ -101,7 +101,6 @@ import { namespace } from "vuex-class";
 import { Artist } from "../../../store/ArtistInterface";
 
 const artistModule = namespace("artistModule");
-const DetailModule = namespace("DetailModule");
 
 @Component
 export default class ArtistList extends Vue {
@@ -110,7 +109,6 @@ export default class ArtistList extends Vue {
   @artistModule.Action FETCH_SERCH_ARTIST: any;
   @artistModule.State scrollEnd!: boolean;
   @artistModule.Mutation SET_ARTIST_ZERO: any;
-  @DetailModule.Mutation SET_ARTIST: any;
 
   inputText = "";
   start = 0;
@@ -135,7 +133,6 @@ export default class ArtistList extends Vue {
   }
 
   moveDetail(artist: Artist) {
-    this.SET_ARTIST(artist);
     this.$router.push({
       name: "DetailArtistView",
       params: { artist: artist.artistName }

@@ -97,12 +97,10 @@ import { namespace } from "vuex-class";
 import { Style } from "../../../store/StyleInterface";
 
 const styleModule = namespace("styleModule");
-const DetailModule = namespace("DetailModule");
 
 @Component
 export default class StyleList extends Vue {
   @styleModule.State styles!: Style[] | null;
-  @DetailModule.Mutation SET_GENRE!: any;
   @styleModule.Action FETCH_STYLE: any;
   @styleModule.Action FETCH_SERCH_STYLE: any;
 
@@ -117,7 +115,6 @@ export default class StyleList extends Vue {
   }
 
   moveDetail(genre: Style) {
-    this.SET_GENRE(genre);
     this.$router.push({
       name: "DetailGenreView",
       params: { genre: genre.genreName }
