@@ -27,6 +27,9 @@ const module: Module<AccountsModule, RootState> = {
     REMOVE_TOKEN(state) {
       state.token = null;
       window.sessionStorage.removeItem("jwt-token");
+    },
+    SET_USER_INFO(state, userInfo) {
+      state.user = userInfo;
     }
   },
 
@@ -48,12 +51,24 @@ const module: Module<AccountsModule, RootState> = {
         .post("/api/public/login", null, userInfo)
         .then(({ data }) => {
           commit("SET_TOKEN", data.data.userPassword);
+          commit("SET_USER_INFO", data.data);
           router.go(-1);
         })
         .catch(err => {
           console.error(err);
           alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
         });
+    },
+    GOOGLE_LOGIN({ commit }, authToken) {
+      console.log(authToken);
+      Axios.instance
+        .post("/api/public/google/login", authToken)
+        .then(({ data }) => {
+          commit("SET_TOKEN", data.data.userPassword);
+          commit("SET_USER_INFO", data.data);
+          router.go(-1);
+        })
+        .catch(err => console.error(err));
     },
     LOGOUT({ commit }) {
       Axios.instance
