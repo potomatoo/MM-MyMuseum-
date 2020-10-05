@@ -3,6 +3,7 @@ package com.ssafy.controller;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -114,8 +115,9 @@ public class GoogleLoginController {
 	@PostMapping("/api/public/google/login")
 	public Object googleLogin(@RequestBody String authToken, RedirectAttributes rediAttributes) {
 		MultiValueMap<String, String> parma = new LinkedMultiValueMap<String, String>();
-		System.out.println(authToken);
-		parma.add("code", authToken);
+		System.out.println(URLDecoder.decode(authToken));
+		
+		parma.add("code", URLDecoder.decode(authToken));
 		parma.add("client_id", GoogleLoginConfig.GOOGLE_CLIENT_ID);
 		parma.add("client_secret", GoogleLoginConfig.GOOGLE_SECRIT_ID);
 		parma.add("redirect_uri", "postmessage");
