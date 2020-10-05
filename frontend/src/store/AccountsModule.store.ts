@@ -60,7 +60,6 @@ const module: Module<AccountsModule, RootState> = {
         });
     },
     GOOGLE_LOGIN({ commit }, authToken) {
-      console.log(authToken);
       Axios.instance
         .post("/api/public/google/login", authToken)
         .then(({ data }) => {
@@ -80,6 +79,12 @@ const module: Module<AccountsModule, RootState> = {
       Axios.instance
         .get("/api/private/user/detail")
         .then(({ data }) => commit("SET_USER_INFO", data.data))
+        .catch(err => console.error(err));
+    },
+    CHECK_EMAIL(_, email) {
+      return Axios.instance
+        .get("/api/public/user/checkemail", { params: { email } })
+        .then(({ data }) => data.data)
         .catch(err => console.error(err));
     }
   }

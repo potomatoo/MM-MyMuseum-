@@ -20,6 +20,7 @@
               :rules="emailRules"
               label="이메일"
               solo
+              autocomplete
               required
             ></v-text-field>
             <v-text-field
@@ -29,6 +30,7 @@
               label="비밀번호"
               type="password"
               solo
+              autocomplete
               required
             ></v-text-field>
             <v-btn

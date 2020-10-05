@@ -76,6 +76,7 @@ const AccountsModule = namespace("AccountsModule");
 @Component
 export default class SignupView extends Vue {
   @AccountsModule.Action SIGNUP: any;
+  @AccountsModule.Action CHECK_EMAIL: any;
 
   userEmail = "";
   userNickname = "";
@@ -100,6 +101,12 @@ export default class SignupView extends Vue {
 
   checkPassword(password: string) {
     return this.userPassword == password;
+  }
+
+  async checkEmail(email: string) {
+    const a = await this.CHECK_EMAIL(email);
+    console.log(a);
+    return a;
   }
 
   signup() {
