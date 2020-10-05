@@ -1,25 +1,25 @@
 <template>
-  <div style="height: 100%">
+  <div v-if="user" style="height: 100%">
     <v-row style="height: 100%">
       <v-col class="empty-space"></v-col>
       <v-col class="align-self-center text-center">
         <img
-          class="signup-picture"
+          class="mypage-picture"
           src="https://lh3.googleusercontent.com/otydKBtLgKIk87IrpLhK6XjHInIvB_T9SZq-lES5mVTedeqwmKQpUjf0uCRqBhSA"
           alt="account-basic-picture"
         />
       </v-col>
       <v-col class="empty-space"></v-col>
       <v-col class="align-self-center">
-        <div class="signup">
-          <h1 class="signup-text mb-5">회원가입</h1>
+        <div class="mypage">
+          <h1 class="mypage-text mb-5">마이페이지</h1>
           <v-form>
             <v-text-field
               class="mb-3"
               v-model="userEmail"
-              :rules="emailRules"
               label="이메일"
               solo
+              disabled
               required
             ></v-text-field>
             <v-text-field
@@ -30,7 +30,7 @@
               label="닉네임"
               required
             ></v-text-field>
-            <v-text-field
+            <!-- <v-text-field
               class="mb-3"
               v-model="userPassword"
               :rules="passwordRules"
@@ -49,16 +49,31 @@
               label="비밀번호 확인"
               autocomplete
               required
-            ></v-text-field>
-            <v-btn
-              color="rgb(137,120,104)"
-              width="100%"
-              dark
-              large
-              @click="signup"
-            >
-              회원가입
-            </v-btn>
+            ></v-text-field> -->
+            <v-row>
+              <v-col cols="6">
+                <v-btn
+                  class="pa-2"
+                  width="100%"
+                  color="rgb(137,120,104)"
+                  dark
+                  large
+                >
+                  수정
+                </v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-btn
+                  class="pa-2"
+                  width="100%"
+                  color="rgb(137,120,104)"
+                  dark
+                  large
+                >
+                  취소
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-form>
         </div>
       </v-col>
@@ -68,24 +83,22 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import { User } from "../../store/Accounts.interface";
 
 const AccountsModule = namespace("AccountsModule");
 
 @Component
-export default class SignupView extends Vue {
-  @AccountsModule.Action SIGNUP: any;
-  @AccountsModule.Action CHECK_EMAIL: any;
+export default class MyPageView extends Vue {
+  @AccountsModule.State user!: User;
+  @AccountsModule.Action FETCH_USER_INFO: any;
 
-  userEmail = "";
-  userNickname = "";
+  userEmail: string | null = "";
+  userNickname: string | null = "";
   userPassword = "";
   userPasswordCheck = "";
-  emailRules = [
-    (v: string) => !!v || "이메일을 입력하세요",
-    (v: string) => /.+@.+\..+/.test(v) || "이메일 형식으로 입력하세요"
-  ];
+
   nicknameRules = [
     (v: string) => !!v || "닉네임을 입력하세요",
     (v: string) => v.length >= 2 || "닉네임은 2자 이상 입력해주세요"
@@ -103,37 +116,37 @@ export default class SignupView extends Vue {
     return this.userPassword == password;
   }
 
-  async checkEmail(email: string) {
-    const a = await this.CHECK_EMAIL(email);
-    console.log(a);
-    return a;
+  @Watch("user", { immediate: true, deep: true })
+  setUserInfo() {
+    if (this.user) {
+      this.userEmail = this.user.userId;
+      this.userNickname = this.user.userName;
+    }
   }
 
-  signup() {
-    const userInfo = {
-      userId: this.userEmail,
-      userPassword: this.userPassword
-    };
-    this.SIGNUP(userInfo);
+  created() {
+    if (!this.user) {
+      this.FETCH_USER_INFO();
+    }
   }
 }
 </script>
 
-<style scoped>
-.signup-picture {
+<style>
+.mypage-picture {
   width: 100%;
   min-width: 400px;
   max-width: 600px;
   box-shadow: 0px 0px 50px 20px;
 }
 
-.signup {
+.mypage {
   width: 100%;
   min-width: 400px;
   max-width: 600px;
 }
 
-.signup-text {
+.mypage-text {
   color: rgb(181, 178, 177);
 }
 

@@ -19,6 +19,6 @@ export class Axios {
   });
 }
 
-// Axios.instance.defaults.headers.common[
-//   "Authorization"
-// ] = window.sessionStorage.getItem("jwt-token");
+Axios.instance.defaults.headers.common[
+  "Authorization"
+] = window.sessionStorage.getItem("jwt-token");
