@@ -18,13 +18,13 @@ export interface Artist {
   artistAge: string | null;
 }
 
-export interface Museum {
+export interface Genre {
   genreName: string | null;
   genreDescription: string | null;
   genreUrl: string | null;
 }
 
-export interface Genre {
+export interface Museum {
   museumName: string | null;
   museumCountry: string | null;
   museumDescription: string | null;

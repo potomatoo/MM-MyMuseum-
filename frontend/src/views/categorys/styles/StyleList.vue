@@ -51,7 +51,7 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                @click="moveDetail(genre.genreName, 0)"
+                @click="moveDetail(genre)"
               >
                 <v-img
                   :src="genre.genreUrl"
