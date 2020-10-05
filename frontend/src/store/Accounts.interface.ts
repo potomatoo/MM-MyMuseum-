@@ -7,6 +7,6 @@ export interface User {
   userId: string | null;
   userPassword: string | null;
   userType: number | null;
-  UserAge: number | null;
-  userGender: number | null;
+  userName: string | null;
+  userArtist: number | null;
 }

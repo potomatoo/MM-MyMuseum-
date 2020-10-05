@@ -30,7 +30,7 @@
               label="닉네임"
               required
             ></v-text-field>
-            <v-text-field
+            <!-- <v-text-field
               class="mb-3"
               v-model="userPassword"
               :rules="passwordRules"
@@ -49,7 +49,7 @@
               label="비밀번호 확인"
               autocomplete
               required
-            ></v-text-field>
+            ></v-text-field> -->
             <v-row>
               <v-col cols="6">
                 <v-btn
@@ -95,7 +95,7 @@ export default class MyPageView extends Vue {
   @AccountsModule.Action FETCH_USER_INFO: any;
 
   userEmail: string | null = "";
-  userNickname: number | null = 0;
+  userNickname: string | null = "";
   userPassword = "";
   userPasswordCheck = "";
 
@@ -120,7 +120,7 @@ export default class MyPageView extends Vue {
   setUserInfo() {
     if (this.user) {
       this.userEmail = this.user.userId;
-      this.userNickname = this.user.userType;
+      this.userNickname = this.user.userName;
     }
   }
 
