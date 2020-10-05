@@ -157,7 +157,7 @@ export default class ArtistList extends Vue {
         if (this.searchText) {
           ++this.searchstart;
           this.FETCH_SERCH_ARTIST({
-            museumName: this.searchText,
+            artistName: this.searchText,
             start: this.searchstart
           });
         } else {
