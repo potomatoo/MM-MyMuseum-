@@ -2,22 +2,20 @@
   <v-col class="artist-description">
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
-        <div class="artist-description">
-          <div
-            v-if="artist.artistName"
-            class="artist-title"
-            style="font-size: 40px; font-family: Playfair Display, serif; margin-bottom: 10px"
-          >
-            {{ artist.artistName }}
-          </div>
+        <div
+          v-if="artist.artistName"
+          class="artist-title"
+          style="font-size: 40px; font-family: Playfair Display, serif; margin-bottom: 10px"
+        >
+          {{ artist.artistName }}
+        </div>
 
-          <div
-            v-if="artist.artistAge"
-            class="mb-5 artist-age"
-            style="font-family: Playfair Display, serif; font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
-          >
-            {{ artist.artistAge }}
-          </div>
+        <div
+          v-if="artist.artistAge"
+          class="mb-5 artist-age"
+          style="font-family: Playfair Display, serif; font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
+        >
+          {{ artist.artistAge }}
         </div>
 
         <button
@@ -88,7 +86,7 @@ export default class DetailArtistDescription extends Vue {
 }
 @keyframes fadeInBottom {
   0% {
-    transform: translateY(50px);
+    transform: translateY(20px);
     opacity: 0;
   }
   100% {

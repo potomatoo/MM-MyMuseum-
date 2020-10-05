@@ -57,7 +57,7 @@
                 >
                   <!-- 임시 이미지 입력 -->
                   <v-img
-                    :src="value.artistImg"
+                    :src="artist.artistImg"
                     aspect-ratio="1"
                     class="grey lighten-2 artist-card"
                   >

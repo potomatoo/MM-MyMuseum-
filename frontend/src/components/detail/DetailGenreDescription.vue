@@ -3,18 +3,21 @@
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <div
-          class="mb-5"
+          class="mb-5 genre-title"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
           {{ this.$route.params.genre }}
         </div>
 
-        <div class="mb-5" style="font-family: Playfair Display, serif;">
+        <div
+          class="mb-5 genre-description"
+          style="font-family: Playfair Display, serif;"
+        >
           {{ genre.genreDescription }}
         </div>
 
         <button
-          class="allArtBtn"
+          class="allArtBtn art-show"
           @click="isArtsFlag"
           style="font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
         >
@@ -38,12 +41,45 @@ export default class DetailArtistDescription extends Vue {
 }
 </script>
 
-<style>
-.artist-description {
-  background-color: #e6e1de;
+<style scoped>
+.artist-description .genre-title:before,
+.artist-description .genre-description:before {
+  content: "";
+  position: absolute;
+  background: #e6e1de;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100vh;
+  transform-origin: right;
+  animation: revealText 1s ease-in-out forwards;
 }
 
-.allArtBtn {
-  outline: none;
+.artist-description .genre-description:before {
+  animation-delay: 0.5s;
+}
+@keyframes revealText {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+.art-show {
+  opacity: 0;
+  animation: fadeInBottom 0.5s linear forwards;
+  animation-delay: 1.5s;
+}
+@keyframes fadeInBottom {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY();
+    opacity: 1;
+  }
 }
 </style>
