@@ -29,62 +29,64 @@
     </v-row>
 
     <!-- 전시공간 별 -->
-    <v-row style="margin: 10px 10%">
-      <v-container fluid cols="12">
-        <v-row>
-          <v-col
-            v-for="(value, n) in museums"
-            :key="n"
-            class="d-flex child-flex"
-            cols="6"
-            md="3"
-            style="padding: 20px"
-          >
-            <v-hover v-slot:default="{ hover }">
-              <v-card
-                flat
-                tile
-                class="d-flex"
-                :elevation="hover ? 12 : 2"
-                :class="{ 'on-hover': hover }"
-                @click="moveDetail(value.museumName, 0)"
-              >
-                <!-- 임시 이미지 입력 -->
-                <v-img
-                  v-if="value.museumUrl == null"
-                  :src="require(`@/assets/dummydata/category/museum.jpg`)"
-                  aspect-ratio="1"
-                  class="grey lighten-2 artist-card"
+    <div :scrollHeight="scrollHeight">
+      <v-row style="margin: 10px 10%">
+        <v-container fluid cols="12">
+          <v-row>
+            <v-col
+              v-for="(value, n) in museums"
+              :key="n"
+              class="d-flex child-flex"
+              cols="6"
+              md="3"
+              style="padding: 20px"
+            >
+              <v-hover v-slot:default="{ hover }">
+                <v-card
+                  flat
+                  tile
+                  class="d-flex"
+                  :elevation="hover ? 12 : 2"
+                  :class="{ 'on-hover': hover }"
+                  @click="moveDetail(value.museumName, 0)"
                 >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
+                  <!-- 임시 이미지 입력 -->
+                  <v-img
+                    v-if="value.museumUrl == null"
+                    :src="require(`@/assets/dummydata/category/museum.jpg`)"
+                    aspect-ratio="1"
+                    class="grey lighten-2 artist-card"
+                  >
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey lighten-5"
+                        ></v-progress-circular>
+                      </v-row>
+                    </template>
 
-                  <v-expand-transition>
-                    <div
-                      v-if="hover"
-                      class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
-                      style="width: 100%; height: 100%;"
-                    >
-                      {{ value.museumName }}
-                    </div>
-                  </v-expand-transition>
-                </v-img>
-              </v-card>
-            </v-hover>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-row>
+                    <v-expand-transition>
+                      <div
+                        v-if="hover"
+                        class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
+                        style="width: 100%; height: 100%;"
+                      >
+                        {{ value.museumName }}
+                      </div>
+                    </v-expand-transition>
+                  </v-img>
+                </v-card>
+              </v-hover>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -101,16 +103,27 @@ export default class MuseumList extends Vue {
   @museumModule.State museums!: Museum[] | null;
   @museumModule.Action FETCH_MUSEUM: any;
   @museumModule.Action FETCH_SERCH_MUSEUM: any;
+  @museumModule.State scrollEnd!: boolean;
+  @museumModule.Mutation SET_MUSEUM_ZERO: any;
 
-  inputText!: "";
+  inputText = "";
   start = 0;
+  scrollHeight = 0;
+  searchText = "";
+  searchstart = 0;
 
   created() {
     this.FETCH_MUSEUM(this.start);
   }
 
   searchMuseum($event: KeyboardEvent) {
-    this.FETCH_SERCH_MUSEUM({ museumName: this.inputText, start: this.start });
+    this.SET_MUSEUM_ZERO();
+    this.FETCH_SERCH_MUSEUM({
+      museumName: this.inputText,
+      start: this.searchstart
+    });
+    this.searchText = this.inputText;
+    this.inputText = "";
   }
 
   moveDetail(museum: string, start: number) {
@@ -118,6 +131,40 @@ export default class MuseumList extends Vue {
       name: "DetailArtist",
       query: { museum: museum, start: start.toString() }
     });
+  }
+
+  scroll() {
+    window.onscroll = () => {
+      const ceilBottomOfWindow =
+        Math.ceil(window.pageYOffset) + window.innerHeight ===
+        document.documentElement.offsetHeight;
+
+      const plusBottomOfWindow =
+        Math.ceil(window.pageYOffset) + window.innerHeight + 1 ===
+        document.documentElement.offsetHeight;
+
+      if (
+        (ceilBottomOfWindow || plusBottomOfWindow) &&
+        !this.scrollEnd &&
+        this.$route.name === "MuseumList"
+      ) {
+        if (this.searchText) {
+          ++this.searchstart;
+          this.FETCH_SERCH_MUSEUM({
+            museumName: this.searchText,
+            start: this.searchstart
+          });
+        } else {
+          ++this.start;
+          this.FETCH_MUSEUM(this.start);
+        }
+      }
+    };
+  }
+
+  mounted() {
+    this.scroll();
+    this.scrollHeight = window.innerHeight;
   }
 }
 </script>
