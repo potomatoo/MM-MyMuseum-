@@ -2,24 +2,26 @@
   <v-col class="artist-description">
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
-        <div
-          v-if="artist.artistName"
-          class="mb-5"
-          style="font-size: 40px; font-family: Playfair Display, serif;"
-        >
-          {{ artist.artistName }}
-        </div>
+        <div class="artist-description">
+          <div
+            v-if="artist.artistName"
+            class="artist-title"
+            style="font-size: 40px; font-family: Playfair Display, serif; margin-bottom: 10px"
+          >
+            {{ artist.artistName }}
+          </div>
 
-        <div
-          v-if="artist.artistAge"
-          class="mb-5"
-          style="font-family: Playfair Display, serif;"
-        >
-          {{ artist.artistAge }}
+          <div
+            v-if="artist.artistAge"
+            class="mb-5 artist-age"
+            style="font-family: Playfair Display, serif; font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
+          >
+            {{ artist.artistAge }}
+          </div>
         </div>
 
         <button
-          class="allArtBtn"
+          class="allArtBtn art-show"
           @click="isArtsFlag"
           style="font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
         >
@@ -50,5 +52,48 @@ export default class DetailArtistDescription extends Vue {
 
 .allArtBtn {
   outline: none;
+}
+</style>
+
+<style scoped>
+.artist-description .artist-title:before,
+.artist-description .artist-age:before {
+  content: "";
+  position: absolute;
+  background: #e6e1de;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100vh;
+  transform-origin: right;
+  animation: revealText 1s ease-in-out forwards;
+}
+
+.artist-description .artist-age:before {
+  animation-delay: 0.5s;
+}
+@keyframes revealText {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+.art-show {
+  opacity: 0;
+  animation: fadeInBottom 0.5s linear forwards;
+  animation-delay: 1.5s;
+}
+@keyframes fadeInBottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY();
+    opacity: 1;
+  }
 }
 </style>
