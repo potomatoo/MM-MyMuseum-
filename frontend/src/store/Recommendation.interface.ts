@@ -1,6 +1,18 @@
 export interface RecommendationModule {
   arts: Art[] | null;
   artsByColor: Art[] | null;
+  artsByWeather: ArtsByWeather | null;
+  artsByTime: ArtsByTime | null;
+}
+
+export interface ArtsByWeather {
+  title: string;
+  data: Art[];
+}
+
+export interface ArtsByTime {
+  title: string;
+  data: Art[];
 }
 
 export interface Art {

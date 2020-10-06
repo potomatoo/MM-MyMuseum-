@@ -7,26 +7,44 @@ const module: Module<RecommendationModule, RootState> = {
   namespaced: true,
   state: {
     arts: null,
-    artsByColor: null
+    artsByColor: null,
+    artsByWeather: null,
+    artsByTime: null
   },
 
   getters: {
     userRecArts(state) {
       return state.arts?.slice(0, 10);
+    },
+    weatherRecArts(state) {
+      return state.artsByWeather?.data.slice(0, 10);
+    },
+    timeRecArts(state) {
+      return state.artsByTime?.data.slice(0, 10);
+    },
+    weatherTitle(state) {
+      return state.artsByWeather?.title;
+    },
+    timeTitle(state) {
+      return state.artsByTime?.title;
     }
   },
 
   mutations: {
     SET_ART_LIST(state, arts) {
-      console.log("추천작품");
       state.arts = arts;
     },
     SET_ART_LIST_BY_COLOR(state, arts) {
-      console.log("컬러별");
       state.artsByColor = arts;
     },
     REMOVE_ART_LIST_BY_COLOR(state) {
       state.artsByColor = null;
+    },
+    SET_ART_LIST_BY_WEATHER(state, arts) {
+      state.artsByWeather = arts;
+    },
+    SET_ART_LIST_BY_TIME(state, arts) {
+      state.artsByTime = arts;
     }
   },
 
@@ -41,6 +59,15 @@ const module: Module<RecommendationModule, RootState> = {
       Axios.instanceRec
         .get(`/api/recommend/color/${color}/`)
         .then(({ data }) => commit("SET_ART_LIST_BY_COLOR", data))
+        .catch(err => console.error(err));
+    },
+    FETCH_ART_LIST_BY_WEATHER({ commit }) {
+      Axios.instanceRec
+        .get("/api/recommend/weather/")
+        .then(({ data }) => {
+          commit("SET_ART_LIST_BY_WEATHER", data.data.weather);
+          commit("SET_ART_LIST_BY_TIME", data.data.time);
+        })
         .catch(err => console.error(err));
     }
   }
