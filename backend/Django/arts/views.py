@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view
 from .models import Art
 from .serializers import ArtSerializer
 
+from datetime import datetime
+
 import mysql.connector as sql
 # import sqlalchemy as sqla
 import pandas as pd
@@ -17,6 +19,9 @@ import schedule
 import time
 
 import jwt
+
+import requests
+import json
 
 SECRET_KEY = 'i3b107'
 ALGORITHM = 'HS512'
@@ -108,7 +113,6 @@ def recommend_art(request):
     # csv file load
     art_table = pd.read_csv('../../../recommend/art_score.csv')
     art_table.fillna('NaN', inplace=True)
-
     if request.headers.get('Authorization'):
         # jwt token decoding
         token_str = request.headers.get('Authorization')
@@ -339,5 +343,33 @@ def recommend_purple(request):
 
     return Response(serializer.data)
 
+@api_view(['GET'])
+def recommend_time(request):
+    now = datetime.now()
+    print(now.hour)
+    print(now.minute)
+    return Response({'time': 'test'})
 
-update_score()
+@api_view(['GET'])
+def recommend_weather(request):
+    import socket
+
+
+    print(socket.gethostbyname(socket.gethostname()))
+    print(socket.gethostbyname(socket.getfqdn()))
+
+    API_KEY = '48b8e7cc211fc6af5e3255ab3c00d305'
+    CITY = 'Daejeon'
+    API_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid={}'.format(CITY, API_KEY)
+    res = requests.get(API_URL).json()
+    
+    print('온도', round(res['main']['temp']-273))
+    print('날씨', res['weather'][0]['main'])
+    print('바람', res['wind']['speed'])
+    print('나라', res['sys']['country'])
+    print('도시', res['name'])
+    print('구름', str(res['clouds']['all']) + '%')
+
+    return Response({'weather': 'test'})
+
+# update_score()
