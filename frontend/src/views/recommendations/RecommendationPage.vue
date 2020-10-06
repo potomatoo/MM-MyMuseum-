@@ -14,7 +14,7 @@
             @mouseleave="outTitleHover('user')"
           >
             <div class="rec-header-title">
-              니가 좋아할만한 작품
+              {{ userName }} 님을 위한 추천 작품
             </div>
             <div class="rec-header-aro">
               <v-fade-transition mode="out-in">
@@ -32,7 +32,11 @@
             </div>
           </div>
         </h1>
-        <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settings">
+        <vue-slick-carousel
+          v-if="userRecArts"
+          class="slick"
+          v-bind="settingsrtl"
+        >
           <div v-for="art in userRecArts" :key="art.art_no">
             <router-link
               class="router-link"
@@ -106,6 +110,7 @@ import ColorSlider from "@/components/recommendations/ColorSlider.vue";
 
 const articleModule = namespace("articleModule");
 const RecommendationModule = namespace("RecommendationModule");
+const AccountsModule = namespace("AccountsModule");
 
 @Component({
   components: {
@@ -115,6 +120,7 @@ const RecommendationModule = namespace("RecommendationModule");
   }
 })
 export default class RecommendationPage extends Vue {
+  @AccountsModule.Getter userName;
   @RecommendationModule.Getter userRecArts;
   @RecommendationModule.Action FETCH_ART_LIST;
 

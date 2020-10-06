@@ -1,9 +1,7 @@
 <template>
-  <div v-if="arts.length">
-    <h2
-      class="display-2 font-weight-bold mt-10 text-uppercase text-center rec-title"
-    >
-      니한테 맞는 추천
+  <div v-if="arts">
+    <h2 class="display-2 my-10 text-center rec-title">
+      {{ userName }} 님을 위한 추천 작품
     </h2>
     <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
       <v-container fluid cols="12">
@@ -74,12 +72,16 @@
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import { User } from "../../store/Accounts.interface";
 import { Art } from "../../store/Recommendation.interface";
 
+const AccountsModule = namespace("AccountsModule");
 const RecommendationModule = namespace("RecommendationModule");
 
 @Component
 export default class ArtListView extends Vue {
+  @AccountsModule.State user?: User | null;
+  @AccountsModule.Getter userName!: string;
   @RecommendationModule.State arts?: Art[] | null;
   @RecommendationModule.Action FETCH_ART_LIST: any;
 
@@ -139,16 +141,16 @@ export default class ArtListView extends Vue {
     }
   }
 
-  // mounted() {
-  //   this.scroll();
-  // }
+  mounted() {
+    window.scrollTo(0, 0);
+  }
 }
 </script>
 
 <style scoped>
 .rec-title {
   color: white;
-  font-family: Playfair Display, serif !important;
+  font-family: "Do Hyeon", sans-serif !important;
 }
 .router-link {
   text-decoration: none;

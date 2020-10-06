@@ -1,8 +1,6 @@
 <template>
   <div v-if="artsByColor">
-    <h2
-      class="display-2 font-weight-bold mt-10 text-uppercase text-center rec-title"
-    >
+    <h2 class="display-2 my-10 text-uppercase text-center rec-title">
       {{ $route.params.color }}
     </h2>
     <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
@@ -123,7 +121,7 @@ export default class ArtListByColorView extends Vue {
 <style scoped>
 .rec-title {
   color: white;
-  font-family: Playfair Display, serif !important;
+  font-family: "Do Hyeon", sans-serif !important;
 }
 .router-link {
   text-decoration: none;
