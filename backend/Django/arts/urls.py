@@ -20,4 +20,10 @@ urlpatterns = [
     path('color/gray/', views.recommend_gray),
     path('color/white/', views.recommend_white),
     path('color/purple/', views.recommend_purple),
+
+    # time
+    path('time/', views.recommend_time),
+
+    # weather
+    path('weather/', views.recommend_weather),
 ]
