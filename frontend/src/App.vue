@@ -38,7 +38,8 @@ export default class App extends Vue {
 
 <style>
 #app {
-  background-image: url("assets/backgoundColorImg.png");
+  /* background-image: url("assets/backgoundColorImg.png"); */
+  background-color: black;
   animation: fadein 2s;
   -webkit-animation: fadein 2s; /* Safari and Chrome */
 }
