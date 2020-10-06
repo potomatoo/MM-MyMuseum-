@@ -13,4 +13,6 @@ public interface FavoriteService {
 	public FavoriteDto saveFavorite(FavoriteDto favorite);
 
 	public void deleteFavorite(String userID, int artNo);
+
+	public boolean checkFavorite(String userId, int artNo);
 }
