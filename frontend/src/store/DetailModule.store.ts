@@ -115,6 +115,20 @@ const module: Module<DetailModule, RootState> = {
         .get("/api/private/favorite/check", { params: artNo })
         .then(({ data }) => commit("SET_IS_FAVORITE_ART", data.data))
         .catch(err => console.error(err));
+    },
+
+    ADD_FAVORTIE_ART({ dispatch }, artNo: number) {
+      Axios.instance
+        .get("/api/private/favorite/save")
+        .then(() => dispatch("IS_FAVORITE_ART", artNo))
+        .catch(err => console.log(err));
+    },
+
+    DELETE_FAVORTIE_ART({ dispatch }, artNo: number) {
+      Axios.instance
+        .get("/api/private/favorite/delete")
+        .then(() => dispatch("IS_FAVORITE_ART", artNo))
+        .catch(err => console.log(err));
     }
   }
 };
