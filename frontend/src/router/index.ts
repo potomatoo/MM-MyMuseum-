@@ -11,6 +11,7 @@ import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 // recommendation
 import RecommendationPage from "@/views/recommendations/RecommendationPage.vue";
 import ArtListView from "@/views/recommendations/ArtListView.vue";
+import ColorSlider from "@/components/recommendations/ColorSlider.vue";
 //categorys
 import CategoryList from "@/views/categorys/CategoryList.vue";
 import ArtistList from "@/views/categorys/artists/ArtistList.vue";
@@ -93,6 +94,11 @@ const routes: Array<RouteConfig> = [
     path: "/requestamateur",
     name: "RequestAmateur",
     component: RequestAmateur
+  },
+  {
+    path: "/color",
+    name: "ColorSlider",
+    component: ColorSlider
   }
 ];
 

@@ -47,6 +47,9 @@
           </div>
         </vue-slick-carousel>
       </div>
+      <div class="color-slider">
+        <color-slider />
+      </div>
       <div
         class="rec-section"
         @mouseover="onWrapHover('author')"
@@ -99,6 +102,7 @@ import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import DetailArtRotate from "@/components/detail/DetailArtRotate.vue";
+import ColorSlider from "@/components/recommendations/ColorSlider.vue";
 
 const articleModule = namespace("articleModule");
 const RecommendationModule = namespace("RecommendationModule");
@@ -106,7 +110,8 @@ const RecommendationModule = namespace("RecommendationModule");
 @Component({
   components: {
     VueSlickCarousel,
-    DetailArtRotate
+    DetailArtRotate,
+    ColorSlider
   }
 })
 export default class RecommendationPage extends Vue {
@@ -343,5 +348,11 @@ export default class RecommendationPage extends Vue {
 
 .rec-header-aro {
   display: table-cell;
+}
+
+.color-slider {
+  display: block;
+  height: 400px;
+  margin: 100px 0px 50px;
 }
 </style>
