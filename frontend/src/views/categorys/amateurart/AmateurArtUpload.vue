@@ -34,7 +34,8 @@
               readonly
               solo
               prepend-icon="mdi-email"
-            ></v-text-field>
+              >{{ userEmail }}</v-text-field
+            >
             <v-text-field
               class="mb-3"
               v-model="userNickname"
@@ -42,16 +43,17 @@
               solo
               prepend-icon="mdi-email"
               label="닉네임 값"
-            ></v-text-field>
+              >{{ userNickname }}</v-text-field
+            >
             <v-text-field
               class="mb-3"
-              v-model="introduce"
+              v-model="title"
               solo
-              label="작가 소개"
+              label="작품 제목"
               prepend-icon="mdi-message-text"
             ></v-text-field>
             <v-file-input
-              v-model="files"
+              v-model="file"
               show-size
               solo
               label="포트폴리오나 작품을 올려주세요"
@@ -59,23 +61,27 @@
             ></v-file-input>
             <v-text-field
               class="mb-3"
-              v-model="artType"
+              v-model="type"
               solo
               label="작품 장르"
               prepend-icon="mdi-message-text"
             ></v-text-field>
             <v-textarea
               class="mb-3"
-              v-model="decription"
+              v-model="description"
               solo
               label="상세 설명"
               prepend-icon="mdi-message-text"
             ></v-textarea>
             <div align="center" justify="center">
-              <v-btn color="rgb(137,120,104)" width="50%" dark large>
-                신청
-                <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
-                <!-- Django admin 페이지 자동 생성 -> 여기서 업로드된 파일을 확인 할 수 있게... -->
+              <v-btn
+                color="rgb(137,120,104)"
+                width="50%"
+                dark
+                large
+                @click="submitForm"
+              >
+                등록
               </v-btn>
             </div>
           </v-form>
@@ -90,20 +96,24 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
 import { User } from "../../../store/Accounts.interface";
-
 const AccountsModule = namespace("AccountsModule");
+
+import { UploadData } from "../../../store/AmateurInterface";
+const amateurModule = namespace("amateurModule");
 
 @Component({})
 export default class AmateurArtUpload extends Vue {
   @AccountsModule.State user!: User;
   @AccountsModule.Action FETCH_USER_INFO: any;
+  @amateurModule.Action UPLOAD_AMATEUR_ART: any;
 
-  userEmail: string | null = "";
-  userNickname: string | null = "";
-  introduce = "";
-  files = [];
-  artType = "";
-  decription = "";
+  userEmail = "";
+  userNickname = "";
+
+  description = "";
+  file = null;
+  title = "";
+  type = "";
 
   created() {
     if (!this.user) {
@@ -114,9 +124,19 @@ export default class AmateurArtUpload extends Vue {
   @Watch("user", { immediate: true, deep: true })
   setUserInfo() {
     if (this.user) {
-      this.userEmail = this.user.userId;
-      this.userNickname = this.user.userName;
+      this.userEmail = this.user.userId!;
+      this.userNickname = this.user.userName!;
     }
+  }
+
+  submitForm() {
+    this.UPLOAD_AMATEUR_ART({
+      token: sessionStorage.getItem("jwt-token"),
+      description: this.description,
+      file: this.file,
+      title: this.title,
+      type: this.type
+    });
   }
 }
 </script>

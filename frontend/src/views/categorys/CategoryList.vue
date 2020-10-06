@@ -24,7 +24,7 @@
           v-for="({ title, link, hero }, i) in articles"
           :key="i"
           cols="12"
-          md="6"
+          md="3"
           style="padding: 20px"
         >
           <v-hover v-slot:default="{ hover }">

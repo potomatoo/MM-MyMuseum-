@@ -63,7 +63,7 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveAmateurart(value.userName)"
+                  @click="moveAmateurart(value.userId, value.userName)"
                 >
                   <!-- 임시 이미지 입력  이미지 url http://j3b205.p.ssafy.io/file/~~로 변경 -->
                   <v-img
@@ -220,10 +220,10 @@ export default class AmateurArtistView extends Vue {
     });
   }
 
-  moveAmateurart(artist: string) {
+  moveAmateurart(userId: string, userName: string) {
     this.$router.push({
       name: "AmateurArtView",
-      params: { artist: artist }
+      params: { userId: userId, userName: userName }
     });
   }
 

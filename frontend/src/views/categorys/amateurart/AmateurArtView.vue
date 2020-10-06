@@ -10,7 +10,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      누구누구님의 작품들
+      {{ userName }}님의 작품들
     </h2>
     <v-row
       cols="12"
@@ -26,7 +26,7 @@
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="(value, n) in articles"
+            v-for="(value, n) in amateurArts"
             :key="n"
             class="d-flex child-flex"
             cols="3"
@@ -38,10 +38,10 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
+                @click="moveDetail(value.mysarNo)"
               >
-                <!-- 임시 이미지 입력  이미지 url http://j3b205.p.ssafy.io/file/~~로 변경 -->
                 <v-img
-                  :src="require(`@/assets/dummydata/category/museum.jpg`)"
+                  :src="value.myartUrl"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
                 >
@@ -64,7 +64,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.title }}
+                      {{ value.myartTitle }}
                     </div>
                   </v-expand-transition>
                 </v-img>
@@ -81,18 +81,46 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-
-import { Article } from "../../../store/ArticleInterface";
-const articleModule = namespace("articleModule");
+import { AmateurArt } from "../../../store/AmateurInterface";
+const amateurModule = namespace("amateurModule");
 
 @Component
 export default class AmateurArtView extends Vue {
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+  @amateurModule.State amateurArts!: AmateurArt[] | null;
+  @amateurModule.Action FETCH_AMATEUR_ART: any;
+  @amateurModule.Mutation SET_AMATEUR_ART_ZERO: any;
+  @amateurModule.State userId: any;
+  @amateurModule.State userName: any;
+
+  start = 0;
 
   created() {
-    ///수정//////
-    this.SET_ARTICLE();
+    console.log(this.userId);
+    if (this.userId) {
+      this.FETCH_AMATEUR_ART({
+        start: this.start,
+        userId: this.userId,
+        userName: this.userName
+      });
+    } else {
+      this.FETCH_AMATEUR_ART({
+        start: this.start,
+        userId: this.$route.params.userId,
+        userName: this.$route.params.userName
+      });
+    }
+  }
+
+  moveDetail(myartNo: string) {
+    this.$router.push({
+      name: "",
+      params: { myartNo: myartNo }
+    });
+  }
+
+  destroyed() {
+    this.SET_AMATEUR_ART_ZERO();
+    this.start = 0;
   }
 }
 </script>
