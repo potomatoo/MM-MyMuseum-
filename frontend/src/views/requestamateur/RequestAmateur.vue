@@ -57,6 +57,13 @@
               label="포트폴리오나 작품을 올려주세요"
               prepend-icon="mdi-camera"
             ></v-file-input>
+            <v-text-field
+              class="mb-3"
+              v-model="artType"
+              solo
+              label="작품 장르"
+              prepend-icon="mdi-message-text"
+            ></v-text-field>
             <v-textarea
               class="mb-3"
               v-model="decription"
@@ -89,17 +96,27 @@ const AccountsModule = namespace("AccountsModule");
 @Component({})
 export default class RequestAmateur extends Vue {
   @AccountsModule.State user!: User;
+  @AccountsModule.Action FETCH_USER_INFO: any;
 
   userEmail: string | null = "";
   userNickname: string | null = "";
   introduce = "";
   files = [];
+  artType = "";
   decription = "";
 
-  @Watch("$route", { immediate: true })
+  created() {
+    if (!this.user) {
+      this.FETCH_USER_INFO();
+    }
+  }
+
+  @Watch("user", { immediate: true, deep: true })
   setUserInfo() {
-    this.userEmail = this.$route.query.userEmail;
-    this.userNickname = this.$route.query.userNickname;
+    if (this.user) {
+      this.userEmail = this.user.userId;
+      this.userNickname = this.user.userName;
+    }
   }
 }
 </script>

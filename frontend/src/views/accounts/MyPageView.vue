@@ -82,7 +82,7 @@
                   color="rgb(137,120,104)"
                   dark
                   large
-                  @click="moveRequestAmateur(userEmail, userNickname)"
+                  @click="moveRequestAmateur()"
                 >
                   작가 신청
                 </v-btn>
@@ -157,17 +157,15 @@ export default class MyPageView extends Vue {
   }
 
   //이동
-  moveRequestAmateur(userEmail: string, userNickname: string) {
+  moveRequestAmateur() {
     this.$router.push({
-      name: "RequestAmateur",
-      query: { userEmail: this.userEmail, userNickname: this.userNickname }
+      name: "RequestAmateur"
     });
   }
 
-  moveAmatuerArtView(userEmail: string) {
+  moveAmatuerArtView() {
     this.$router.push({
-      name: "AmateurArtView",
-      params: { userEmail: this.userEmail }
+      name: "AmateurArtView"
     });
   }
 }
