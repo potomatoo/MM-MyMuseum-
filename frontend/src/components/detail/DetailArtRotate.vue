@@ -2,7 +2,14 @@
   <div>
     <div class="mygallery">
       <div class="box">
-        <span style="--i:1;"
+        <span
+          v-for="(art, index) in arts"
+          :key="index"
+          :style="`--i:${index + 1};`"
+        >
+          <img :src="art.art_url" :alt="art.art_title" />
+        </span>
+        <!-- <span style="--i:1;"
           ><img
             src="https://lh4.ggpht.com/UuYCUnqvo2EIZhyFHYFVLbkmma_cubVk7SwxOF3lklT6aor5647BXVhEaFB7jg"
         /></span>
@@ -33,17 +40,20 @@
         <span style="--i:8;"
           ><img
             src="https://lh5.ggpht.com/BukMxmYxe18AYLp-yRd64pXDDIDRWS2YiF8q95zTRRosNUqrXVQllxv4Vwk"
-        /></span>
+        /></span> -->
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
+import { Art } from "../../store/Recommendation.interface";
 
 @Component
-export default class DetailArtRotate extends Vue {}
+export default class DetailArtRotate extends Vue {
+  @Prop() private arts!: Art[];
+}
 </script>
 
 <style scoped>
@@ -57,16 +67,16 @@ export default class DetailArtRotate extends Vue {}
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 70vh;
   background: #000;
 }
 
 .box {
   position: relative;
   width: 200px;
-  height: 200px;
+  height: 250px;
   transform-style: preserve-3d;
-  animation: animate 20s linear infinite;
+  animation: animate 30s linear infinite;
 }
 
 @keyframes animate {

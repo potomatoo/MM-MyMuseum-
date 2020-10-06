@@ -12,8 +12,17 @@ export class Axios {
     baseURL: "http://j3b205.p.ssafy.io:8080",
     timeout: 10000
   });
+
+  static readonly instanceRec: AxiosInstance = axios.create({
+    baseURL: "http://j3b205.p.ssafy.io:8000",
+    timeout: 10000
+  });
 }
 
-// Axios.instance.defaults.headers.common[
-//   "Authorization"
-// ] = window.sessionStorage.getItem("jwt-token");
+Axios.instance.defaults.headers.common[
+  "Authorization"
+] = window.sessionStorage.getItem("jwt-token");
+
+Axios.instanceRec.defaults.headers.common[
+  "Authorization"
+] = window.sessionStorage.getItem("jwt-token");
