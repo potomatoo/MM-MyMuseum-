@@ -1,5 +1,7 @@
 package com.ssafy.model.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +17,7 @@ public interface UserRepository extends JpaRepository<UserDto, String> {
 	@Transactional
 	@Query(value = "update ssafy.user set user_name = :user_name where user_id = :user_id", nativeQuery = true)
 	public int updateUserName(@Param("user_id") String userId, @Param("user_name") String userName);
+
+	@Query(value = "select * from ssafy.user where user_artist = 3 limit :start,16", nativeQuery = true)
+	public List<UserDto> findMyArtist(@Param("start") int start);
 }
