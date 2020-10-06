@@ -12,8 +12,36 @@
 
         <div
           class="mb-5 museum-country"
+          v-if="museum.museumLogo"
+          style="margin-top: 50px;"
+        >
+          <img
+            :src="museum.museumLogo"
+            style="max-width: 100px; max-height: 100px; cursor: pointer"
+            @click="dialog = true"
+          />
+        </div>
+
+        <v-dialog v-model="dialog" width="500">
+          <v-card>
+            <v-card-title
+              class="headline grey lighten-2"
+              style="font-family: 'Do Hyeon', sans-serif !important;"
+            >
+              {{ museum.museumName }}
+            </v-card-title>
+            <v-card-text
+              style="margin-top: 15px; font-family: 'Do Hyeon', sans-serif;"
+            >
+              {{ museum.museumDescription }}
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+
+        <div
+          class="mb-5 museum-country"
           v-if="museum.museumCountry"
-          style="font-family: Playfair Display, serif;"
+          style="font-size: 15px;font-family: 'Do Hyeon', sans-serif;"
         >
           {{ museum.museumCountry }}
         </div>
@@ -37,6 +65,8 @@ import { Museum } from "../../store/Detail.interface";
 @Component
 export default class DetailArtistDescription extends Vue {
   @Prop({ type: Object }) readonly museum!: Museum;
+
+  dialog = false;
   isArtsFlag() {
     this.$emit("isArtsFlag");
   }
@@ -57,9 +87,6 @@ export default class DetailArtistDescription extends Vue {
   animation: revealText 1s ease-in-out forwards;
 }
 
-.artist-description .museum-country:before {
-  animation-delay: 0.5s;
-}
 @keyframes revealText {
   0% {
     transform: scaleX(1);
@@ -72,7 +99,7 @@ export default class DetailArtistDescription extends Vue {
 .art-show {
   opacity: 0;
   animation: fadeInBottom 0.5s linear forwards;
-  animation-delay: 1.5s;
+  animation-delay: 1s;
 }
 @keyframes fadeInBottom {
   0% {
