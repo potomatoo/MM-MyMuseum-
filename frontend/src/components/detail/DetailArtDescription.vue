@@ -101,75 +101,95 @@
             {{ art.artGenre }}
           </span>
         </div>
-
-        <div
-          v-if="art.artDescription"
-          class="art-description"
-          style="font-size: 18px; margin-top: 10px"
-        >
-          <span
-            v-if="art.artDescription"
-            style="font-family: 'Do Hyeon', sans-serif;"
-          >
-            상세설명:
-          </span>
-          <span style="font-family: 'Do Hyeon', sans-serif;">
-            <v-dialog v-model="dialog" width="500">
-              <template v-slot:activator="{ on, attrs }">
-                <span color="red lighten-2" dark v-bind="attrs" v-on="on">
-                  더 보기
-                </span>
-              </template>
-
-              <v-card>
-                <v-card-title
-                  class="headline grey lighten-2"
-                  style="font-family: 'Do Hyeon', sans-serif !important;"
-                >
-                  상세설명
-                </v-card-title>
-
-                <v-card-text
-                  style="margin-top: 15px; font-family: 'Do Hyeon', sans-serif;"
-                >
-                  {{ art.artDescription }}
-                </v-card-text>
-              </v-card>
-            </v-dialog>
-          </span>
-        </div>
       </div>
     </div>
 
-    <div
-      class="art-show"
-      style="font-size: 18px; margin-top: 10px; text-align: end;"
-    >
-      <v-dialog
-        v-model="showDialog"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
+    <div class="d-flex row" style="justify-content: flex-end; margin-top: 50px">
+      <div
+        class="art-show"
+        style="font-size: 18px; margin-top: 10px; margin-right: 15px"
       >
-        <template v-slot:activator="{ on, attrs }">
-          <span
-            style="font-family: 'Do Hyeon', sans-serif !important;"
-            v-bind="attrs"
-            v-on="on"
-            >작품감상</span
+        <span style="font-family: 'Do Hyeon', sans-serif;">
+          <button
+            style="border: 1px solid white; border-radius: 5px; padding: 5px"
           >
-        </template>
-        <v-card style="background: black">
-          <v-btn icon dark @click="showDialog = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <div id="fade" class="art-image" v-if="art">
-            <div class="container">
-              <img :src="art.artUrl" />
+            + 전시회
+          </button>
+        </span>
+      </div>
+
+      <div
+        v-if="art.artDescription"
+        class="art-show"
+        style="font-size: 18px; margin-top: 10px;"
+      >
+        <span
+          v-if="art.artDescription"
+          style="font-family: 'Do Hyeon', sans-serif;"
+        >
+        </span>
+        <span style="font-family: 'Do Hyeon', sans-serif;">
+          <v-dialog v-model="dialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+              <span color="red lighten-2" dark v-bind="attrs" v-on="on">
+                <button
+                  style="border: 1px solid white; border-radius: 5px; padding: 5px; margin-right: 15px"
+                >
+                  상세설명
+                </button>
+              </span>
+            </template>
+
+            <v-card>
+              <v-card-title
+                class="headline grey lighten-2"
+                style="font-family: 'Do Hyeon', sans-serif !important;"
+              >
+                상세설명
+              </v-card-title>
+
+              <v-card-text
+                style="margin-top: 15px; font-family: 'Do Hyeon', sans-serif;"
+              >
+                {{ art.artDescription }}
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+        </span>
+      </div>
+
+      <div class="art-show" style="font-size: 18px; margin-top: 10px; ">
+        <v-dialog
+          v-model="showDialog"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <span
+              style="font-family: 'Do Hyeon', sans-serif !important;"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <button
+                style="border: 1px solid white; border-radius: 5px; padding: 5px"
+              >
+                작품감상
+              </button>
+            </span>
+          </template>
+          <v-card style="background: black">
+            <v-btn icon dark @click="showDialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <div id="fade" class="art-image" v-if="art">
+              <div class="container">
+                <img :src="art.artUrl" />
+              </div>
             </div>
-          </div>
-        </v-card>
-      </v-dialog>
+          </v-card>
+        </v-dialog>
+      </div>
     </div>
   </div>
 </template>
