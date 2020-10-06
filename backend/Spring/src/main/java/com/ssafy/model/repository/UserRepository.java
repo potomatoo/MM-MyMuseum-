@@ -20,4 +20,9 @@ public interface UserRepository extends JpaRepository<UserDto, String> {
 
 	@Query(value = "select * from ssafy.user where user_artist = 3 limit :start,16", nativeQuery = true)
 	public List<UserDto> findMyArtist(@Param("start") int start);
+
+	@Modifying
+	@Transactional
+	@Query(value = "update ssafy.user set user_artist = 3 where user_id = :user_id", nativeQuery = true)
+	public int registArtist(@Param("user_id") String userId);
 }
