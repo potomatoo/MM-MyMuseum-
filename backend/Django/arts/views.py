@@ -49,7 +49,7 @@ def update_score():
     TYPE_WEIGHT = 0.03
     METHOD_WEIGHT = 0.02
     MUSEUM_WEIGHT = 0.03
-    COLOR_WEIGHT = 0.02
+    # COLOR_WEIGHT = 0.02
 
     for event in events:
         # click weight
@@ -90,9 +90,9 @@ def update_score():
         art_table.loc[event[2], event[1]] -= (MUSEUM_WEIGHT * CLICK_WEIGHT)
 
         # color weight
-        arr_color = art_table[art_table['art_color'] == art_table.loc[event[2], 'art_color']].index
-        art_table.loc[arr_color, event[1]] += (COLOR_WEIGHT * CLICK_WEIGHT)
-        art_table.loc[event[2], event[1]] -= (COLOR_WEIGHT * CLICK_WEIGHT)
+        # arr_color = art_table[art_table['art_color'] == art_table.loc[event[2], 'art_color']].index
+        # art_table.loc[arr_color, event[1]] += (COLOR_WEIGHT * CLICK_WEIGHT)
+        # art_table.loc[event[2], event[1]] -= (COLOR_WEIGHT * CLICK_WEIGHT)
 
     
     # delete tuple
@@ -115,14 +115,12 @@ def recommend_art(request):
     art_table.fillna('NaN', inplace=True)
     token = request.headers.get('Authorization')
     if token and token != 'null':
-        print('aaaaaaaa')
         # jwt token decoding
         token_str = request.headers.get('Authorization')
         payload = jwt.decode(token_str[7:], SECRET_KEY, ALGORITHM)
         user_id = payload['sub']
 
         if user_id in art_table.columns:
-            print('bbbbbb')
             # sorting by user_id
             sort_table = art_table.sort_values(by=user_id, ascending=False)
 
@@ -163,7 +161,6 @@ def recommend_art(request):
 
             return Response(serializer.data)
         else:
-            print('cccccc')
             art_table['scoreSum'] = art_table.iloc[:, 12:].sum(axis=1)
             sort_table = art_table.sort_values(by='scoreSum', ascending=False)
             
@@ -179,7 +176,6 @@ def recommend_art(request):
 
             return Response(serializer.data)
     else:
-        print('dddddd')
         art_table['scoreSum'] = art_table.iloc[:, 12:].sum(axis=1)
         sort_table = art_table.sort_values(by='scoreSum', ascending=False)
         
@@ -196,7 +192,7 @@ def recommend_yellow(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'YELLOW'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
+    arr_select = random.sample(arr_color, 100)
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
     for i in range(len(arr_select)):
@@ -209,7 +205,7 @@ def recommend_blue(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'BLUE'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
+    arr_select = random.sample(arr_color, 100)
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
     for i in range(len(arr_select)):
@@ -222,7 +218,7 @@ def recommend_brown(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'BROWN'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
+    arr_select = random.sample(arr_color, 100)
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
     for i in range(len(arr_select)):
@@ -235,7 +231,7 @@ def recommend_green(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'GREEN'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
+    arr_select = random.sample(arr_color, 100)
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
     for i in range(len(arr_select)):
@@ -248,7 +244,7 @@ def recommend_black(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'BLACK'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
+    arr_select = random.sample(arr_color, 100)
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
     for i in range(len(arr_select)):
@@ -261,7 +257,7 @@ def recommend_teal(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'TEAL'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
+    arr_select = random.sample(arr_color, 100)
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
     for i in range(len(arr_select)):
@@ -288,19 +284,6 @@ def recommend_orange(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'ORANGE'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
-    arts = Art.objects.filter(art_no__in=arr_select)
-    serializer = ArtSerializer(arts, many=True)
-    for i in range(len(arr_select)):
-        serializer.data[i]['log_type'] = 0
-
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def recommend_pink(request):
-    art_table = pd.read_csv('../../../recommend/arts.csv')
-    arr_color = art_table[art_table['art_color'] == 'PINK'].index
-    arr_color = list(arr_color)
     arr_select = random.sample(arr_color, len(arr_color))
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
@@ -314,7 +297,7 @@ def recommend_gray(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
     arr_color = art_table[art_table['art_color'] == 'GRAY'].index
     arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
+    arr_select = random.sample(arr_color, 100)
     arts = Art.objects.filter(art_no__in=arr_select)
     serializer = ArtSerializer(arts, many=True)
     for i in range(len(arr_select)):
@@ -325,20 +308,7 @@ def recommend_gray(request):
 @api_view(['GET'])
 def recommend_white(request):
     art_table = pd.read_csv('../../../recommend/arts.csv')
-    arr_color = art_table[art_table['art_color'] == 'BROWN'].index
-    arr_color = list(arr_color)
-    arr_select = random.sample(arr_color, 50)
-    arts = Art.objects.filter(art_no__in=arr_select)
-    serializer = ArtSerializer(arts, many=True)
-    for i in range(len(arr_select)):
-        serializer.data[i]['log_type'] = 0
-
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def recommend_purple(request):
-    art_table = pd.read_csv('../../../recommend/arts.csv')
-    arr_color = art_table[art_table['art_color'] == 'PURPLE'].index
+    arr_color = art_table[art_table['art_color'] == 'WHITE'].index
     arr_color = list(arr_color)
     arr_select = random.sample(arr_color, len(arr_color))
     arts = Art.objects.filter(art_no__in=arr_select)
@@ -349,31 +319,88 @@ def recommend_purple(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def recommend_time(request):
-    now = datetime.now()
-    print(now.hour)
-    print(now.minute)
-    return Response({'time': 'test'})
+def recommend_pink(request):
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    arr_color_purple = art_table[art_table['art_color'] == 'PURPLE'].index
+    arr_color_pink = art_table[art_table['art_color'] == 'PINK'].index
+    arr_color_purple = list(arr_color_purple)
+    arr_color_pink = list(arr_color_pink)
+    arr_select = []
+    arr_select.extend(arr_color_purple)
+    arr_select.extend(arr_color_pink)
+    arts = Art.objects.filter(art_no__in=arr_select)
+    serializer = ArtSerializer(arts, many=True)
+    for i in range(len(arr_select)):
+        serializer.data[i]['log_type'] = 0
+
+    return Response(serializer.data)
+
+# @api_view(['GET'])
+# def recommend_time(request):
+#     emotions = ['anger', 'fear', 'joy', 'love', 'sadness', 'surprise']
+#     now = datetime.now()
+#     hours = now.hour
+#     return Response({'time': 'test'})
 
 @api_view(['GET'])
 def recommend_weather(request):
-    import socket
+    emotions = ['joy', 'love', 'anger', 'sadness', 'surprise', 'fear']
 
+    now = datetime.now()
+    hours = now.hour
 
-    print(socket.gethostbyname(socket.gethostname()))
-    print(socket.gethostbyname(socket.getfqdn()))
+    LOCATION_URL = 'http://ip-api.com/json'
+    location = requests.get(LOCATION_URL).json()
 
-    API_KEY = '48b8e7cc211fc6af5e3255ab3c00d305'
-    CITY = 'Daejeon'
-    API_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid={}'.format(CITY, API_KEY)
-    res = requests.get(API_URL).json()
+    WEATHER_CITY = location['city']
+    WEATHER_KEY = '48b8e7cc211fc6af5e3255ab3c00d305'
+    WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid={}'.format(WEATHER_CITY, WEATHER_KEY)
+    res = requests.get(WEATHER_URL).json()
     
-    print('온도', round(res['main']['temp']-273))
+    # Clear, Rain, Snow, Extreme
     print('날씨', res['weather'][0]['main'])
-    print('바람', res['wind']['speed'])
-    print('나라', res['sys']['country'])
-    print('도시', res['name'])
     print('구름', str(res['clouds']['all']) + '%')
+    print('바람', res['wind']['speed'])
+    print('시간', hours)
+
+    emotion_select = []
+    art_table = pd.read_csv('../../../recommend/arts.csv')
+    # arr_color = art_table[art_table['art_color'] == 'BROWN'].index
+    # arr_color = list(arr_color)
+    # arr_select = random.sample(arr_color, len(arr_color))
+    # arts = Art.objects.filter(art_no__in=arr_select)
+    # serializer = ArtSerializer(arts, many=True)
+    # for i in range(len(arr_select)):
+    #     serializer.data[i]['log_type'] = 0
+
+    # return Response(serializer.data)
+    # weather
+    if res['weather'][0]['main'] == 'Clear': # joy, love
+        arr_weather_j = art_table[art_table['art_emotion'] == emotions[0]].index
+        arr_weather_l = art_table[art_table['art_emotion'] == emotions[1]].index
+
+    elif res['weather'][0]['main'] == 'Rain': # sadness, anger
+        arr_weather_a = art_table[art_table['art_emotion'] == emotions[2]].index
+        arr_weather_s = art_table[art_table['art_emotion'] == emotions[3]].index
+        
+    elif res['weather'][0]['main'] == 'Snow': # fear, love
+        arr_weather_j = art_table[art_table['art_emotion'] == emotions[0]].index
+        arr_weather_l = art_table[art_table['art_emotion'] == emotions[1]].index
+
+    else: # random
+        arr_weather_j = art_table[art_table['art_emotion'] == emotions[0]].index
+        arr_weather_l = art_table[art_table['art_emotion'] == emotions[1]].index
+
+    # # time
+    # if 0 <= hours < 6:
+    
+    # elif 6 <= hours < 12:
+
+    # elif 12 <= hours < 18:
+
+    # else:
+
+
 
     return Response({'weather': 'test'})
 
