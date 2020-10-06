@@ -100,7 +100,7 @@ public class MyArtController {
 		myart.setMyartAge(new Date());
 		myart.setMyartDescription(description);
 		myart.setMyartType(type);
-		myart.setMyartUrl("http://j3b205.p.ssafy.io/file" + path);
+		myart.setMyartUrl("http://j3b205.p.ssafy.io/file/" + path);
 
 		response.data = myartService.saveMyart(myart);
 		response.status = (response.data != null) ? true : false;
