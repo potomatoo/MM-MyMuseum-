@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Home from "@/views/Home.vue";
 import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
+import MyPageView from "@/views/accounts/MyPageView.vue";
 import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 import DetailMuseumView from "@/views/detail/DetailMuseumView.vue";
 import DetailGenreView from "@/views/detail/DetailGenreView.vue";
@@ -11,7 +12,8 @@ import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 
 // recommendation
 import RecommendationPage from "@/views/recommendations/RecommendationPage.vue";
-
+import ArtListView from "@/views/recommendations/ArtListView.vue";
+import ColorSlider from "@/components/recommendations/ColorSlider.vue";
 //categorys
 import CategoryList from "@/views/categorys/CategoryList.vue";
 import ArtistList from "@/views/categorys/artists/ArtistList.vue";
@@ -38,6 +40,11 @@ const routes: Array<RouteConfig> = [
     path: "/accounts/signup",
     name: "Signup",
     component: SignupView
+  },
+  {
+    path: "/accounts/mypage",
+    name: "MyPage",
+    component: MyPageView
   },
   {
     path: "/artist/:artist",
@@ -91,9 +98,19 @@ const routes: Array<RouteConfig> = [
     component: RecommendationPage
   },
   {
+    path: "/recommend/arts",
+    name: "RecArtList",
+    component: ArtListView
+  },
+  {
     path: "/requestamateur",
     name: "RequestAmateur",
     component: RequestAmateur
+  },
+  {
+    path: "/color",
+    name: "ColorSlider",
+    component: ColorSlider
   }
 ];
 
