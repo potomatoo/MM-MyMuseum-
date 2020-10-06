@@ -16,12 +16,13 @@ import CategoryList from "@/views/categorys/CategoryList.vue";
 import ArtistList from "@/views/categorys/artists/ArtistList.vue";
 import MuseumList from "@/views/categorys/museums/MuseumList.vue";
 import StyleList from "@/views/categorys/styles/StyleList.vue";
+//userartview
+import AmateurArtistView from "@/views/categorys/amateurart/AmateurArtistView.vue";
+import AmateurArtView from "@/views/categorys/amateurart/AmateurArtView.vue";
+import AmateurArtUpload from "@/views/categorys/amateurart/AmateurArtUpload.vue";
 
 //requestamatuer
 import RequestAmateur from "@/views/requestamateur/RequestAmateur.vue";
-
-//userartview
-import AmateurArtView from "@/views/amateurart/AmateurArtView.vue";
 
 Vue.use(VueRouter);
 
@@ -93,9 +94,19 @@ const routes: Array<RouteConfig> = [
     component: RequestAmateur
   },
   {
-    path: "/amateurart",
+    path: "/categorys/amateurartist",
+    name: "AmateurArtistView",
+    component: AmateurArtistView
+  },
+  {
+    path: "/categorys/amateurart",
     name: "AmateurArtView",
     component: AmateurArtView
+  },
+  {
+    path: "/amateur/upload",
+    name: "AmateurArtUpload",
+    component: AmateurArtUpload
   }
 ];
 

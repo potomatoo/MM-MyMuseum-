@@ -10,7 +10,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      {{ userNickname }}({{ userEmail }})님의 작품들
+      누구누구님의 작품들
     </h2>
     <v-row
       cols="12"
@@ -81,37 +81,18 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { User } from "../../store/Accounts.interface";
-const AccountsModule = namespace("AccountsModule");
 
-import { Article } from "../../store/ArticleInterface";
+import { Article } from "../../../store/ArticleInterface";
 const articleModule = namespace("articleModule");
 
 @Component
 export default class AmateurArtView extends Vue {
-  @AccountsModule.State user!: User;
-  @AccountsModule.Action FETCH_USER_INFO: any;
-
   @articleModule.State articles!: Article[] | null;
   @articleModule.Mutation SET_ARTICLE: any;
 
-  userEmail: string | null = "";
-  userNickname: string | null = "";
-
   created() {
-    if (!this.user) {
-      this.FETCH_USER_INFO();
-    }
     ///수정//////
     this.SET_ARTICLE();
-  }
-
-  @Watch("user", { immediate: true, deep: true })
-  setUserInfo() {
-    if (this.user) {
-      this.userEmail = this.user.userId;
-      this.userNickname = this.user.userName;
-    }
   }
 }
 </script>

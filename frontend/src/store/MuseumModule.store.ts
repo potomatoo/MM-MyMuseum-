@@ -8,7 +8,8 @@ const module: Module<MuseumModule, RootState> = {
 
   state: {
     museums: [],
-    scrollEnd: false
+    scrollEnd: false,
+    searchText: ""
   },
 
   getters: {},
@@ -22,6 +23,10 @@ const module: Module<MuseumModule, RootState> = {
       } else if (!museums.length) {
         state.scrollEnd = true;
       }
+    },
+
+    SET_MUSEUM_SEARCHTEXT(state, searchText) {
+      state.searchText = searchText;
     },
 
     SET_MUSEUM_ZERO(state) {
@@ -47,6 +52,7 @@ const module: Module<MuseumModule, RootState> = {
         .then(({ data }) => {
           if (data != null) {
             commit("SET_MUSEUM", data.data);
+            commit("SET_MUSEUM_SEARCHTEXT", museumName);
           }
         })
         .catch(err => console.error(err));

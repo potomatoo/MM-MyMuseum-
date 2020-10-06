@@ -86,6 +86,14 @@ const module: Module<AccountsModule, RootState> = {
         .get("/api/public/user/checkemail", { params: { email } })
         .then(({ data }) => data.data)
         .catch(err => console.error(err));
+    },
+    REQUEST_AMATEURARTIST({ commit }, token) {
+      Axios.instance
+        .put("/api/private/user/registArtist", token)
+        .then(() => {
+          alert("작가등록이 완료되었습니다");
+        })
+        .catch(err => console.error(err));
     }
   }
 };

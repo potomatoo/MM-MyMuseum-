@@ -1,6 +1,7 @@
 export interface MuseumModule {
   museums: Museum[] | null;
   scrollEnd: boolean;
+  searchText: string;
 }
 
 export interface Museum {

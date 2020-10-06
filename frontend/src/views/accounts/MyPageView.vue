@@ -82,21 +82,9 @@
                   color="rgb(137,120,104)"
                   dark
                   large
-                  @click="moveRequestAmateur()"
+                  @click="toRequestAmateur()"
                 >
                   작가 신청
-                </v-btn>
-              </v-col>
-              <v-col cols="6">
-                <v-btn
-                  class="pa-2"
-                  width="100%"
-                  color="rgb(137,120,104)"
-                  dark
-                  large
-                  @click="moveAmatuerArtView()"
-                >
-                  내작품 보기
                 </v-btn>
               </v-col>
             </v-row>
@@ -119,6 +107,7 @@ const AccountsModule = namespace("AccountsModule");
 export default class MyPageView extends Vue {
   @AccountsModule.State user!: User;
   @AccountsModule.Action FETCH_USER_INFO: any;
+  @AccountsModule.Action REQUEST_AMATEURARTIST: any;
 
   userEmail: string | null = "";
   userNickname: string | null = "";
@@ -157,16 +146,8 @@ export default class MyPageView extends Vue {
   }
 
   //이동
-  moveRequestAmateur() {
-    this.$router.push({
-      name: "RequestAmateur"
-    });
-  }
-
-  moveAmatuerArtView() {
-    this.$router.push({
-      name: "AmateurArtView"
-    });
+  toRequestAmateur() {
+    this.REQUEST_AMATEURARTIST();
   }
 }
 </script>

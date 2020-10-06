@@ -77,7 +77,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.genreName }}
+                      {{ value.genreKtitle }}
                     </div>
                   </v-expand-transition>
                 </v-img>

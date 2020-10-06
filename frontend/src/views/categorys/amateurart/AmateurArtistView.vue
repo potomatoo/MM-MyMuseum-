@@ -10,36 +10,53 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      Museum
+      아마추어 작가
     </h2>
-    <v-row cols="12" align="center" justify="center" style="margin : 1px 20%">
+    <v-row
+      cols="12"
+      sm="6"
+      offset-sm="3"
+      align="center"
+      justify="center"
+      style="margin : 1px 20%"
+    >
       <v-text-field
         outlined
         dark
-        placeholder="전시공간 검색"
+        placeholder="아티스트 검색"
         type="text"
         clearable
         prepend-inner-icon="mdi-magnify"
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="searchMuseum()"
+        @keypress.enter="searchArtist()"
       >
       </v-text-field>
+      <v-col cols="2">
+        <v-btn
+          v-if="userArtist === 3"
+          width="100%"
+          align="center"
+          justify="center"
+          color="rgb(137,120,104)"
+          dark
+          large
+          @click="moveAmateurArtUpload()"
+        >
+          작품 등록
+        </v-btn>
+      </v-col>
     </v-row>
-
-    <!-- 전시공간 별 -->
     <div :scrollHeight="scrollHeight">
-      <v-row style="margin: 10px 10%">
+      <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
         <v-container fluid cols="12">
           <v-row>
             <v-col
-              v-for="(value, n) in museums"
+              v-for="(value, n) in amateurs"
               :key="n"
               class="d-flex child-flex"
-              cols="6"
-              md="3"
-              style="padding: 20px"
+              cols="3"
             >
               <v-hover v-slot:default="{ hover }">
                 <v-card
@@ -48,10 +65,11 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveDetail(value.museumName, 0)"
+                  @click="moveAmateurart(value.userName)"
                 >
+                  <!-- 임시 이미지 입력  이미지 url http://j3b205.p.ssafy.io/file/~~로 변경 -->
                   <v-img
-                    :src="value.museumUrl"
+                    :src="require(`@/assets/dummydata/category/museum.jpg`)"
                     aspect-ratio="1"
                     class="grey lighten-2 artist-card"
                   >
@@ -74,7 +92,7 @@
                         class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                         style="width: 100%; height: 100%;"
                       >
-                        {{ value.museumName }}
+                        {{ value.userName }}
                       </div>
                     </v-expand-transition>
                   </v-img>
@@ -89,68 +107,78 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { Museum } from "../../../store/MuseumInterface";
 
-const museumModule = namespace("museumModule");
+import { Amateur } from "../../../store/AmateurInterface";
+const amateurModule = namespace("amateurModule");
+
+import { User } from "../../../store/Accounts.interface";
+const AccountsModule = namespace("AccountsModule");
 
 @Component
-export default class MuseumList extends Vue {
-  @museumModule.State museums!: Museum[] | null;
-  @museumModule.Action FETCH_MUSEUM: any;
-  @museumModule.Action FETCH_SERCH_MUSEUM: any;
-  @museumModule.State scrollEnd!: boolean;
-  @museumModule.Mutation SET_MUSEUM_ZERO: any;
-  @museumModule.State searchText: any;
-  @museumModule.Mutation SET_MUSEUM_SEARCHTEXT: any;
+export default class AmateurArtistView extends Vue {
+  @amateurModule.State amateurs!: Amateur[] | null;
+  @amateurModule.Action FETCH_AMATEUR: any;
+  @amateurModule.Action FETCH_SERCH_AMATEUR: any;
+  @amateurModule.State scrollEnd!: boolean;
+  @amateurModule.Mutation SET_AMATEUR_ZERO: any;
+  @amateurModule.State searchText: any;
+  @amateurModule.Mutation SET_AMATEUR_SEARCHTEXT: any;
+
+  @AccountsModule.State user!: User;
+  @AccountsModule.Action FETCH_USER_INFO: any;
 
   inputText = "";
   start = 0;
   scrollHeight = 0;
   searchstart = 0;
-
   key = "";
 
+  userArtist = 0;
+
+  @Watch("user", { immediate: true, deep: true })
+  setUserInfo() {
+    if (this.user) {
+      this.userArtist = this.user.userArtist!;
+    }
+  }
+
   created() {
+    if (!this.user) {
+      this.FETCH_USER_INFO();
+    }
+
     if (this.searchText) {
-      this.FETCH_SERCH_MUSEUM({
+      this.FETCH_SERCH_AMATEUR({
         artistName: this.searchText,
         start: this.searchstart
       });
     } else {
-      this.FETCH_MUSEUM(this.start);
+      this.FETCH_AMATEUR(this.start);
     }
   }
 
-  searchMuseum() {
-    this.SET_MUSEUM_ZERO();
-    if (this.inputText) {
-      this.SET_MUSEUM_SEARCHTEXT(this.inputText);
-      if (this.searchText) {
-        this.searchstart = 0;
-      }
-      this.FETCH_SERCH_MUSEUM({
-        museumName: this.inputText,
-        start: this.searchstart
-      });
-    }
-    this.inputText = "";
-  }
-
-  moveDetail(museum: string) {
+  searchArtist() {
     for (let i = 0; i < sessionStorage.length; i++) {
       this.key = sessionStorage.key(i)!;
       if (this.key != "jwt-token") {
         sessionStorage.removeItem(this.key);
       }
     }
-    sessionStorage.setItem(this.searchstart.toString(), this.searchText);
-    this.$router.push({
-      name: "DetailArtistView",
-      params: { museum: museum }
-    });
+
+    this.SET_AMATEUR_ZERO();
+    if (this.inputText) {
+      this.SET_AMATEUR_SEARCHTEXT(this.inputText);
+      if (this.searchText) {
+        this.searchstart = 0;
+      }
+      this.FETCH_SERCH_AMATEUR({
+        artistName: this.searchText,
+        start: this.searchstart
+      });
+    }
   }
 
   scroll() {
@@ -166,17 +194,17 @@ export default class MuseumList extends Vue {
       if (
         (ceilBottomOfWindow || plusBottomOfWindow) &&
         !this.scrollEnd &&
-        this.$route.name === "MuseumList"
+        this.$route.name === "ArtistList"
       ) {
         if (this.searchText) {
           ++this.searchstart;
-          this.FETCH_SERCH_MUSEUM({
-            museumName: this.searchText,
+          this.FETCH_SERCH_AMATEUR({
+            artistName: this.searchText,
             start: this.searchstart
           });
         } else {
           ++this.start;
-          this.FETCH_MUSEUM(this.start);
+          this.FETCH_AMATEUR(this.start);
         }
       }
     };
@@ -187,8 +215,22 @@ export default class MuseumList extends Vue {
     this.scrollHeight = window.innerHeight;
   }
 
+  moveAmateurArtUpload() {
+    this.SET_AMATEUR_ZERO();
+    this.$router.push({
+      name: "AmateurArtUpload"
+    });
+  }
+
+  moveAmateurart(artist: string) {
+    this.$router.push({
+      name: "AmateurArtView",
+      params: { artist: artist }
+    });
+  }
+
   destroyed() {
-    this.SET_MUSEUM_ZERO();
+    this.SET_AMATEUR_ZERO();
     this.searchstart = 0;
     this.start = 0;
   }

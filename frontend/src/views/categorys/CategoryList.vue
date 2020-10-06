@@ -24,7 +24,7 @@
           v-for="({ title, link, hero }, i) in articles"
           :key="i"
           cols="12"
-          md="4"
+          md="6"
           style="padding: 20px"
         >
           <v-hover v-slot:default="{ hover }">
@@ -65,13 +65,16 @@ import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 const artistModule = namespace("artistModule");
 const museumModule = namespace("museumModule");
+const amateurModule = namespace("amateurModule");
 
 @Component({
   components: {}
 })
 export default class CategoryView extends Vue {
-  @artistModule.Mutation SET_ARTIST_ZERO: any;
-  @museumModule.Mutation SET_MUSEUM_ZERO: any;
+  @artistModule.Mutation SET_ARTIST_SEARCHTEXT: any;
+  @museumModule.Mutation SET_MUSEUM_SEARCHTEXT: any;
+  @amateurModule.Mutation SET_AMATEUR_SEARCHTEXT: any;
+
   key = "";
 
   data() {
@@ -91,20 +94,20 @@ export default class CategoryView extends Vue {
           title: "Style",
           link: "StyleList",
           hero: "style.jpg"
+        },
+        {
+          title: "Amateur",
+          link: "AmateurArtistView",
+          hero: "amateur.jpg"
         }
       ]
     };
   }
 
   moveCategory(link: string) {
-    for (let i = 0; i < sessionStorage.length; i++) {
-      this.key = sessionStorage.key(i)!;
-      if (this.key != "jwt-token") {
-        sessionStorage.removeItem(this.key);
-      }
-    }
-    this.SET_ARTIST_ZERO();
-    this.SET_MUSEUM_ZERO();
+    this.SET_ARTIST_SEARCHTEXT("");
+    this.SET_MUSEUM_SEARCHTEXT();
+    this.SET_AMATEUR_SEARCHTEXT();
     this.$router.push({
       name: link
     });

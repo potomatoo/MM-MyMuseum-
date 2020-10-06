@@ -109,46 +109,31 @@ export default class ArtistList extends Vue {
   @artistModule.Action FETCH_SERCH_ARTIST: any;
   @artistModule.State scrollEnd!: boolean;
   @artistModule.Mutation SET_ARTIST_ZERO: any;
+  @artistModule.Mutation SET_ARTIST_SEARCHTEXT: any;
+  @artistModule.State searchText: any;
 
   inputText = "";
   start = 0;
   scrollHeight = 0;
-  searchText = "";
   searchstart = 0;
+
   key = "";
 
   created() {
-    if (sessionStorage.length) {
-      for (let i = 0; i < sessionStorage.length; i++) {
-        this.key = sessionStorage.key(i)!;
-        if (this.key != "jwt-token") {
-          this.searchstart = Number(this.key);
-        }
-      }
-      if (sessionStorage.getItem(this.searchstart.toString())) {
-        this.searchText = sessionStorage.getItem(this.searchstart.toString())!;
-      } else {
-        this.FETCH_ARTIST(this.start);
-      }
+    if (this.searchText) {
+      this.FETCH_SERCH_ARTIST({
+        artistName: this.searchText,
+        start: this.searchstart
+      });
     } else {
       this.FETCH_ARTIST(this.start);
     }
   }
 
   searchArtist() {
-    for (let i = 0; i < sessionStorage.length; i++) {
-      this.key = sessionStorage.key(i)!;
-      if (this.key != "jwt-token") {
-        sessionStorage.removeItem(this.key);
-      }
-    }
-
     this.SET_ARTIST_ZERO();
     if (this.inputText) {
-      this.searchText = this.inputText;
-      if (this.searchText) {
-        this.searchstart = 0;
-      }
+      this.SET_ARTIST_SEARCHTEXT(this.inputText);
       this.FETCH_SERCH_ARTIST({
         artistName: this.searchText,
         start: this.searchstart
@@ -157,14 +142,6 @@ export default class ArtistList extends Vue {
   }
 
   moveDetail(artist: string) {
-    for (let i = 0; i < sessionStorage.length; i++) {
-      this.key = sessionStorage.key(i)!;
-      if (this.key != "jwt-token") {
-        sessionStorage.removeItem(this.key);
-      }
-    }
-
-    sessionStorage.setItem(this.searchstart.toString(), this.searchText);
     this.$router.push({
       name: "DetailArtistView",
       params: { artist: artist }
@@ -199,9 +176,16 @@ export default class ArtistList extends Vue {
       }
     };
   }
+
   mounted() {
     this.scroll();
     this.scrollHeight = window.innerHeight;
+  }
+
+  destroyed() {
+    this.SET_ARTIST_ZERO();
+    this.searchstart = 0;
+    this.start = 0;
   }
 }
 </script>
