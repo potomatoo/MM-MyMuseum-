@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Home from "@/views/Home.vue";
 import LoginView from "@/views/accounts/LoginView.vue";
 import SignupView from "@/views/accounts/SignupView.vue";
+import MyPageView from "@/views/accounts/MyPageView.vue";
 import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 import DetailMuseumView from "@/views/detail/DetailMuseumView.vue";
 import DetailGenreView from "@/views/detail/DetailGenreView.vue";
@@ -38,6 +39,11 @@ const routes: Array<RouteConfig> = [
     path: "/accounts/signup",
     name: "Signup",
     component: SignupView
+  },
+  {
+    path: "/accounts/mypage",
+    name: "MyPage",
+    component: MyPageView
   },
   {
     path: "/artist/:artist",

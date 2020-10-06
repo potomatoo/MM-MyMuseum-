@@ -175,7 +175,6 @@ export default class RecommendationPage extends Vue {
   };
 
   onWrapHover(cate, bool) {
-    console.log(cate);
     if (cate == "user") {
       this.recTitle.user.wrapHover = bool;
     } else if (cate == "author") {
@@ -184,7 +183,6 @@ export default class RecommendationPage extends Vue {
   }
 
   onTitleHover(cate, bool) {
-    console.log(cate);
     if (cate == "user") {
       this.recTitle.user.titleHover = bool;
     } else if (cate == "author") {
