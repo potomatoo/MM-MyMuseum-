@@ -126,7 +126,11 @@
             </div>
             <div class="rec-header-aro">
               <v-fade-transition mode="out-in">
-                <div v-if="recTitle.time.titleHover" class="see-all">
+                <div
+                  v-if="recTitle.time.titleHover"
+                  class="see-all"
+                  @click="toAllTimeArts"
+                >
                   모두보기
                 </div>
               </v-fade-transition>
@@ -142,11 +146,16 @@
           v-bind="settingsrtl"
         >
           <div v-for="art in timeRecArts" :key="art.art_no">
-            <img
-              class="recommendation-img"
-              :src="art.art_url"
-              :alt="art.art_title"
-            />
+            <router-link
+              class="router-link"
+              :to="{ name: 'DetailArtView', params: { artNo: art.art_no } }"
+            >
+              <img
+                class="recommendation-img"
+                :src="art.art_url"
+                :alt="art.art_title"
+              />
+            </router-link>
           </div>
         </vue-slick-carousel>
       </div>
@@ -371,6 +380,10 @@ export default class RecommendationPage extends Vue {
 
   toAllWeatherArts() {
     this.$router.push({ name: "WeatherArtsList" });
+  }
+
+  toAllTimeArts() {
+    this.$router.push({ name: "TimeArtsList" });
   }
 }
 </script>

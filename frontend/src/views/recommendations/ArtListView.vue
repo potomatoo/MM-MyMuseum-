@@ -12,6 +12,12 @@
     >
       {{ artsByWeather.title }}
     </h2>
+    <h2
+      v-else-if="currentPage === 'TimeArtsList'"
+      class="display-2 my-10 text-center rec-title"
+    >
+      {{ artsByTime.title }}
+    </h2>
     <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
       <v-container fluid cols="12">
         <v-row>
@@ -97,6 +103,7 @@ export default class ArtListView extends Vue {
   @AccountsModule.Getter userName!: string;
   @RecommendationModule.State arts?: Art[] | null;
   @RecommendationModule.State artsByWeather?: ArtsByWeather;
+  @RecommendationModule.State artsByTime?: ArtsByTime;
   @RecommendationModule.Action FETCH_ART_LIST: any;
 
   get currentPage() {
@@ -108,6 +115,8 @@ export default class ArtListView extends Vue {
       return this.arts;
     } else if (this.currentPage === "WeatherArtsList") {
       return this.artsByWeather?.data;
+    } else if (this.currentPage === "TimeArtsList") {
+      return this.artsByTime?.data;
     }
     return null;
   }

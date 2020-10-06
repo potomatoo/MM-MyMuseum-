@@ -96,6 +96,11 @@ const routes: Array<RouteConfig> = [
     component: ArtListView
   },
   {
+    path: "/recommend/time",
+    name: "TimeArtsList",
+    component: ArtListView
+  },
+  {
     path: "/requestamateur",
     name: "RequestAmateur",
     component: RequestAmateur
