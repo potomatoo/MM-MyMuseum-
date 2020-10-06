@@ -115,12 +115,14 @@ def recommend_art(request):
     art_table.fillna('NaN', inplace=True)
     print(request.headers.get('Authorization'))
     if request.headers.get('Authorization'):
+        print('aaaaaaaa')
         # jwt token decoding
         token_str = request.headers.get('Authorization')
         payload = jwt.decode(token_str[7:], SECRET_KEY, ALGORITHM)
         user_id = payload['sub']
 
         if user_id in art_table.columns:
+            print('bbbbbb')
             # sorting by user_id
             sort_table = art_table.sort_values(by=user_id, ascending=False)
 
@@ -161,6 +163,7 @@ def recommend_art(request):
 
             return Response(serializer.data)
         else:
+            print('cccccc')
             art_table['scoreSum'] = art_table.iloc[:, 12:].sum(axis=1)
             sort_table = art_table.sort_values(by='scoreSum', ascending=False)
             
@@ -176,6 +179,7 @@ def recommend_art(request):
 
             return Response(serializer.data)
     else:
+        print('dddddd')
         art_table['scoreSum'] = art_table.iloc[:, 12:].sum(axis=1)
         sort_table = art_table.sort_values(by='scoreSum', ascending=False)
         
