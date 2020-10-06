@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.ssafy.model.dto.UserDto;
 import com.ssafy.model.repository.UserRepository;
 
-import ch.qos.logback.core.encoder.Encoder;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -77,6 +75,18 @@ public class UserServiceImpl implements UserService {
 			user.setUserPassword("");
 			return user;
 		}
+	}
+
+	@Override
+	public UserDto findUserDetail(String userId) {
+		// TODO Auto-generated method stub
+
+		Optional<UserDto> user = userRepository.findById(userId);
+
+		if (user.isPresent())
+			return user.get();
+		else
+			return null;
 	}
 
 }

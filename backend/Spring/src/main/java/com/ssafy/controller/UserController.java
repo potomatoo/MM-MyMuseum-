@@ -48,6 +48,13 @@ public class UserController {
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 
+		user = userService.findUserDetail(user.getUserId());
+		if (user == null) {
+			response.status = false;
+			response.message = "사용자 조회에 실패하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
 		user.setUserPassword("");
 		response.data = user;
 		response.status = true;
