@@ -10,7 +10,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      작가 신청 페이지
+      작품 등록
     </h2>
     <!-- 아랫공간 -->
     <v-responsive class="mx-auto mb-12" width="56">
@@ -22,7 +22,7 @@
       cols="12"
       align="center"
       justify="center"
-      style="margin : 1px 20%; background-color:white;"
+      style="margin : 1px 20%; background-color: white;"
     >
       <v-col class="align-self-center">
         <div class="request">
@@ -34,7 +34,6 @@
               readonly
               solo
               prepend-icon="mdi-email"
-              label="이메일 값"
             ></v-text-field>
             <v-text-field
               class="mb-3"
@@ -60,15 +59,25 @@
             ></v-file-input>
             <v-text-field
               class="mb-3"
+              v-model="artType"
+              solo
+              label="작품 장르"
+              prepend-icon="mdi-message-text"
+            ></v-text-field>
+            <v-textarea
+              class="mb-3"
               v-model="decription"
               solo
               label="상세 설명"
               prepend-icon="mdi-message-text"
-            ></v-text-field>
-            <v-btn color="rgb(137,120,104)" width="100%" dark large>
-              신청
-              <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
-            </v-btn>
+            ></v-textarea>
+            <div align="center" justify="center">
+              <v-btn color="rgb(137,120,104)" width="50%" dark large>
+                신청
+                <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
+                <!-- Django admin 페이지 자동 생성 -> 여기서 업로드된 파일을 확인 할 수 있게... -->
+              </v-btn>
+            </div>
           </v-form>
         </div>
       </v-col>
@@ -77,15 +86,38 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
+
+import { namespace } from "vuex-class";
+import { User } from "../../../store/Accounts.interface";
+
+const AccountsModule = namespace("AccountsModule");
 
 @Component({})
-export default class RequestAmateur extends Vue {
-  userMail = "";
-  userNickname = "";
+export default class AmateurArtUpload extends Vue {
+  @AccountsModule.State user!: User;
+  @AccountsModule.Action FETCH_USER_INFO: any;
+
+  userEmail: string | null = "";
+  userNickname: string | null = "";
   introduce = "";
-  files = "";
-  description = "";
+  files = [];
+  artType = "";
+  decription = "";
+
+  created() {
+    if (!this.user) {
+      this.FETCH_USER_INFO();
+    }
+  }
+
+  @Watch("user", { immediate: true, deep: true })
+  setUserInfo() {
+    if (this.user) {
+      this.userEmail = this.user.userId;
+      this.userNickname = this.user.userName;
+    }
+  }
 }
 </script>
 
