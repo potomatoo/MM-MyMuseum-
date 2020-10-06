@@ -53,7 +53,7 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveDetail(artist)"
+                  @click="moveDetail(artist.artistName)"
                 >
                   <!-- 임시 이미지 입력 -->
                   <v-img
@@ -109,34 +109,31 @@ export default class ArtistList extends Vue {
   @artistModule.Action FETCH_SERCH_ARTIST: any;
   @artistModule.State scrollEnd!: boolean;
   @artistModule.Mutation SET_ARTIST_ZERO: any;
+  @artistModule.Mutation SET_ARTIST_SEARCHTEXT: any;
+  @artistModule.State searchText: any;
 
   inputText = "";
   start = 0;
   scrollHeight = 0;
-  searchText = "";
   searchstart = 0;
 
+  key = "";
+
   created() {
-    if (sessionStorage.length) {
-      this.searchstart = Number(sessionStorage.key(0));
-      if (sessionStorage.getItem(this.searchstart.toString())) {
-        this.searchText = sessionStorage.getItem(this.searchstart.toString())!;
-      } else {
-        this.FETCH_ARTIST(this.start);
-      }
+    if (this.searchText) {
+      this.FETCH_SERCH_ARTIST({
+        artistName: this.searchText,
+        start: this.searchstart
+      });
     } else {
       this.FETCH_ARTIST(this.start);
     }
   }
 
   searchArtist() {
-    sessionStorage.clear();
     this.SET_ARTIST_ZERO();
     if (this.inputText) {
-      this.searchText = this.inputText;
-      if (this.searchText) {
-        this.searchstart = 0;
-      }
+      this.SET_ARTIST_SEARCHTEXT(this.inputText);
       this.FETCH_SERCH_ARTIST({
         artistName: this.searchText,
         start: this.searchstart
@@ -144,12 +141,10 @@ export default class ArtistList extends Vue {
     }
   }
 
-  moveDetail(artist: Artist) {
-    sessionStorage.clear();
-    sessionStorage.setItem(this.searchstart.toString(), this.searchText);
+  moveDetail(artistName: string) {
     this.$router.push({
       name: "DetailArtistView",
-      params: { artist: artist.artistName }
+      params: { artist: artistName }
     });
   }
 
@@ -181,9 +176,16 @@ export default class ArtistList extends Vue {
       }
     };
   }
+
   mounted() {
     this.scroll();
     this.scrollHeight = window.innerHeight;
+  }
+
+  destroyed() {
+    this.SET_ARTIST_ZERO();
+    this.searchstart = 0;
+    this.start = 0;
   }
 }
 </script>

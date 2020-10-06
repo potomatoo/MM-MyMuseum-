@@ -74,6 +74,20 @@
                 </v-btn>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-btn
+                  class="pa-2"
+                  width="100%"
+                  color="rgb(137,120,104)"
+                  dark
+                  large
+                  @click="toRequestAmateur()"
+                >
+                  작가 신청
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-form>
         </div>
       </v-col>
@@ -93,6 +107,7 @@ const AccountsModule = namespace("AccountsModule");
 export default class MyPageView extends Vue {
   @AccountsModule.State user!: User;
   @AccountsModule.Action FETCH_USER_INFO: any;
+  @AccountsModule.Action REQUEST_AMATEURARTIST: any;
 
   userEmail: string | null = "";
   userNickname: string | null = "";
@@ -128,6 +143,11 @@ export default class MyPageView extends Vue {
     if (!this.user) {
       this.FETCH_USER_INFO();
     }
+  }
+
+  //이동
+  toRequestAmateur() {
+    this.REQUEST_AMATEURARTIST();
   }
 }
 </script>

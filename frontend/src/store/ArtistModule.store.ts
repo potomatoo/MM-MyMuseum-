@@ -8,7 +8,8 @@ const module: Module<ArtistModule, RootState> = {
 
   state: {
     artists: [],
-    scrollEnd: false
+    scrollEnd: false,
+    searchText: ""
   },
 
   getters: {},
@@ -22,6 +23,10 @@ const module: Module<ArtistModule, RootState> = {
       } else if (!artists.length) {
         state.scrollEnd = true;
       }
+    },
+
+    SET_ARTIST_SEARCHTEXT(state, searchText) {
+      state.searchText = searchText;
     },
 
     SET_ARTIST_ZERO(state) {
@@ -42,10 +47,12 @@ const module: Module<ArtistModule, RootState> = {
 
     FETCH_SERCH_ARTIST({ commit }, { artistName, start }) {
       console.log(artistName + " " + start);
+
       Axios.instance
         .get("api/public/artist/find", { params: { artistName, start } })
         .then(({ data }) => {
           commit("SET_ARTIST", data.data);
+          commit("SET_ARTIST_SEARCHTEXT", artistName);
         })
         .catch(err => console.error(err));
     }
