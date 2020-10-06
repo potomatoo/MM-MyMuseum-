@@ -1,6 +1,7 @@
 package com.ssafy.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Override
 	public List<FavoriteDto> findFavorityById(String userId, int start) {
 		// TODO Auto-generated method stub
-		int index = start * 16 ;
+		int index = start * 16;
 
 		return favoriteRepository.findFavoriteByUserlimit(userId, index);
 	}
@@ -33,6 +34,17 @@ public class FavoriteServiceImpl implements FavoriteService {
 	public void deleteFavorite(String userId, int artNo) {
 		// TODO Auto-generated method stub
 		favoriteRepository.deleteFavorite(userId, artNo);
+	}
+
+	@Override
+	public boolean checkFavorite(String userId, int artNo) {
+		// TODO Auto-generated method stub
+		FavoriteDto favorite = favoriteRepository.checkFavorite(userId, artNo);
+
+		if (favorite == null)
+			return false;
+		else
+			return true;
 	}
 
 }
