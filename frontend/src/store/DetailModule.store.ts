@@ -2,6 +2,8 @@ import { Module } from "vuex";
 import { RootState } from "./index";
 import { Axios } from "@/service/axios.service";
 import { DetailModule, Art, Artist, Museum, Genre } from "./Detail.interface";
+import { observable } from "vue/types/umd";
+import { stringify } from "qs";
 
 const module: Module<DetailModule, RootState> = {
   namespaced: true,
@@ -117,16 +119,19 @@ const module: Module<DetailModule, RootState> = {
         .catch(err => console.error(err));
     },
 
-    ADD_FAVORTIE_ART({ dispatch }, artNo: number) {
+    ADD_FAVORITE_ART({ dispatch }, artNo: number) {
+      const favorite = {
+        artNo: artNo
+      };
       Axios.instance
-        .get("/api/private/favorite/save")
-        .then(() => dispatch("IS_FAVORITE_ART", artNo))
+        .post("/api/private/favorite/save", favorite)
+        .then(({ data }) => dispatch("IS_FAVORITE_ART", favorite))
         .catch(err => console.log(err));
     },
 
-    DELETE_FAVORTIE_ART({ dispatch }, artNo: number) {
+    DELETE_FAVORITE_ART({ dispatch }, artNo: number) {
       Axios.instance
-        .get("/api/private/favorite/delete")
+        .delete("/api/private/favorite/delete", { params: artNo })
         .then(() => dispatch("IS_FAVORITE_ART", artNo))
         .catch(err => console.log(err));
     }

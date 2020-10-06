@@ -179,30 +179,22 @@
         </v-dialog>
       </div>
 
-      <div
-        v-if="!isFavoriteArt"
-        class="art-show"
-        style="font-size: 18px; margin-top: 10px;"
-      >
+      <div class="art-show" style="font-size: 18px; margin-top: 10px;">
         <span style="font-family: 'Do Hyeon', sans-serif;">
           <button
+            v-if="isFavoriteArt"
             style="border: 1px solid white; border-radius: 5px; padding: 5px"
-          >
-            전시회 추가
-          </button>
-        </span>
-      </div>
-
-      <div
-        v-if="isFavoriteArt"
-        class="art-show"
-        style="font-size: 18px; margin-top: 10px;"
-      >
-        <span style="font-family: 'Do Hyeon', sans-serif;">
-          <button
-            style="border: 1px solid white; border-radius: 5px; padding: 5px"
+            @click="deleteFavoriteArt()"
           >
             전시회 삭제
+          </button>
+
+          <button
+            v-if="!isFavoriteArt"
+            style="border: 1px solid white; border-radius: 5px; padding: 5px"
+            @click="addFavoriteArt()"
+          >
+            전시회 추가
           </button>
         </span>
       </div>
@@ -220,9 +212,20 @@ const DetailModule = namespace("DetailModule");
 export default class DetailArtDescription extends Vue {
   @DetailModule.State art!: Art;
   @DetailModule.State isFavoriteArt!: boolean;
+  @DetailModule.Action ADD_FAVORITE_ART: any;
+  @DetailModule.Action DELETE_FAVORITE_ART: any;
+  @DetailModule.Action IS_FAVORITE_ART: any;
 
   dialog = false;
   showDialog = false;
+
+  addFavoriteArt() {
+    this.ADD_FAVORITE_ART(Number(this.$route.params.artNo));
+  }
+
+  deleteFavoriteArt() {
+    this.DELETE_FAVORITE_ART({ artNo: this.$route.params.artNo });
+  }
 }
 </script>
 

@@ -29,7 +29,7 @@ export default class DetailArtView extends Vue {
 
   @Watch("$route", { immediate: true })
   checkFavoriteArt() {
-    this.IS_FAVORITE_ART({ artNo: this.$route.params.artNo });
+    this.IS_FAVORITE_ART({ artNo: Number(this.$route.params.artNo) });
   }
 
   @Watch("$route", { immediate: true })
