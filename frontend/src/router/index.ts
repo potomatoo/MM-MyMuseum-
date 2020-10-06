@@ -21,9 +21,6 @@ import AmateurArtistView from "@/views/categorys/amateurart/AmateurArtistView.vu
 import AmateurArtView from "@/views/categorys/amateurart/AmateurArtView.vue";
 import AmateurArtUpload from "@/views/categorys/amateurart/AmateurArtUpload.vue";
 
-//requestamatuer
-import RequestAmateur from "@/views/requestamateur/RequestAmateur.vue";
-
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -87,11 +84,6 @@ const routes: Array<RouteConfig> = [
     path: "/recommend",
     name: "RecommendView",
     component: RecommendationPage
-  },
-  {
-    path: "/requestamateur",
-    name: "RequestAmateur",
-    component: RequestAmateur
   },
   {
     path: "/categorys/amateurartist",
