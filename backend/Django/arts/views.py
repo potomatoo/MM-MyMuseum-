@@ -335,13 +335,6 @@ def recommend_pink(request):
 
     return Response(serializer.data)
 
-# @api_view(['GET'])
-# def recommend_time(request):
-#     emotions = ['anger', 'fear', 'joy', 'love', 'sadness', 'surprise']
-#     now = datetime.now()
-#     hours = now.hour
-#     return Response({'time': 'test'})
-
 @api_view(['GET'])
 def recommend_weather(request):
     emotions = ['joy', 'love', 'anger', 'sadness', 'surprise', 'fear']
@@ -357,51 +350,72 @@ def recommend_weather(request):
     WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid={}'.format(WEATHER_CITY, WEATHER_KEY)
     res = requests.get(WEATHER_URL).json()
     
-    # Clear, Rain, Snow, Extreme
     print('날씨', res['weather'][0]['main'])
-    print('구름', str(res['clouds']['all']) + '%')
-    print('바람', res['wind']['speed'])
     print('시간', hours)
 
-    emotion_select = []
     art_table = pd.read_csv('../../../recommend/arts.csv')
-    # arr_color = art_table[art_table['art_color'] == 'BROWN'].index
-    # arr_color = list(arr_color)
-    # arr_select = random.sample(arr_color, len(arr_color))
-    # arts = Art.objects.filter(art_no__in=arr_select)
-    # serializer = ArtSerializer(arts, many=True)
-    # for i in range(len(arr_select)):
-    #     serializer.data[i]['log_type'] = 0
-
-    # return Response(serializer.data)
-    # weather
-    if res['weather'][0]['main'] == 'Clear': # joy, love
-        arr_weather_j = art_table[art_table['art_emotion'] == emotions[0]].index
-        arr_weather_l = art_table[art_table['art_emotion'] == emotions[1]].index
-
-    elif res['weather'][0]['main'] == 'Rain': # sadness, anger
-        arr_weather_a = art_table[art_table['art_emotion'] == emotions[2]].index
-        arr_weather_s = art_table[art_table['art_emotion'] == emotions[3]].index
-        
-    elif res['weather'][0]['main'] == 'Snow': # fear, love
-        arr_weather_j = art_table[art_table['art_emotion'] == emotions[0]].index
-        arr_weather_l = art_table[art_table['art_emotion'] == emotions[1]].index
-
-    else: # random
-        arr_weather_j = art_table[art_table['art_emotion'] == emotions[0]].index
-        arr_weather_l = art_table[art_table['art_emotion'] == emotions[1]].index
-
-    # # time
-    # if 0 <= hours < 6:
     
-    # elif 6 <= hours < 12:
+    # weather
+    # joy, love
+    weather_list = []
+    if res['weather'][0]['main'] == 'Clear' or res['weather'][0]['main'] == 'Snow':
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[0]].index))
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[1]].index))
+        if res['weather'][0]['main'] == 'Clear': WEATHER = '맑은 날'
+        else: WEATHER  = '눈오는 날'
 
-    # elif 12 <= hours < 18:
+    # sadness, surprise, fear
+    elif res['weather'][0]['main'] == 'Rain' or res['weather'][0]['main'] == 'Drizzle' or res['weather'][0]['main'] == 'Thunderstorm':
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[3]].index))
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[4]].index))
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[5]].index))
+        WEATHER = '비오는 날'
+    
+    # anger, sadness, fear
+    elif res['weather'][0]['main'] == 'Clouds':
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[2]].index))
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[3]].index))
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[5]].index))
+        WEATHER = '구름 많은 날'
 
-    # else:
+    # anger, surprise, fear
+    else: 
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[2]].index))
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[4]].index))
+        weather_list.extend(list(art_table[art_table['art_emotion'] == emotions[5]].index))
+        WEATHER = '흐린 날'
+    weather_select = random.sample(weather_list, 100)
 
+    # time
+    # sadness
+    time_list = []
+    if 0 <= hours < 6:
+        time_list.extend(list(art_table[art_table['art_emotion'] == emotions[3]].index))
+        TIME = '꿈나라로 가야할 시간'
+    # joy
+    elif 6 <= hours < 12:
+        time_list.extend(list(art_table[art_table['art_emotion'] == emotions[0]].index))
+        TIME = '하루를 시작하는 시간'
+    # surprise
+    elif 12 <= hours < 18:
+        time_list.extend(list(art_table[art_table['art_emotion'] == emotions[4]].index))
+        TIME = '점심과 저녁사이'
+    # love
+    else:
+        time_list.extend(list(art_table[art_table['art_emotion'] == emotions[1]].index))
+        TIME = '여가를 즐기는 시간'
+    time_select = random.sample(time_list, 100)
 
+    arts = Art.objects.filter(art_no__in=weather_select)
+    s_w = ArtSerializer(arts, many=True)
+    for i in range(len(weather_select)):
+        s_w.data[i]['log_type'] = 0
 
-    return Response({'weather': 'test'})
+    arts = Art.objects.filter(art_no__in=time_select)
+    s_t = ArtSerializer(arts, many=True)
+    for i in range(len(time_select)):
+        s_t.data[i]['log_type'] = 0
+
+    return Response({WEATHER: s_w.data, TIME: s_t.data})
 
 # update_score()
