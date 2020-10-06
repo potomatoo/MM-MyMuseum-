@@ -113,7 +113,7 @@ def recommend_art(request):
     # csv file load
     art_table = pd.read_csv('../../../recommend/art_score.csv')
     art_table.fillna('NaN', inplace=True)
-    print(request)
+    print(request.headers.get('Authorization'))
     if request.headers.get('Authorization'):
         # jwt token decoding
         token_str = request.headers.get('Authorization')
