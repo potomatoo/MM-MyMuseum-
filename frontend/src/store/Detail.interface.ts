@@ -1,3 +1,5 @@
+import { NormalizedScopedSlot } from "vue/types/vnode";
+
 export interface Art {
   artNo: number;
   artTitle: string | null;
@@ -22,6 +24,8 @@ export interface Genre {
   genreName: string | null;
   genreDescription: string | null;
   genreUrl: string | null;
+  genreKtitle: string | null;
+  genreAge: strign | null;
 }
 
 export interface Museum {
@@ -29,6 +33,7 @@ export interface Museum {
   museumCountry: string | null;
   museumDescription: string | null;
   museumUrl: string | null;
+  museumLogo: string | null;
 }
 
 export interface DetailModule {
