@@ -8,6 +8,8 @@ import artistModule from "./ArtistModule.store";
 import articleModule from "./ArticleModule.store";
 import DetailModule from "./DetailModule.store";
 
+import RecommendationModule from "./Recommendation.store";
+
 Vue.use(Vuex);
 
 export interface RootState {
@@ -24,8 +26,10 @@ const store: StoreOptions<RootState> = {
     DetailModule,
     styleModule,
     museumModule,
-    artistModule
+    artistModule,
     //삭제예정
+
+    RecommendationModule
   }
 };
 
