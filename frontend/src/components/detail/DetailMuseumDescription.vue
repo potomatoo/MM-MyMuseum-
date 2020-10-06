@@ -57,9 +57,6 @@ export default class DetailArtistDescription extends Vue {
   animation: revealText 1s ease-in-out forwards;
 }
 
-.artist-description .museum-country:before {
-  animation-delay: 0.5s;
-}
 @keyframes revealText {
   0% {
     transform: scaleX(1);
@@ -72,7 +69,7 @@ export default class DetailArtistDescription extends Vue {
 .art-show {
   opacity: 0;
   animation: fadeInBottom 0.5s linear forwards;
-  animation-delay: 1.5s;
+  animation-delay: 1s;
 }
 @keyframes fadeInBottom {
   0% {
