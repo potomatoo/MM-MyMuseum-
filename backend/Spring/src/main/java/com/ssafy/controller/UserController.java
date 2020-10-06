@@ -87,7 +87,34 @@ public class UserController {
 
 		response.data = userService.UpdateUserName(user.getUserId(), userName);
 		response.status = (response.data != null) ? true : false;
-		
+
+		if (response.status) {
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@PutMapping("/api/private/user/registArtist")
+	public Object RegistArtist(@RequestHeader("Authorization") String jwtToken) {
+		BasicResponse response = new BasicResponse();
+
+		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
+		if (user == null) {
+			response.status = false;
+			response.message = "잘못된 사용자 입니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
+		if (user.getUserArtist() == 3) {
+			response.status = false;
+			response.message = "이미 등록된 작가입니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
+		response.data = userService.RegistArtist(user.getUserId());
+		response.status = (response.data != null) ? true : false;
+
 		if (response.status) {
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} else {

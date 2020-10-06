@@ -13,4 +13,6 @@ public interface UserService {
 	public boolean CheckEmail(String email);
 
 	public UserDto UpdateUserName(String userId, String userName);
+
+	public UserDto RegistArtist(String userId);
 }

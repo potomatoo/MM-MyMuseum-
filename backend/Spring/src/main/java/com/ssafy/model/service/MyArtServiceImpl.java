@@ -1,6 +1,7 @@
 package com.ssafy.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,24 @@ public class MyArtServiceImpl implements MyArtService {
 	public MyArtDto saveMyart(MyArtDto myart) {
 		// TODO Auto-generated method stub
 		return myartReponsitory.save(myart);
+	}
+
+	@Override
+	public List<MyArtDto> findMyArtByUserID(String userId, int start) {
+		// TODO Auto-generated method stub
+		int index = 16 * start;
+
+		return myartReponsitory.findByUserId(userId, index);
+	}
+
+	@Override
+	public MyArtDto findMyArtDetail(int myartNo) {
+		Optional<MyArtDto> myart = myartReponsitory.findById(myartNo);
+
+		if (myart.isPresent())
+			return myart.get();
+		else
+			return null;
 	}
 
 }

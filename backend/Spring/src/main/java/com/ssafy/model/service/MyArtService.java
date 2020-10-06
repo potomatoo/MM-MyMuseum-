@@ -12,4 +12,8 @@ public interface MyArtService {
 	public List<UserDto> findArtistList(int start);
 
 	public MyArtDto saveMyart(MyArtDto myart);
+
+	public List<MyArtDto> findMyArtByUserID(String userId, int start);
+
+	public MyArtDto findMyArtDetail(int myartNo);
 }
