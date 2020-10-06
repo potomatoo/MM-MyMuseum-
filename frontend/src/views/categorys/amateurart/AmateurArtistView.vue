@@ -37,8 +37,6 @@
         <v-btn
           v-if="userArtist === 3"
           width="100%"
-          align="center"
-          justify="center"
           color="rgb(137,120,104)"
           dark
           large
