@@ -9,11 +9,43 @@
           {{ this.$route.params.genre }}
         </div>
 
-        <div
-          class="mb-5 genre-description"
-          style="font-family: Playfair Display, serif;"
-        >
-          {{ genre.genreDescription }}
+        <div class="d-flex row genre-title" style="justify-content: center">
+          <div v-if="genre.genreDescription" style="font-size: 10px;">
+            <span style="font-size: 15px; font-family: 'Do Hyeon', sans-serif;">
+              <v-dialog v-model="dialog" width="500">
+                <template v-slot:activator="{ on, attrs }">
+                  <span dark v-bind="attrs" v-on="on">
+                    <v-btn color="black" icon dark>
+                      <v-icon>mdi-magnify</v-icon>
+                    </v-btn>
+                  </span>
+                </template>
+
+                <v-card>
+                  <v-card-title
+                    class="headline grey lighten-2"
+                    style="font-family: 'Do Hyeon', sans-serif !important;"
+                  >
+                    {{ genre.genreKtitle }} ( {{ genre.genreAge }} )
+                  </v-card-title>
+
+                  <v-card-text
+                    style="margin-top: 15px; font-family: 'Do Hyeon', sans-serif;"
+                  >
+                    {{ genre.genreDescription }}
+                  </v-card-text>
+                </v-card>
+              </v-dialog>
+            </span>
+          </div>
+
+          <div
+            v-if="genre.genreKtitle"
+            class="mb-5 genre-title"
+            style="font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
+          >
+            {{ genre.genreKtitle }}
+          </div>
         </div>
 
         <button
@@ -35,6 +67,8 @@ import { Genre } from "../../store/Detail.interface";
 @Component
 export default class DetailArtistDescription extends Vue {
   @Prop({ type: Object }) readonly genre!: Genre;
+
+  dialog = false;
   isArtsFlag() {
     this.$emit("isArtsFlag");
   }

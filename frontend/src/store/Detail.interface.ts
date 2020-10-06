@@ -25,7 +25,7 @@ export interface Genre {
   genreDescription: string | null;
   genreUrl: string | null;
   genreKtitle: string | null;
-  genreAge: strign | null;
+  genreAge: string | null;
 }
 
 export interface Museum {
