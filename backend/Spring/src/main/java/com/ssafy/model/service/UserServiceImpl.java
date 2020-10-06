@@ -65,4 +65,18 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Override
+	public UserDto RegistArtist(String userId) {
+		// TODO Auto-generated method stub
+		int result = userRepository.registArtist(userId);
+
+		if (result == 0)
+			return null;
+		else {
+			UserDto user = userRepository.findById(userId).get();
+			user.setUserPassword("");
+			return user;
+		}
+	}
+
 }
