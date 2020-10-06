@@ -115,10 +115,16 @@ export default class ArtistList extends Vue {
   scrollHeight = 0;
   searchText = "";
   searchstart = 0;
+  key = "";
 
   created() {
     if (sessionStorage.length) {
-      this.searchstart = Number(sessionStorage.key(0));
+      for (let i = 0; i < sessionStorage.length; i++) {
+        this.key = sessionStorage.key(i)!;
+        if (this.key != "jwt-token") {
+          this.searchstart = Number(this.key);
+        }
+      }
       if (sessionStorage.getItem(this.searchstart.toString())) {
         this.searchText = sessionStorage.getItem(this.searchstart.toString())!;
       } else {
@@ -130,7 +136,13 @@ export default class ArtistList extends Vue {
   }
 
   searchArtist() {
-    sessionStorage.clear();
+    for (let i = 0; i < sessionStorage.length; i++) {
+      this.key = sessionStorage.key(i)!;
+      if (this.key != "jwt-token") {
+        sessionStorage.removeItem(this.key);
+      }
+    }
+
     this.SET_ARTIST_ZERO();
     if (this.inputText) {
       this.searchText = this.inputText;
@@ -145,7 +157,13 @@ export default class ArtistList extends Vue {
   }
 
   moveDetail(artist: string) {
-    sessionStorage.clear();
+    for (let i = 0; i < sessionStorage.length; i++) {
+      this.key = sessionStorage.key(i)!;
+      if (this.key != "jwt-token") {
+        sessionStorage.removeItem(this.key);
+      }
+    }
+
     sessionStorage.setItem(this.searchstart.toString(), this.searchText);
     this.$router.push({
       name: "DetailArtistView",

@@ -72,6 +72,7 @@ const museumModule = namespace("museumModule");
 export default class CategoryView extends Vue {
   @artistModule.Mutation SET_ARTIST_ZERO: any;
   @museumModule.Mutation SET_MUSEUM_ZERO: any;
+  key = "";
 
   data() {
     return {
@@ -96,7 +97,12 @@ export default class CategoryView extends Vue {
   }
 
   moveCategory(link: string) {
-    sessionStorage.clear();
+    for (let i = 0; i < sessionStorage.length; i++) {
+      this.key = sessionStorage.key(i)!;
+      if (this.key != "jwt-token") {
+        sessionStorage.removeItem(this.key);
+      }
+    }
     this.SET_ARTIST_ZERO();
     this.SET_MUSEUM_ZERO();
     this.$router.push({
