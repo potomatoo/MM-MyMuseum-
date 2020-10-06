@@ -7,7 +7,7 @@
       <div
         v-if="art.artTitle"
         class="art-title"
-        style="font-size: 25px; margin-top: 5px"
+        style="font-size: 23px; margin-top: 5px"
       >
         {{ art.artTitle }}
       </div>
@@ -31,9 +31,7 @@
               }
             }"
           >
-            <span>
-              {{ art.artArtist }}
-            </span>
+            <span> {{ art.artArtist }} </span>
           </router-link>
         </div>
 
@@ -106,19 +104,6 @@
 
     <div class="d-flex row" style="justify-content: flex-end; margin-top: 50px">
       <div
-        class="art-show"
-        style="font-size: 18px; margin-top: 10px; margin-right: 15px"
-      >
-        <span style="font-family: 'Do Hyeon', sans-serif;">
-          <button
-            style="border: 1px solid white; border-radius: 5px; padding: 5px"
-          >
-            + 전시회
-          </button>
-        </span>
-      </div>
-
-      <div
         v-if="art.artDescription"
         class="art-show"
         style="font-size: 18px; margin-top: 10px;"
@@ -158,7 +143,10 @@
         </span>
       </div>
 
-      <div class="art-show" style="font-size: 18px; margin-top: 10px; ">
+      <div
+        class="art-show"
+        style="font-size: 18px; margin-top: 10px; margin-right: 15px"
+      >
         <v-dialog
           v-model="showDialog"
           fullscreen
@@ -190,12 +178,40 @@
           </v-card>
         </v-dialog>
       </div>
+
+      <div
+        v-if="!isFavoriteArt"
+        class="art-show"
+        style="font-size: 18px; margin-top: 10px;"
+      >
+        <span style="font-family: 'Do Hyeon', sans-serif;">
+          <button
+            style="border: 1px solid white; border-radius: 5px; padding: 5px"
+          >
+            전시회 추가
+          </button>
+        </span>
+      </div>
+
+      <div
+        v-if="isFavoriteArt"
+        class="art-show"
+        style="font-size: 18px; margin-top: 10px;"
+      >
+        <span style="font-family: 'Do Hyeon', sans-serif;">
+          <button
+            style="border: 1px solid white; border-radius: 5px; padding: 5px"
+          >
+            전시회 삭제
+          </button>
+        </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Art } from "../../store/Detail.interface";
 
@@ -203,6 +219,7 @@ const DetailModule = namespace("DetailModule");
 @Component
 export default class DetailArtDescription extends Vue {
   @DetailModule.State art!: Art;
+  @DetailModule.State isFavoriteArt!: boolean;
 
   dialog = false;
   showDialog = false;

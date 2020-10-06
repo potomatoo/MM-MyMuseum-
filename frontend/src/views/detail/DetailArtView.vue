@@ -24,6 +24,13 @@ const DetailModule = namespace("DetailModule");
 export default class DetailArtView extends Vue {
   @DetailModule.State art!: Art;
   @DetailModule.Action FETCH_ART: any;
+  @DetailModule.State isFavoriteArt!: boolean;
+  @DetailModule.Action IS_FAVORITE_ART!: any;
+
+  @Watch("$route", { immediate: true })
+  checkFavoriteArt() {
+    this.IS_FAVORITE_ART({ artNo: this.$route.params.artNo });
+  }
 
   @Watch("$route", { immediate: true })
   fetchArt() {

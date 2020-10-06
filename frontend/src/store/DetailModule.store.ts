@@ -11,7 +11,8 @@ const module: Module<DetailModule, RootState> = {
     artist: null,
     museum: null,
     genre: null,
-    scrollEnd: false
+    scrollEnd: false,
+    isFavoriteArt: false
   },
   getters: {},
   mutations: {
@@ -44,6 +45,10 @@ const module: Module<DetailModule, RootState> = {
 
     SET_GENRE(state, genre: Genre) {
       state.genre = genre;
+    },
+
+    SET_IS_FAVORITE_ART(state, data: boolean) {
+      state.isFavoriteArt = data;
     }
   },
   actions: {
@@ -102,6 +107,13 @@ const module: Module<DetailModule, RootState> = {
       Axios.instance
         .get("/api/public/art/detail", { params: artNo })
         .then(({ data }) => commit("SET_ART", data.data))
+        .catch(err => console.error(err));
+    },
+
+    IS_FAVORITE_ART({ commit }, artNo: number) {
+      Axios.instance
+        .get("/api/private/favorite/check", { params: artNo })
+        .then(({ data }) => commit("SET_IS_FAVORITE_ART", data.data))
         .catch(err => console.error(err));
     }
   }

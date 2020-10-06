@@ -43,4 +43,5 @@ export interface DetailModule {
   museum: Museum | null;
   genre: Genre | null;
   scrollEnd: boolean;
+  isFavoriteArt: boolean;
 }
