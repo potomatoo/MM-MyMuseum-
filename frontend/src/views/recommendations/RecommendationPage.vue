@@ -230,8 +230,8 @@ export default class RecommendationPage extends Vue {
   };
 
   settings = {
-    arrows: false,
-    dots: true,
+    arrows: true,
+    dots: false,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -267,8 +267,8 @@ export default class RecommendationPage extends Vue {
   };
 
   settingsrtl = {
-    arrows: false,
-    dots: true,
+    arrows: true,
+    dots: false,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
