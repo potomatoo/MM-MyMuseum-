@@ -13,7 +13,7 @@ public class MyArtDto {
 
 	@Id
 	@Column(name = "myart_no")
-	private int mysarNo;
+	private int myartNo;
 
 	@Column(name = "myart_title")
 	private String myartTitle;
@@ -33,12 +33,12 @@ public class MyArtDto {
 	@Column(name = "myart_description")
 	private String myartDescription;
 
-	public int getMysarNo() {
-		return mysarNo;
+	public int getMyartNo() {
+		return myartNo;
 	}
 
-	public void setMysarNo(int mysarNo) {
-		this.mysarNo = mysarNo;
+	public void setMyartNo(int myartNo) {
+		this.myartNo = myartNo;
 	}
 
 	public String getMyartTitle() {
@@ -91,7 +91,7 @@ public class MyArtDto {
 
 	@Override
 	public String toString() {
-		return "MyArtDto [mysarNo=" + mysarNo + ", myartTitle=" + myartTitle + ", userId=" + userId + ", myartAge="
+		return "MyArtDto [myartNo=" + myartNo + ", myartTitle=" + myartTitle + ", userId=" + userId + ", myartAge="
 				+ myartAge + ", myartType=" + myartType + ", myartUrl=" + myartUrl + ", myartDescription="
 				+ myartDescription + "]";
 	}
