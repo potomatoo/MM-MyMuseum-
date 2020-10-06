@@ -1,13 +1,22 @@
 <template>
-  <div v-if="arts">
-    <h2 class="display-2 my-10 text-center rec-title">
+  <div v-if="artList">
+    <h2
+      v-if="currentPage === 'RecArtList'"
+      class="display-2 my-10 text-center rec-title"
+    >
       {{ userName }} 님을 위한 추천 작품
+    </h2>
+    <h2
+      v-else-if="currentPage === 'WeatherArtsList'"
+      class="display-2 my-10 text-center rec-title"
+    >
+      {{ artsByWeather.title }}
     </h2>
     <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="art in arts"
+            v-for="art in artList"
             :key="art.art_no"
             class="d-flex child-flex"
             cols="3"
@@ -73,7 +82,11 @@
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { User } from "../../store/Accounts.interface";
-import { Art } from "../../store/Recommendation.interface";
+import {
+  Art,
+  ArtsByTime,
+  ArtsByWeather
+} from "../../store/Recommendation.interface";
 
 const AccountsModule = namespace("AccountsModule");
 const RecommendationModule = namespace("RecommendationModule");
@@ -83,7 +96,21 @@ export default class ArtListView extends Vue {
   @AccountsModule.State user?: User | null;
   @AccountsModule.Getter userName!: string;
   @RecommendationModule.State arts?: Art[] | null;
+  @RecommendationModule.State artsByWeather?: ArtsByWeather;
   @RecommendationModule.Action FETCH_ART_LIST: any;
+
+  get currentPage() {
+    return this.$route.name;
+  }
+
+  get artList() {
+    if (this.currentPage === "RecArtList") {
+      return this.arts;
+    } else if (this.currentPage === "WeatherArtsList") {
+      return this.artsByWeather?.data;
+    }
+    return null;
+  }
 
   // artList: Art[] | [] = [];
   // start = 0;

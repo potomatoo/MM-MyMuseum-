@@ -75,7 +75,11 @@
             </div>
             <div class="rec-header-aro">
               <v-fade-transition mode="out-in">
-                <div v-if="recTitle.weather.titleHover" class="see-all">
+                <div
+                  v-if="recTitle.weather.titleHover"
+                  class="see-all"
+                  @click="toAllWeatherArts"
+                >
                   모두보기
                 </div>
               </v-fade-transition>
@@ -91,11 +95,16 @@
           v-bind="settings"
         >
           <div v-for="art in weatherRecArts" :key="art.art_no">
-            <img
-              class="recommendation-img"
-              :src="art.art_url"
-              :alt="art.art_title"
-            />
+            <router-link
+              class="router-link"
+              :to="{ name: 'DetailArtView', params: { artNo: art.art_no } }"
+            >
+              <img
+                class="recommendation-img"
+                :src="art.art_url"
+                :alt="art.art_title"
+              />
+            </router-link>
           </div>
         </vue-slick-carousel>
       </div>
@@ -212,8 +221,8 @@ export default class RecommendationPage extends Vue {
   };
 
   settings = {
-    arrows: true,
-    dots: false,
+    arrows: false,
+    dots: true,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -358,6 +367,10 @@ export default class RecommendationPage extends Vue {
 
   toAllUserRec() {
     this.$router.push({ name: "RecArtList" });
+  }
+
+  toAllWeatherArts() {
+    this.$router.push({ name: "WeatherArtsList" });
   }
 }
 </script>
