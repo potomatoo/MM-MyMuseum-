@@ -12,6 +12,10 @@ import { Vue, Component } from "vue-property-decorator";
 import AppNavbar from "@/components/app/AppNavbar.vue";
 import AppMain from "@/components/app/AppMain.vue";
 import GoTop from "@/components/commons/GoTop.vue";
+import { namespace } from "vuex-class";
+import { User } from "./store/Accounts.interface";
+
+const AccountsModule = namespace("AccountsModule");
 
 @Component({
   components: {
@@ -20,7 +24,16 @@ import GoTop from "@/components/commons/GoTop.vue";
     GoTop
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @AccountsModule.State user!: User | null;
+  @AccountsModule.Getter isLoggedIn!: boolean;
+  @AccountsModule.Action FETCH_USER_INFO: any;
+  created() {
+    if (this.isLoggedIn && !this.user) {
+      this.FETCH_USER_INFO();
+    }
+  }
+}
 </script>
 
 <style>
