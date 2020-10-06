@@ -274,7 +274,7 @@ export default class RecommendationPage extends Vue {
   }
 
   created() {
-    this.FETCH_ART_LIST("test");
+    this.FETCH_ART_LIST();
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
   }
@@ -351,7 +351,6 @@ export default class RecommendationPage extends Vue {
 }
 
 .color-slider {
-  display: block;
   height: 400px;
   margin: 100px 0px 50px;
 }

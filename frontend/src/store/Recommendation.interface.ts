@@ -1,5 +1,6 @@
 export interface RecommendationModule {
   arts: Art[] | null;
+  artsByColor: Art[] | null;
 }
 
 export interface Art {

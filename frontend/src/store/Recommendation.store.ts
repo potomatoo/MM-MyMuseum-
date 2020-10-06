@@ -6,7 +6,8 @@ import { Axios } from "@/service/axios.service";
 const module: Module<RecommendationModule, RootState> = {
   namespaced: true,
   state: {
-    arts: null
+    arts: null,
+    artsByColor: null
   },
 
   getters: {
@@ -17,8 +18,15 @@ const module: Module<RecommendationModule, RootState> = {
 
   mutations: {
     SET_ART_LIST(state, arts) {
-      console.log(arts);
+      console.log("추천작품");
       state.arts = arts;
+    },
+    SET_ART_LIST_BY_COLOR(state, arts) {
+      console.log("컬러별");
+      state.artsByColor = arts;
+    },
+    REMOVE_ART_LIST_BY_COLOR(state) {
+      state.artsByColor = null;
     }
   },
 
@@ -27,6 +35,12 @@ const module: Module<RecommendationModule, RootState> = {
       Axios.instanceRec
         .get("/api/recommend/user/")
         .then(({ data }) => commit("SET_ART_LIST", data))
+        .catch(err => console.error(err));
+    },
+    FETCH_ART_LIST_BY_COLOR({ commit }, color) {
+      Axios.instanceRec
+        .get(`/api/recommend/color/${color}/`)
+        .then(({ data }) => commit("SET_ART_LIST_BY_COLOR", data))
         .catch(err => console.error(err));
     }
   }
