@@ -1,5 +1,5 @@
 <template>
-  <div v-if="artList.length">
+  <div v-if="arts.length">
     <h2
       class="display-2 font-weight-bold mt-10 text-uppercase text-center rec-title"
     >
@@ -9,7 +9,7 @@
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="art in artList"
+            v-for="art in arts"
             :key="art.art_no"
             class="d-flex child-flex"
             cols="3"
@@ -83,44 +83,43 @@ export default class ArtListView extends Vue {
   @RecommendationModule.State arts?: Art[] | null;
   @RecommendationModule.Action FETCH_ART_LIST: any;
 
-  artList: Art[] | [] = [];
-  start = 0;
+  // artList: Art[] | [] = [];
+  // start = 0;
 
-  @Watch("arts")
-  init_artList() {
-    if (
-      this.artList &&
-      this.arts &&
-      !this.artList.length &&
-      this.arts!.length
-    ) {
-      this.artList = this.arts!.slice(0, 20);
-      this.start = this.start + 20;
-    }
-  }
+  // @Watch("arts", { immediate: true })
+  // init_artList() {
+  //   if (
+  //     this.artList &&
+  //     this.arts &&
+  //     !this.artList.length &&
+  //     this.arts!.length
+  //   ) {
+  //     this.artList = this.arts!.slice(0, 20);
+  //     this.start = this.start + 20;
+  //   }
+  // }
 
-  set_artList(start: number) {
-    const addArts = this.arts!.slice(this.start, this.start + 20);
-    this.artList = [...this.artList, ...addArts] as Art[];
-  }
+  // set_artList(start: number) {
+  //   const addArts = this.arts!.slice(this.start, this.start + 20);
+  //   this.artList = [...this.artList, ...addArts] as Art[];
+  // }
 
-  scroll() {
-    window.onscroll = () => {
-      const ceilBottomOfWindow =
-        Math.ceil(window.pageYOffset) + window.innerHeight ===
-        document.documentElement.offsetHeight;
+  // scroll() {
+  //   window.onscroll = () => {
+  //     const ceilBottomOfWindow =
+  //       Math.ceil(window.pageYOffset) + window.innerHeight ===
+  //       document.documentElement.offsetHeight;
 
-      const plusBottomOfWindow =
-        Math.ceil(window.pageYOffset) + window.innerHeight + 1 ===
-        document.documentElement.offsetHeight;
+  //     const plusBottomOfWindow =
+  //       Math.ceil(window.pageYOffset) + window.innerHeight + 1 ===
+  //       document.documentElement.offsetHeight;
 
-      if ((ceilBottomOfWindow || plusBottomOfWindow) && this.start < 100) {
-        console.log("scroll");
-        this.set_artList(this.start);
-        this.start += 20;
-      }
-    };
-  }
+  //     if ((ceilBottomOfWindow || plusBottomOfWindow) && this.start < 100) {
+  //       this.set_artList(this.start);
+  //       this.start += 20;
+  //     }
+  //   };
+  // }
 
   zoomIn(event: any) {
     event.target.style.transform = "scale(1.1)";
@@ -136,14 +135,13 @@ export default class ArtListView extends Vue {
 
   created() {
     if (!this.arts) {
-      this.FETCH_ART_LIST("test");
+      this.FETCH_ART_LIST();
     }
-    this.init_artList();
   }
 
-  mounted() {
-    this.scroll();
-  }
+  // mounted() {
+  //   this.scroll();
+  // }
 }
 </script>
 
