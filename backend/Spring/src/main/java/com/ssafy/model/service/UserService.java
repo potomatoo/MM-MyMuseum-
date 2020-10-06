@@ -15,4 +15,6 @@ public interface UserService {
 	public UserDto UpdateUserName(String userId, String userName);
 
 	public UserDto RegistArtist(String userId);
+
+	public UserDto findUserDetail(String userId);
 }
