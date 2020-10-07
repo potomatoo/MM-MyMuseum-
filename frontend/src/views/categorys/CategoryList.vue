@@ -24,7 +24,7 @@
           v-for="({ title, link, hero }, i) in articles"
           :key="i"
           cols="12"
-          md="4"
+          md="6"
           style="padding: 20px"
         >
           <v-hover v-slot:default="{ hover }">
@@ -33,7 +33,7 @@
               tile
               :elevation="hover ? 12 : 2"
               :class="{ 'on-hover': hover }"
-              :to="{ name: link }"
+              @click="moveCategory(link)"
             >
               <v-img
                 :src="require(`@/assets/dummydata/category/${hero}`)"
@@ -60,12 +60,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+
+import { namespace } from "vuex-class";
+const artistModule = namespace("artistModule");
+const museumModule = namespace("museumModule");
+const amateurModule = namespace("amateurModule");
 
 @Component({
   components: {}
 })
 export default class CategoryView extends Vue {
+  @artistModule.Mutation SET_ARTIST_SEARCHTEXT: any;
+  @museumModule.Mutation SET_MUSEUM_SEARCHTEXT: any;
+  @amateurModule.Mutation SET_AMATEUR_SEARCHTEXT: any;
+
+  key = "";
+
   data() {
     return {
       articles: [
@@ -83,9 +94,23 @@ export default class CategoryView extends Vue {
           title: "Style",
           link: "StyleList",
           hero: "style.jpg"
+        },
+        {
+          title: "Amateur",
+          link: "AmateurArtistView",
+          hero: "amateur.jpg"
         }
       ]
     };
+  }
+
+  moveCategory(link: string) {
+    this.SET_ARTIST_SEARCHTEXT("");
+    this.SET_MUSEUM_SEARCHTEXT();
+    this.SET_AMATEUR_SEARCHTEXT();
+    this.$router.push({
+      name: link
+    });
   }
 }
 </script>
@@ -93,14 +118,12 @@ export default class CategoryView extends Vue {
 <style scoped>
 .v-card {
   transition: opacity 0.4s ease-in-out;
-  transform: perspective(800px) rotateY(0deg);
 }
 
 .v-card:not(.on-hover) {
   opacity: 0.9;
   transition: 0.5s;
   transform-origin: center;
-  transform: perspective(800px) rotateY(20deg);
   -webkit-box-reflect: below 1px liner-gradient(transparent, transparent, #000f);
 }
 

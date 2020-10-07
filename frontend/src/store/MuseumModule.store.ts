@@ -7,14 +7,31 @@ const module: Module<MuseumModule, RootState> = {
   namespaced: true,
 
   state: {
-    museums: []
+    museums: [],
+    scrollEnd: false,
+    searchText: ""
   },
 
   getters: {},
 
   mutations: {
     SET_MUSEUM(state, museums: Museum[]) {
-      state.museums = museums;
+      if (state.museums === null) {
+        state.museums = museums;
+      } else if (museums.length && !state.scrollEnd) {
+        state.museums = state.museums?.concat(museums);
+      } else if (!museums.length) {
+        state.scrollEnd = true;
+      }
+    },
+
+    SET_MUSEUM_SEARCHTEXT(state, searchText) {
+      state.searchText = searchText;
+    },
+
+    SET_MUSEUM_ZERO(state) {
+      state.scrollEnd = false;
+      state.museums = null;
     }
   },
 
@@ -32,10 +49,10 @@ const module: Module<MuseumModule, RootState> = {
       console.log(museumName + " " + start);
       Axios.instance
         .get("api/public/museum/find", { params: { museumName, start } })
-        //불러온 데이터가 null이 아니라면 할당
         .then(({ data }) => {
           if (data != null) {
             commit("SET_MUSEUM", data.data);
+            commit("SET_MUSEUM_SEARCHTEXT", museumName);
           }
         })
         .catch(err => console.error(err));

@@ -44,21 +44,15 @@ export default class App extends Vue {
   -webkit-animation: fadein 2s; /* Safari and Chrome */
 }
 
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+img {
+  animation: fadein 3s linear forwards;
 }
 
-@-webkit-keyframes fadein {
-  /* Safari and Chrome */
-  from {
+@keyframes fadein {
+  0% {
     opacity: 0;
   }
-  to {
+  100% {
     opacity: 1;
   }
 }

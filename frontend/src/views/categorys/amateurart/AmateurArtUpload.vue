@@ -10,7 +10,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      작가 신청 페이지
+      작품 등록
     </h2>
     <!-- 아랫공간 -->
     <v-responsive class="mx-auto mb-12" width="56">
@@ -22,7 +22,7 @@
       cols="12"
       align="center"
       justify="center"
-      style="margin : 1px 20%; background-color:white;"
+      style="margin : 1px 20%; background-color: white;"
     >
       <v-col class="align-self-center">
         <div class="request">
@@ -34,14 +34,13 @@
               readonly
               solo
               prepend-icon="mdi-email"
-              label="이메일 값"
             ></v-text-field>
             <v-text-field
               class="mb-3"
               v-model="userNickname"
-              solo
               readonly
-              prepend-icon="mdi-account"
+              solo
+              prepend-icon="mdi-email"
               label="닉네임 값"
             ></v-text-field>
             <v-text-field
@@ -60,16 +59,25 @@
             ></v-file-input>
             <v-text-field
               class="mb-3"
+              v-model="artType"
+              solo
+              label="작품 장르"
+              prepend-icon="mdi-message-text"
+            ></v-text-field>
+            <v-textarea
+              class="mb-3"
               v-model="decription"
               solo
               label="상세 설명"
               prepend-icon="mdi-message-text"
-            ></v-text-field>
-            <v-btn color="rgb(137,120,104)" width="100%" dark large>
-              신청
-              <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
-              <!-- Django admin 페이지 자동 생성 -> 여기서 업로드된 파일을 확인 할 수 있게... -->
-            </v-btn>
+            ></v-textarea>
+            <div align="center" justify="center">
+              <v-btn color="rgb(137,120,104)" width="50%" dark large>
+                신청
+                <!-- @click 이벤트로 파일 업로드 및 DB에 전송 -->
+                <!-- Django admin 페이지 자동 생성 -> 여기서 업로드된 파일을 확인 할 수 있게... -->
+              </v-btn>
+            </div>
           </v-form>
         </div>
       </v-col>
@@ -78,46 +86,38 @@
 </template>
 
 <script lang="ts">
-/*
-user - 작가 신청 페이지
-자동 입력 정보 : 아이디, 이름 등 개인 구분 정보
-입력 해야할 정보 : 작가 소개 , 포트폴리오나 작품 상세 소개 및 정보
+import { Component, Vue, Watch } from "vue-property-decorator";
 
---- 이하 쟝고 어드민 페이지 자동 생성 -> 여기서 테이블 직접 수정  ---
-admin - 신청 글 관리 페이지
-user table에 작가 상태 0-> 일반 유저// 1-> 작가// 2-> 반려
+import { namespace } from "vuex-class";
+import { User } from "../../../store/Accounts.interface";
 
-신청 글에 승인 반려 버튼
-승인 -> user table 작가 상태 1
-반려 -> user table 작가 상태 2 -> 반려 버튼 누르면 메세지창 -> 반려 사유
-
-반려 테이블 생성 사유 번호 + 번호당 사유 ex) 1 -> 포트폴리오나 작품 파일 미 제출
-
-관리자만 볼 수 있는 신청 게시판 <R, U +D -> message>
-
-유저는 작가 신청 글만 작성<C>
-
-나중에 자기 정보 확인하기에서 사유만 확인가능하게 위의 메시지 받음
-
--필요한 페이지 자기정보 확인하기
------------------------------------------------------------------------------------------------
-
-- 메인 버튼에서 아마추어 관으로 이동하는 버튼
- */
-
-import { Component, Vue } from "vue-property-decorator";
+const AccountsModule = namespace("AccountsModule");
 
 @Component({})
-export default class RequestAmateur extends Vue {
-  /*
-  userEmail = "";
-  userNickname = "";
+export default class AmateurArtUpload extends Vue {
+  @AccountsModule.State user!: User;
+  @AccountsModule.Action FETCH_USER_INFO: any;
+
+  userEmail: string | null = "";
+  userNickname: string | null = "";
   introduce = "";
   files = [];
+  artType = "";
   decription = "";
-  */
-  //user table에서 이메일하고 닉네임 가져오기
-  //파일하고 상세 설명 전송하기
+
+  created() {
+    if (!this.user) {
+      this.FETCH_USER_INFO();
+    }
+  }
+
+  @Watch("user", { immediate: true, deep: true })
+  setUserInfo() {
+    if (this.user) {
+      this.userEmail = this.user.userId;
+      this.userNickname = this.user.userName;
+    }
+  }
 }
 </script>
 
