@@ -135,6 +135,8 @@ export default class MuseumList extends Vue {
         museumName: this.inputText,
         start: this.searchstart
       });
+    } else {
+      this.FETCH_MUSEUM(this.start);
     }
   }
 

@@ -17,34 +17,19 @@
       sm="6"
       offset-sm="3"
       align="center"
-      justify="center"
+      justify="end"
       style="margin : 1px 20%"
     >
-      <v-text-field
-        outlined
+      <v-btn
+        v-if="userArtist === 3"
+        width="20%"
+        color="rgb(137,120,104)"
         dark
-        placeholder="아티스트 검색"
-        type="text"
-        clearable
-        prepend-inner-icon="mdi-magnify"
-        v-model="inputText"
-        color="white"
-        background-color="rgb(80, 70, 60)"
-        @keypress.enter="searchArtist()"
+        large
+        @click="moveAmateurArtUpload()"
       >
-      </v-text-field>
-      <v-col cols="2">
-        <v-btn
-          v-if="userArtist === 3"
-          width="100%"
-          color="rgb(137,120,104)"
-          dark
-          large
-          @click="moveAmateurArtUpload()"
-        >
-          작품 등록
-        </v-btn>
-      </v-col>
+        작품 등록
+      </v-btn>
     </v-row>
     <div :scrollHeight="scrollHeight">
       <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">

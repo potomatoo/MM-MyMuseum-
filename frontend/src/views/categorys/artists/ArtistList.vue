@@ -137,6 +137,8 @@ export default class ArtistList extends Vue {
         artistName: this.searchText,
         start: this.searchstart
       });
+    } else {
+      this.FETCH_ARTIST(this.start);
     }
   }
 

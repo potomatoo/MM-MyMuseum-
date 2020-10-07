@@ -25,7 +25,7 @@
               등록날짜:
             </span>
             <span>
-              {{ detail.myartAge }}
+              {{ detail.myartAge.substring(0, 10) }}
             </span>
           </div>
 
@@ -97,7 +97,8 @@ export default class DetailArtDescription extends Vue {
   @amateurModule.Mutation SET_DETAIL_AMATEUR_ART_ZERO: any;
   showDialog = false;
 
-  created() {
+  @Watch("$route", { immediate: true })
+  fetchDetailAmateurArt() {
     this.FETCH_DETAIL_AMATEUR_ART(Number(this.$route.params.myartNo));
   }
 }
