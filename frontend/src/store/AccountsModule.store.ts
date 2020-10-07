@@ -34,9 +34,9 @@ const module: Module<AccountsModule, RootState> = {
   },
 
   actions: {
-    SIGNUP(_, { userId, userPassword }) {
+    SIGNUP(_, { userId, userName, userPassword }) {
       Axios.instance
-        .post("/api/public/signup", { userId, userPassword })
+        .post("/api/public/signup", { userId, userName, userPassword })
         .then(res => router.push({ name: "Login" }))
         .catch(err => console.error(err));
     },
