@@ -13,7 +13,7 @@ import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 //recommendation
 import RecommendationPage from "@/views/recommendations/RecommendationPage.vue";
 import ArtListView from "@/views/recommendations/ArtListView.vue";
-import ColorSlider from "@/components/recommendations/ColorSlider.vue";
+import ArtListByColorView from "@/views/recommendations/ArtListByColorView.vue";
 //categorys
 import CategoryList from "@/views/categorys/CategoryList.vue";
 import ArtistList from "@/views/categorys/artists/ArtistList.vue";
@@ -102,6 +102,26 @@ const routes: Array<RouteConfig> = [
     path: "/recommend/arts",
     name: "RecArtList",
     component: ArtListView
+  },
+  {
+    path: "/recommend/weather",
+    name: "WeatherArtsList",
+    component: ArtListView
+  },
+  {
+    path: "/recommend/time",
+    name: "TimeArtsList",
+    component: ArtListView
+  },
+  {
+    path: "/requestamateur",
+    name: "RequestAmateur",
+    component: RequestAmateur
+  },
+  {
+    path: "/color/:color",
+    name: "ArtListByColor",
+    component: ArtListByColorView
   },
   {
     path: "/color",

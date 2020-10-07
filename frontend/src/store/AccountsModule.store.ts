@@ -14,6 +14,9 @@ const module: Module<AccountsModule, RootState> = {
   getters: {
     isLoggedIn(state) {
       return !!state.token;
+    },
+    userName(state) {
+      return state.user?.userName || "guest";
     }
   },
 

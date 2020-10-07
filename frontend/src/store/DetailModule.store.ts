@@ -2,6 +2,8 @@ import { Module } from "vuex";
 import { RootState } from "./index";
 import { Axios } from "@/service/axios.service";
 import { DetailModule, Art, Artist, Museum, Genre } from "./Detail.interface";
+import { observable } from "vue/types/umd";
+import { stringify } from "qs";
 
 const module: Module<DetailModule, RootState> = {
   namespaced: true,
@@ -11,7 +13,8 @@ const module: Module<DetailModule, RootState> = {
     artist: null,
     museum: null,
     genre: null,
-    scrollEnd: false
+    scrollEnd: false,
+    isFavoriteArt: false
   },
   getters: {},
   mutations: {
@@ -44,6 +47,10 @@ const module: Module<DetailModule, RootState> = {
 
     SET_GENRE(state, genre: Genre) {
       state.genre = genre;
+    },
+
+    SET_IS_FAVORITE_ART(state, data: boolean) {
+      state.isFavoriteArt = data;
     }
   },
   actions: {
@@ -103,6 +110,30 @@ const module: Module<DetailModule, RootState> = {
         .get("/api/public/art/detail", { params: artNo })
         .then(({ data }) => commit("SET_ART", data.data))
         .catch(err => console.error(err));
+    },
+
+    IS_FAVORITE_ART({ commit }, artNo: number) {
+      Axios.instance
+        .get("/api/private/favorite/check", { params: artNo })
+        .then(({ data }) => commit("SET_IS_FAVORITE_ART", data.data))
+        .catch(err => console.error(err));
+    },
+
+    ADD_FAVORITE_ART({ dispatch }, artNo: number) {
+      const favorite = {
+        artNo: artNo
+      };
+      Axios.instance
+        .post("/api/private/favorite/save", favorite)
+        .then(({ data }) => dispatch("IS_FAVORITE_ART", favorite))
+        .catch(err => console.log(err));
+    },
+
+    DELETE_FAVORITE_ART({ dispatch }, artNo: number) {
+      Axios.instance
+        .delete("/api/private/favorite/delete", { params: artNo })
+        .then(() => dispatch("IS_FAVORITE_ART", artNo))
+        .catch(err => console.log(err));
     }
   }
 };

@@ -1,28 +1,13 @@
 <template>
-  <div v-if="artList">
-    <h2
-      v-if="currentPage === 'RecArtList'"
-      class="display-2 my-10 text-center rec-title"
-    >
-      {{ userName }} 님을 위한 추천 작품
-    </h2>
-    <h2
-      v-else-if="currentPage === 'WeatherArtsList'"
-      class="display-2 my-10 text-center rec-title"
-    >
-      {{ artsByWeather.title }}
-    </h2>
-    <h2
-      v-else-if="currentPage === 'TimeArtsList'"
-      class="display-2 my-10 text-center rec-title"
-    >
-      {{ artsByTime.title }}
+  <div v-if="artsByColor">
+    <h2 class="display-2 my-10 text-uppercase text-center rec-title">
+      {{ $route.params.color }}
     </h2>
     <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
       <v-container fluid cols="12">
         <v-row>
           <v-col
-            v-for="art in artList"
+            v-for="art in artsByColor"
             :key="art.art_no"
             class="d-flex child-flex"
             cols="3"
@@ -47,7 +32,7 @@
                   <v-img
                     :src="art.art_url"
                     aspect-ratio="1"
-                    class="grey lighten-2 artist-card"
+                    :class="`${backColor[$route.params.color]} artist-card`"
                     @mouseenter="zoomIn"
                     @mouseleave="zoomOut"
                   >
@@ -87,77 +72,29 @@
 <script lang="ts">
 import { Vue, Component, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import { User } from "../../store/Accounts.interface";
-import {
-  Art,
-  ArtsByTime,
-  ArtsByWeather
-} from "../../store/Recommendation.interface";
+import { Art } from "../../store/Recommendation.interface";
 
-const AccountsModule = namespace("AccountsModule");
 const RecommendationModule = namespace("RecommendationModule");
 
 @Component
-export default class ArtListView extends Vue {
-  @AccountsModule.State user?: User | null;
-  @AccountsModule.Getter userName!: string;
-  @RecommendationModule.State arts?: Art[] | null;
-  @RecommendationModule.State artsByWeather?: ArtsByWeather;
-  @RecommendationModule.State artsByTime?: ArtsByTime;
-  @RecommendationModule.Action FETCH_ART_LIST: any;
+export default class ArtListByColorView extends Vue {
+  @RecommendationModule.State artsByColor?: Art[] | null;
+  @RecommendationModule.Mutation REMOVE_ART_LIST_BY_COLOR: any;
+  @RecommendationModule.Action FETCH_ART_LIST_BY_COLOR: any;
 
-  get currentPage() {
-    return this.$route.name;
-  }
-
-  get artList() {
-    if (this.currentPage === "RecArtList") {
-      return this.arts;
-    } else if (this.currentPage === "WeatherArtsList") {
-      return this.artsByWeather?.data;
-    } else if (this.currentPage === "TimeArtsList") {
-      return this.artsByTime?.data;
-    }
-    return null;
-  }
-
-  // artList: Art[] | [] = [];
-  // start = 0;
-
-  // @Watch("arts", { immediate: true })
-  // init_artList() {
-  //   if (
-  //     this.artList &&
-  //     this.arts &&
-  //     !this.artList.length &&
-  //     this.arts!.length
-  //   ) {
-  //     this.artList = this.arts!.slice(0, 20);
-  //     this.start = this.start + 20;
-  //   }
-  // }
-
-  // set_artList(start: number) {
-  //   const addArts = this.arts!.slice(this.start, this.start + 20);
-  //   this.artList = [...this.artList, ...addArts] as Art[];
-  // }
-
-  // scroll() {
-  //   window.onscroll = () => {
-  //     const ceilBottomOfWindow =
-  //       Math.ceil(window.pageYOffset) + window.innerHeight ===
-  //       document.documentElement.offsetHeight;
-
-  //     const plusBottomOfWindow =
-  //       Math.ceil(window.pageYOffset) + window.innerHeight + 1 ===
-  //       document.documentElement.offsetHeight;
-
-  //     if ((ceilBottomOfWindow || plusBottomOfWindow) && this.start < 100) {
-  //       this.set_artList(this.start);
-  //       this.start += 20;
-  //     }
-  //   };
-  // }
+  backColor = {
+    white: "grey lighten-4",
+    gray: "grey lighten-2",
+    pink: "pink lighten-4",
+    blue: "indigo lighten-4",
+    teal: "blue lighten-4",
+    green: "green lighten-4",
+    yellow: "yellow lighten-4",
+    orange: "orange lighten-4",
+    red: "red lighten-4",
+    brown: "brown lighten-4",
+    black: "grey lighten-1"
+  };
 
   zoomIn(event: any) {
     event.target.style.transform = "scale(1.1)";
@@ -172,13 +109,11 @@ export default class ArtListView extends Vue {
   }
 
   created() {
-    if (!this.arts) {
-      this.FETCH_ART_LIST();
-    }
+    this.FETCH_ART_LIST_BY_COLOR(this.$route.params.color);
   }
 
-  mounted() {
-    window.scrollTo(0, 0);
+  beforeDestroy() {
+    this.REMOVE_ART_LIST_BY_COLOR();
   }
 }
 </script>
