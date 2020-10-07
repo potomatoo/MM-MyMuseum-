@@ -3,11 +3,13 @@
     <div id="clicked1">
       <img
         id="box"
-        src="https://lh5.ggpht.com/LI90lhru6dCFuKx4C5S7kDDF0kcxaq98H8ETfWs3UjzjzFylWC14XDJDw_0K"
-        @click="showDialog = true"
+        :src="favoriteArt.artUrl"
+        @click="toDetailArt(favoriteArt.artNo)"
         style="cursor: pointer"
       />
-      <v-dialog
+      <h2 class="mt-5" style="max-width: 400px">{{ favoriteArt.artTitle }}</h2>
+      <h4>{{ favoriteArt.artArtist }}</h4>
+      <!-- <v-dialog
         v-model="showDialog"
         fullscreen
         hide-overlay
@@ -19,14 +21,12 @@
           </v-btn>
           <div id="fade" class="art-image">
             <div class="container">
-              <img
-                src="https://lh5.ggpht.com/LI90lhru6dCFuKx4C5S7kDDF0kcxaq98H8ETfWs3UjzjzFylWC14XDJDw_0K"
-              />
+              <img :src="favoriteArt.artUrl" />
               <detail-art-description />
             </div>
           </div>
         </v-card>
-      </v-dialog>
+      </v-dialog> -->
     </div>
   </section>
 </template>
@@ -65,6 +65,10 @@ export default class MygalleryView extends Vue {
         "//lh5.ggpht.com/sGFNYnsvcc0L5hH_h3bcFo7pcQSqsYRZninoM_YpT_zudbjOVQAxeA0DZgM"
     }
   ];
+
+  toDetailArt(artNo: string) {
+    this.$router.push({ name: "DetailArtView", params: { artNo } });
+  }
 
   created() {
     this.FETCH_FAVORITE_ART(this.$route.params.artNo);
