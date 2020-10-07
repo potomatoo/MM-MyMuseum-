@@ -104,9 +104,8 @@ export default class SignupView extends Vue {
   }
 
   async checkEmail(email: string) {
-    const a = await this.CHECK_EMAIL(email);
-    console.log(a);
-    return a;
+    const isValid = await this.CHECK_EMAIL(email);
+    return isValid;
   }
 
   async signup() {
@@ -116,7 +115,6 @@ export default class SignupView extends Vue {
       userPassword: this.userPassword
     };
     const isValid = await this.CHECK_EMAIL(this.userEmail);
-    console.log(isValid);
     if (isValid) {
       this.SIGNUP(userInfo);
     } else {

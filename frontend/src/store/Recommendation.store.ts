@@ -90,22 +90,15 @@ const module: Module<RecommendationModule, RootState> = {
         .catch(err => console.error(err));
     },
     FETCH_FAVORITE_ART_LIST({ commit }, start) {
-      console.log("start", start);
       Axios.instance
         .get("/api/private/favorite/list", { params: { start } })
-        .then(({ data }) => {
-          console.log(data);
-          commit("SET_FAVORITE_ART_LIST", data.data);
-        })
+        .then(({ data }) => commit("SET_FAVORITE_ART_LIST", data.data))
         .catch(err => console.error(err));
     },
     FETCH_FAVORITE_ART({ commit }, artNo) {
       Axios.instance
         .get("/api/public/art/fdetail", { params: { artNo } })
-        .then(({ data }) => {
-          console.log(data);
-          commit("SET_FAVORITE_ART", data.data);
-        })
+        .then(({ data }) => commit("SET_FAVORITE_ART", data.data))
         .catch(err => console.error(err));
     }
   }

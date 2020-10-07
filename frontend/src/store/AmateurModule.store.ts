@@ -75,9 +75,7 @@ const module: Module<AmateurModule, RootState> = {
     FETCH_AMATEUR({ commit }, start) {
       Axios.instance
         .get("/api/public/myart/artist", { params: { start } })
-        .then(({ data }) => {
-          commit("SET_AMATEUR", data.data);
-        })
+        .then(({ data }) => commit("SET_AMATEUR", data.data))
         .catch(err => console.error(err));
     },
 
@@ -101,7 +99,7 @@ const module: Module<AmateurModule, RootState> = {
           router.push("/categorys/amateurartist");
         })
         .catch(err => {
-          console.log("err", err);
+          console.error(err);
           alert("등록 실패입니다.");
         });
     },
@@ -109,27 +107,21 @@ const module: Module<AmateurModule, RootState> = {
     FETCH_AMATEUR_ART({ commit }, { start, userId }) {
       Axios.instance
         .get("/api/public/myart/list", { params: { start, userId } })
-        .then(({ data }) => {
-          commit("SET_AMATEUR_ART", data.data);
-        })
+        .then(({ data }) => commit("SET_AMATEUR_ART", data.data))
         .catch(err => console.error(err));
     },
 
     FETCH_AMATEUR_NAME({ commit }, { userId }) {
       Axios.instance
         .get("/api/public/user/userinfo", { params: { userId } })
-        .then(({ data }) => {
-          commit("SET_USERINFO", data.data);
-        })
+        .then(({ data }) => commit("SET_USERINFO", data.data))
         .catch(err => console.error(err));
     },
 
     FETCH_DETAIL_AMATEUR_ART({ commit }, myartNo) {
       Axios.instance
         .get("/api/public/myart/detail", { params: { myartNo } })
-        .then(({ data }) => {
-          commit("SET_DETAIL_AMATEUR_ART", data.data);
-        })
+        .then(({ data }) => commit("SET_DETAIL_AMATEUR_ART", data.data))
         .catch(err => console.error(err));
     }
   }

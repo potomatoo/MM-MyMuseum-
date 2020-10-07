@@ -1,5 +1,5 @@
 <template>
-  <section id="all">
+  <section v-if="favoriteArt" id="all">
     <div id="clicked1">
       <img
         id="box"

@@ -1,5 +1,5 @@
 <template>
-  <v-col class="artist-description">
+  <v-col v-if="artist" class="artist-description">
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <div

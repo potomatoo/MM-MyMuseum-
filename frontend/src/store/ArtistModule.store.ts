@@ -39,9 +39,7 @@ const module: Module<ArtistModule, RootState> = {
     FETCH_ARTIST({ commit }, start) {
       Axios.instance
         .get("api/public/artist/list", { params: { start } })
-        .then(({ data }) => {
-          commit("SET_ARTIST", data.data);
-        })
+        .then(({ data }) => commit("SET_ARTIST", data.data))
         .catch(err => console.error(err));
     },
 
