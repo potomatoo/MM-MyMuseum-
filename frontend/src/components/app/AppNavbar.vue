@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app color="black" dark flat>
-    <div class="d-flex align-center">
-      <router-link :to="{ name: 'Home' }">
+    <router-link :to="{ name: 'Home' }">
+      <div class="d-flex align-center">
         <v-img
           alt="Home logo"
           class="shrink mr-2"
@@ -10,17 +10,17 @@
           transition="scale-transition"
           width="50"
         />
-      </router-link>
 
-      <v-img
-        alt="Vuetify Name"
-        class="shrink mt-1 hidden-sm-and-down"
-        contain
-        min-width="160"
-        src="../../assets/text_logo_test.png"
-        width="100"
-      />
-    </div>
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="160"
+          src="../../assets/text_logo_test.png"
+          width="100"
+        />
+      </div>
+    </router-link>
 
     <v-spacer></v-spacer>
     <span v-show="!isHome">
@@ -30,7 +30,12 @@
       <v-btn class="navbar-btn" :to="{ name: 'CategoryList' }" text>
         <span>컬렉션</span>
       </v-btn>
-      <v-btn class="navbar-btn" :to="{ name: 'MyGalleryView' }" text>
+      <v-btn
+        v-if="isLoggedIn"
+        class="navbar-btn"
+        :to="{ name: 'MyGalleryListView' }"
+        text
+      >
         <span>내 전시회</span>
       </v-btn>
     </span>
