@@ -32,7 +32,8 @@
               :to="{
                 name: 'DetailArtView',
                 params: {
-                  artNo: art.art_no
+                  artNo: art.art_no,
+                  type: art.log_type
                 }
               }"
             >
