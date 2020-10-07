@@ -123,6 +123,7 @@ export default class DetailArtDescription extends Vue {
   display: flex;
   justify-content: space-between;
 }
+
 .container img:hover {
   max-width: 600px;
   transform-origin: center;
@@ -157,15 +158,6 @@ export default class DetailArtDescription extends Vue {
   width: 1100px;
   display: flex;
   justify-content: center;
-}
-
-.container img {
-  max-width: 1100px;
-  transform-origin: center;
-  transform: perspective(800px) rotateY(0deg);
-  transition: 0.5s;
-  -webkit-box-reflect: below 1px
-    linear-gradient(transparent, transparent, #0004);
 }
 
 .description-text .art-title:before,
