@@ -1,53 +1,32 @@
 <template>
   <section id="all">
     <div id="clicked1">
-      <v-row>
-        <span
-          class="mdi mdi-chevron-left"
-          @click="model++"
-          style="margin-right: 10px; align-self: center; cursor: pointer"
-        ></span>
-
-        <v-carousel
-          hide-delimiters
-          id="box"
-          width="100%"
-          height="200px"
-          :show-arrows="false"
-          v-model="model"
-        >
-          <v-carousel-item
-            :key="favoriteArt.artNo"
-            :src="favoriteArt.artUrl"
-            @click="showDialog = true"
-            style="cursor: pointer"
-          >
-            <v-dialog
-              v-model="showDialog"
-              fullscreen
-              hide-overlay
-              transition="dialog-bottom-transition"
-            >
-              <v-card style="background: black">
-                <v-btn icon dark @click="showDialog = false">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-                <div id="fade" class="art-image">
-                  <div class="container">
-                    <img :src="favoriteArt.artUrl" />
-                  </div>
-                </div>
-              </v-card>
-            </v-dialog>
-          </v-carousel-item>
-        </v-carousel>
-
-        <span
-          class="mdi mdi-chevron-right"
-          @click="model++"
-          style="margin-left: 10px; align-self: center; cursor: pointer"
-        ></span>
-      </v-row>
+      <img
+        id="box"
+        src="https://lh5.ggpht.com/LI90lhru6dCFuKx4C5S7kDDF0kcxaq98H8ETfWs3UjzjzFylWC14XDJDw_0K"
+        @click="showDialog = true"
+        style="cursor: pointer"
+      />
+      <v-dialog
+        v-model="showDialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <v-card style="background: black">
+          <v-btn icon dark @click="showDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <div id="fade" class="art-image">
+            <div class="container">
+              <img
+                src="https://lh5.ggpht.com/LI90lhru6dCFuKx4C5S7kDDF0kcxaq98H8ETfWs3UjzjzFylWC14XDJDw_0K"
+              />
+              <detail-art-description />
+            </div>
+          </div>
+        </v-card>
+      </v-dialog>
     </div>
   </section>
 </template>
@@ -56,10 +35,15 @@
 import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { FavoriteArt } from "../../store/Recommendation.interface";
+import DetailArtView from "@/views/detail/DetailArtView.vue";
 
 const RecommendationModule = namespace("RecommendationModule");
 
-@Component
+@Component({
+  components: {
+    DetailArtView
+  }
+})
 export default class MygalleryView extends Vue {
   @RecommendationModule.State favoriteArt!: FavoriteArt | null;
   @RecommendationModule.Action FETCH_FAVORITE_ART: any;
