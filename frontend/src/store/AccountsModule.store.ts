@@ -14,6 +14,9 @@ const module: Module<AccountsModule, RootState> = {
   getters: {
     isLoggedIn(state) {
       return !!state.token;
+    },
+    userName(state) {
+      return state.user?.userName || "guest";
     }
   },
 
@@ -22,7 +25,7 @@ const module: Module<AccountsModule, RootState> = {
       state.token = token;
       window.sessionStorage.setItem("jwt-token", token);
       Axios.instance.defaults.headers.common["Authorization"] = token;
-      // Axios.instanceRec.defaults.headers.common["Authorization"] = token
+      Axios.instanceRec.defaults.headers.common["Authorization"] = token;
     },
     REMOVE_TOKEN(state) {
       state.token = null;
@@ -87,6 +90,7 @@ const module: Module<AccountsModule, RootState> = {
         .then(({ data }) => data.data)
         .catch(err => console.error(err));
     },
+
     CHANGE_USER_NAME(_, userName) {
       Axios.instance
         .put("/api/priavet/user/changeusername", userName)
@@ -95,6 +99,14 @@ const module: Module<AccountsModule, RootState> = {
           if (data.status) {
             router.go(-1);
           }
+        })
+        .catch(err => console.error(err));
+    },
+    REQUEST_AMATEURARTIST({ commit }, token) {
+      Axios.instance
+        .put("/api/private/user/registArtist", token)
+        .then(() => {
+          alert("작가등록이 완료되었습니다");
         })
         .catch(err => console.error(err));
     }

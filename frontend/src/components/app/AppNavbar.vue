@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark src="../../assets/backgoundColorImg.png" flat>
+  <v-app-bar app color="black" dark flat>
     <div class="d-flex align-center">
       <router-link :to="{ name: 'Home' }">
         <v-img
