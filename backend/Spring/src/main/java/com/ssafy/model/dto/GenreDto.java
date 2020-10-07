@@ -17,6 +17,15 @@ public class GenreDto implements Serializable {
 	@Column(name = "genre_url")
 	private String genreUrl;
 
+	@Column(name = "genre_age")
+	private String genreAge;
+
+	@Column(name = "genre_ktitle")
+	private String genreKtitle;
+
+	@Column(name = "genre_description")
+	private String genreDescription;
+
 	public String getGenreName() {
 		return genreName;
 	}
@@ -33,9 +42,34 @@ public class GenreDto implements Serializable {
 		this.genreUrl = genreUrl;
 	}
 
+	public String getGenreAge() {
+		return genreAge;
+	}
+
+	public void setGenreAge(String genreAge) {
+		this.genreAge = genreAge;
+	}
+
+	public String getGenreKtitle() {
+		return genreKtitle;
+	}
+
+	public void setGenreKtitle(String genreKtitle) {
+		this.genreKtitle = genreKtitle;
+	}
+
+	public String getGenreDescription() {
+		return genreDescription;
+	}
+
+	public void setGenreDescription(String genreDescription) {
+		this.genreDescription = genreDescription;
+	}
+
 	@Override
 	public String toString() {
-		return "GenreDto [genreName=" + genreName + ", genreUrl=" + genreUrl + "]";
+		return "GenreDto [genreName=" + genreName + ", genreUrl=" + genreUrl + ", genreAge=" + genreAge
+				+ ", genreKtitle=" + genreKtitle + ", genreDescription=" + genreDescription + "]";
 	}
 
 }

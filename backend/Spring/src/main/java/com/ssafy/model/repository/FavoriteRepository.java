@@ -21,4 +21,6 @@ public interface FavoriteRepository extends JpaRepository<FavoriteDto, Integer> 
 	@Query(value = "delete from ssafy.favorite where user_id=:user_id and art_no = :art_no", nativeQuery = true)
 	public void deleteFavorite(@Param("user_id") String user_id, @Param("art_no") Integer art_no);
 
+	@Query(value = "select * from ssafy.favorite where user_id=:user_id and art_no = :art_no", nativeQuery = true)
+	public FavoriteDto checkFavorite(@Param("user_id") String user_id, @Param("art_no") int artNo);
 }

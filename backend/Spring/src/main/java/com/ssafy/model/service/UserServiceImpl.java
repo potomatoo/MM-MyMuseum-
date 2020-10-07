@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.ssafy.model.dto.UserDto;
 import com.ssafy.model.repository.UserRepository;
 
-import ch.qos.logback.core.encoder.Encoder;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -22,7 +20,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto Signup(UserDto user) {
 		// TODO Auto-generated method stub
-		System.out.println(user.toString());
 		return userRepository.save(user);
 	}
 
@@ -38,12 +35,58 @@ public class UserServiceImpl implements UserService {
 
 			newUser.setUserId(userId);
 			newUser.setUserPassword(encoder.encode(userId + "google"));
-			newUser.setUserAge(0);
-			newUser.setUserGender(0);
+			newUser.setUserName(userId.split("@")[0]);
 			newUser.setUserType(1);
 
 			return userRepository.save(newUser);
 		}
+	}
+
+	@Override
+	public boolean CheckEmail(String email) {
+		// TODO Auto-generated method stub
+
+		Optional<UserDto> user = userRepository.findById(email);
+
+		return !user.isPresent();
+	}
+
+	@Override
+	public UserDto UpdateUserName(String userId, String userName) {
+		// TODO Auto-generated method stub
+		int result = userRepository.updateUserName(userId, userName);
+		if (result != 0) {
+			UserDto user = userRepository.findById(userId).get();
+			user.setUserPassword("");
+			return user;
+		}
+		return null;
+	}
+
+	@Override
+	public UserDto RegistArtist(String userId) {
+		// TODO Auto-generated method stub
+		int result = userRepository.registArtist(userId);
+
+		if (result == 0)
+			return null;
+		else {
+			UserDto user = userRepository.findById(userId).get();
+			user.setUserPassword("");
+			return user;
+		}
+	}
+
+	@Override
+	public UserDto findUserDetail(String userId) {
+		// TODO Auto-generated method stub
+
+		Optional<UserDto> user = userRepository.findById(userId);
+
+		if (user.isPresent())
+			return user.get();
+		else
+			return null;
 	}
 
 }

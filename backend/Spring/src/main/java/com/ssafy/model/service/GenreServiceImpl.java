@@ -1,6 +1,7 @@
 package com.ssafy.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,18 @@ public class GenreServiceImpl implements GenreService {
 	@Override
 	public List<GenreDto> findGenreByNameLike(String GenreName) {
 		// TODO Auto-generated method stub
-		return genreRepository.findByGenreNameLike('%'+GenreName+'%');
+		return genreRepository.findByGenreNameLike('%' + GenreName + '%');
+	}
+
+	@Override
+	public GenreDto findGenreDetail(String genreName) {
+		// TODO Auto-generated method stub
+		Optional<GenreDto> genre = genreRepository.findById(genreName);
+
+		if (genre.isPresent())
+			return genre.get();
+		else
+			return null;
 	}
 
 }

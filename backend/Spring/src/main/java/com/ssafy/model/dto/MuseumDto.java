@@ -21,6 +21,9 @@ public class MuseumDto {
 	@Column(name = "museum_url")
 	private String museumUrl;
 
+	@Column(name = "museum_logo")
+	private String museumLogo;
+
 	public String getMuseumName() {
 		return museumName;
 	}
@@ -53,9 +56,18 @@ public class MuseumDto {
 		this.museumUrl = museumUrl;
 	}
 
+	public String getMuseumLogo() {
+		return museumLogo;
+	}
+
+	public void setMuseumLogo(String museumLogo) {
+		this.museumLogo = museumLogo;
+	}
+
 	@Override
 	public String toString() {
 		return "MuseumDto [museumName=" + museumName + ", museumCountry=" + museumCountry + ", museumDescription="
-				+ museumDescription + ", museumUrl=" + museumUrl + "]";
+				+ museumDescription + ", museumUrl=" + museumUrl + ", museumLogo=" + museumLogo + "]";
 	}
+
 }

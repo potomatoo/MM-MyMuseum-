@@ -1,6 +1,7 @@
 package com.ssafy.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,17 @@ public class ArtistServiceImpl implements ArtistService {
 		int index = start * 16;
 
 		return artistRepository.findArtistByArtistNamelimit(artistName, index);
+	}
+
+	@Override
+	public ArtistDto findArtistDetail(String artistName) {
+		// TODO Auto-generated method stub
+		Optional<ArtistDto> artist = artistRepository.findById(artistName);
+
+		if (artist.isPresent())
+			return artist.get();
+		else
+			return null;
 	}
 
 }

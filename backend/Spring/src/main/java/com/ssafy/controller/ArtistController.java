@@ -46,4 +46,21 @@ public class ArtistController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
+	@GetMapping("/api/public/artist/detail")
+	public Object FindArtistDetail(@RequestParam String artistName) {
+		BasicResponse response = new BasicResponse();
+
+		response.data = artistService.findArtistDetail(artistName);
+		response.status = (response.data != null) ? true : false;
+
+		if (response.status) {
+			response.message = "조회에 성공하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			response.message = "조회에 실패하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+
+	}
 }

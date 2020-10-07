@@ -92,4 +92,21 @@ public class FavoriteController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	@GetMapping("/api/private/favorite/check")
+	public Object CheckFavorite(@RequestHeader("Authorization") String jwtToken, @RequestParam("artNo") int artNo) {
+		BasicResponse response = new BasicResponse();
+
+		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
+		if (user == null) {
+			response.status = false;
+			response.message = "잘못된 사용자 입니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
+		response.data = favoriteService.checkFavorite(user.getUserId(), artNo);
+
+		response.status = true;
+		response.message = "조회에 성공하였습니다.";
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }

@@ -11,4 +11,6 @@ public interface MuseumService {
 	public List<MuseumDto> findMuseumlimit(int start);
 
 	public List<MuseumDto> findMuseumByMuseumNamelimit(String museumName, int start);
+
+	public MuseumDto findMuseumDetail(String museumName);
 }

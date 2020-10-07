@@ -46,4 +46,20 @@ public class MuseumController {
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
+	@GetMapping("/api/public/museum/detail")
+	public Object FindMuseumDetail(@RequestParam String museumName) {
+		BasicResponse response = new BasicResponse();
+
+		response.data = museumService.findMuseumDetail(museumName);
+		response.status = (response.data != null) ? true : false;
+
+		if (response.status) {
+			response.message = "조회에 성공하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			response.message = "조회에 실패하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+	}
 }
