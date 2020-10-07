@@ -31,58 +31,56 @@
     <!-- 전시공간 별 -->
     <div :scrollHeight="scrollHeight">
       <v-row style="margin: 10px 10%">
-        <v-container fluid cols="12">
-          <v-row>
-            <v-col
-              v-for="(museum, n) in museums"
-              :key="n"
-              class="d-flex child-flex"
-              cols="6"
-              md="3"
-              style="padding: 20px"
-            >
-              <v-hover v-slot:default="{ hover }">
-                <v-card
-                  flat
-                  tile
-                  class="d-flex"
-                  :elevation="hover ? 12 : 2"
-                  :class="{ 'on-hover': hover }"
-                  @click="moveDetail(museum.museumName)"
+        <v-row>
+          <v-col
+            v-for="(museum, n) in museums"
+            :key="n"
+            class="d-flex child-flex"
+            cols="12"
+            md="3"
+            sm="6"
+          >
+            <v-hover v-slot:default="{ hover }">
+              <v-card
+                flat
+                tile
+                class="d-flex"
+                :elevation="hover ? 12 : 2"
+                :class="{ 'on-hover': hover }"
+                @click="moveDetail(museum.museumName)"
+              >
+                <v-img
+                  :src="museum.museumUrl"
+                  aspect-ratio="1"
+                  class="grey lighten-2 artist-card"
                 >
-                  <v-img
-                    :src="museum.museumUrl"
-                    aspect-ratio="1"
-                    class="grey lighten-2 artist-card"
-                  >
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row>
-                    </template>
+                  <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        indeterminate
+                        color="grey lighten-5"
+                      ></v-progress-circular>
+                    </v-row>
+                  </template>
 
-                    <v-expand-transition>
-                      <div
-                        v-if="hover"
-                        class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
-                        style="width: 100%; height: 100%;"
-                      >
-                        {{ museum.museumName }}
-                      </div>
-                    </v-expand-transition>
-                  </v-img>
-                </v-card>
-              </v-hover>
-            </v-col>
-          </v-row>
-        </v-container>
+                  <v-expand-transition>
+                    <div
+                      v-if="hover"
+                      class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
+                      style="width: 100%; height: 100%;"
+                    >
+                      {{ museum.museumName }}
+                    </div>
+                  </v-expand-transition>
+                </v-img>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </v-row>
       </v-row>
     </div>
   </div>
