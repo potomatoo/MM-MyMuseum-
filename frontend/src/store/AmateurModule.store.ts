@@ -53,14 +53,8 @@ const module: Module<AmateurModule, RootState> = {
       }
     },
 
-    SET_USERINFO(state, { userId, userName }) {
-      state.userId = userId;
+    SET_USERINFO(state, { userName }) {
       state.userName = userName;
-    },
-
-    SET_USERINFO_ZERO(state) {
-      state.userId = "";
-      state.userName = "";
     },
 
     SET_AMATEUR_ART_ZERO(state) {
@@ -118,6 +112,16 @@ const module: Module<AmateurModule, RootState> = {
         .get("/api/public/myart/list", { params: { start, userId } })
         .then(({ data }) => {
           commit("SET_AMATEUR_ART", data.data);
+          console.log(data.data);
+        })
+        .catch(err => console.error(err));
+    },
+
+    FETCH_AMATEUR_NAME({ commit }, { userId }) {
+      Axios.instance
+        .get("/api/public/user/userinfo", { params: { userId } })
+        .then(({ data }) => {
+          commit("SET_USERINFO", data.data);
           console.log(data.data);
         })
         .catch(err => console.error(err));

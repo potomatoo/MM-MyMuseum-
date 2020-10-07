@@ -92,26 +92,26 @@ const amateurModule = namespace("amateurModule");
 export default class AmateurArtView extends Vue {
   @amateurModule.State amateurArts!: AmateurArt[] | null;
   @amateurModule.Action FETCH_AMATEUR_ART: any;
+  @amateurModule.Action FETCH_AMATEUR_NAME: any;
   @amateurModule.Mutation SET_AMATEUR_ART_ZERO: any;
   @amateurModule.State userId: any;
   @amateurModule.State userName: any;
-  @amateurModule.Mutation SET_USERINFO: any;
-  @amateurModule.Mutation SET_USERINFO_ZERO: any;
 
   start = 0;
 
-  created() {
-    if (this.$route.params.userId != null) {
-      this.SET_USERINFO({
-        userId: this.$route.params.userId.toString(),
-        userName: this.$route.params.userName.toString()
-      });
-    }
+  @Watch("$route", { immediate: true })
+  fetchAmateurname() {
+    this.FETCH_AMATEUR_NAME({
+      userId: this.$route.params.userId
+    });
+  }
+
+  @Watch("$route", { immediate: true })
+  fetchamateurart() {
     this.FETCH_AMATEUR_ART({
       start: this.start,
-      userId: this.userId
+      userId: this.$route.params.userId
     });
-    console.log("@@" + this.userId + "!!! " + this.userName);
   }
 
   moveDetail(myartNo: string) {

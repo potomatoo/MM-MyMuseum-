@@ -63,7 +63,7 @@
                   class="d-flex"
                   :elevation="hover ? 12 : 2"
                   :class="{ 'on-hover': hover }"
-                  @click="moveAmateurart(value.userId, value.userName)"
+                  @click="moveAmateurart(value.userId)"
                 >
                   <v-img
                     :src="require(`@/assets/dummydata/category/museum.jpg`)"
@@ -210,10 +210,10 @@ export default class AmateurArtistView extends Vue {
     });
   }
 
-  moveAmateurart(userId: string, userName: string) {
+  moveAmateurart(userId: string) {
     this.$router.push({
       name: "AmateurArtView",
-      params: { userId: userId, userName: userName }
+      params: { userId: userId }
     });
   }
 

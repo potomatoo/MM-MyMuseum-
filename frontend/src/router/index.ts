@@ -125,7 +125,7 @@ const routes: Array<RouteConfig> = [
     component: AmateurArtistView
   },
   {
-    path: "/categorys/amateurart",
+    path: "/categorys/amateurart/:userId",
     name: "AmateurArtView",
     component: AmateurArtView
   },
