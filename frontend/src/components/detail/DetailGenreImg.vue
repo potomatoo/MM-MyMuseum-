@@ -6,7 +6,7 @@
           <div class="flip-container">
             <div class="flipper">
               <img
-                v-if="genre.genreUrl"
+                v-if="genre && genre.genreUrl"
                 :src="genre.genreUrl"
                 class="artist-img-front"
               />
