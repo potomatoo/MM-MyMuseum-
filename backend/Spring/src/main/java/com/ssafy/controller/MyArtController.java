@@ -34,7 +34,7 @@ public class MyArtController {
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
-	private String[] allowFile = { "jpg", "png" };
+	private String[] allowFile = { "jpg", "png", "JPG", "PNG" };
 
 	@GetMapping("/api/public/myart/artist")
 	public Object FindMyArtistList(@RequestParam int start) {
