@@ -50,7 +50,7 @@ export default class DetailArtView extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100%;
   background: #000;
 }
 .container {
