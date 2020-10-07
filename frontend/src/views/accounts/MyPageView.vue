@@ -32,7 +32,7 @@
               required
             ></v-text-field>
             <v-row>
-              <v-col cols="6">
+              <v-col cols="4">
                 <v-btn
                   class="pa-2"
                   width="100%"
@@ -44,7 +44,7 @@
                   수정
                 </v-btn>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="4">
                 <v-btn
                   class="pa-2"
                   width="100%"
@@ -56,10 +56,9 @@
                   취소
                 </v-btn>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6">
+              <v-col cols="4">
                 <v-btn
+                  v-if="userArtist != 3"
                   class="pa-2"
                   width="100%"
                   color="rgb(137,120,104)"
@@ -68,6 +67,17 @@
                   @click="toRequestAmateur()"
                 >
                   작가 신청
+                </v-btn>
+                <v-btn
+                  v-if="userArtist == 3"
+                  class="pa-2"
+                  width="100%"
+                  color="rgb(137,120,104)"
+                  dark
+                  large
+                  @click="moveAmateurart(userId, userName)"
+                >
+                  작품 등록
                 </v-btn>
               </v-col>
             </v-row>
@@ -95,6 +105,7 @@ export default class MyPageView extends Vue {
 
   userEmail: string | null = "";
   userNickname: string | null = "";
+  userArtist: number | null = 0;
   userPassword = "";
   userPasswordCheck = "";
 
@@ -120,6 +131,7 @@ export default class MyPageView extends Vue {
     if (this.user) {
       this.userEmail = this.user.userId;
       this.userNickname = this.user.userName;
+      this.userArtist = this.user.userArtist;
     }
   }
 
@@ -142,6 +154,12 @@ export default class MyPageView extends Vue {
   //이동
   toRequestAmateur() {
     this.REQUEST_AMATEURARTIST();
+  }
+
+  moveAmateurArtUpload() {
+    this.$router.push({
+      name: "AmateurArtUpload"
+    });
   }
 }
 </script>

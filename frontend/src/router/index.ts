@@ -24,6 +24,7 @@ import StyleList from "@/views/categorys/styles/StyleList.vue";
 import AmateurArtistView from "@/views/categorys/amateurart/AmateurArtistView.vue";
 import AmateurArtView from "@/views/categorys/amateurart/AmateurArtView.vue";
 import AmateurArtUpload from "@/views/categorys/amateurart/AmateurArtUpload.vue";
+import DetailAmateurArt from "@/views/categorys/amateurart/DetailAmateurArt.vue";
 
 Vue.use(VueRouter);
 
@@ -125,7 +126,7 @@ const routes: Array<RouteConfig> = [
     component: AmateurArtistView
   },
   {
-    path: "/categorys/amateurart",
+    path: "/categorys/amateurart/:userId",
     name: "AmateurArtView",
     component: AmateurArtView
   },
@@ -133,6 +134,11 @@ const routes: Array<RouteConfig> = [
     path: "/amateur/upload",
     name: "AmateurArtUpload",
     component: AmateurArtUpload
+  },
+  {
+    path: "/amateur/detail",
+    name: "DetailAmateurArt",
+    component: DetailAmateurArt
   }
 ];
 
