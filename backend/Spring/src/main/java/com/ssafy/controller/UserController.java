@@ -31,9 +31,19 @@ public class UserController {
 	@PostMapping("/api/public/signup")
 	public Object signup(@RequestBody UserDto user) {
 		BasicResponse response = new BasicResponse();
+
+		if (userService.findUserDetail(user.getUserId()) != null) {
+			response.status = false;
+			response.message = "이미 등록된 이메일 입니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
 		user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
 		UserDto result = userService.Signup(user);
 		response.data = result;
+		response.status = true;
+		response.message = "회원 가입이 완료되었습니다.";
+
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
