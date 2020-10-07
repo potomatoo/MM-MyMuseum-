@@ -53,7 +53,7 @@
               >
                 <v-img
                   :src="
-                    require(`@/assets/dummydata/category/amateurartist.JPG`)
+                    require(`@/assets/dummydata/category/amateurartist.jpg`)
                   "
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
