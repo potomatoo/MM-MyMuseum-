@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import { Art } from "../../store/Recommendation.interface";
+import { FavoriteArt } from "../../store/Recommendation.interface";
 import DetailArtRotate from "@/components/detail/DetailArtRotate.vue";
 import ArtListInGallery from "@/components/mygallery/ArtListInGallery.vue";
 
@@ -21,7 +21,7 @@ const RecommendationModule = namespace("RecommendationModule");
   }
 })
 export default class MyGalleryListView extends Vue {
-  @RecommendationModule.State favoriteArts!: Art[] | null;
+  @RecommendationModule.State favoriteArts!: FavoriteArt[] | null;
   @RecommendationModule.State scrollEnd!: boolean;
   @RecommendationModule.Mutation REMOVE_FAVORITE_ART_LIST: any;
   @RecommendationModule.Action FETCH_FAVORITE_ART_LIST: any;
@@ -43,7 +43,7 @@ export default class MyGalleryListView extends Vue {
       if (
         (ceilBottomOfWindow || plusBottomOfWindow) &&
         !this.scrollEnd &&
-        this.$route.name === "MyGalleryView"
+        this.$route.name === "MyGalleryListView"
       ) {
         this.FETCH_FAVORITE_ART_LIST(this.start++);
       }
