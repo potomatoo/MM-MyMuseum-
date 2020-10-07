@@ -40,7 +40,7 @@
           </div>
 
           <div
-            v-if="genre.genreKtitle"
+            v-if="genre && genre.genreKtitle"
             class="mb-5 genre-title"
             style="font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
           >
