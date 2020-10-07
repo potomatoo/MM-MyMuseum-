@@ -86,6 +86,17 @@ const module: Module<AccountsModule, RootState> = {
         .get("/api/public/user/checkemail", { params: { email } })
         .then(({ data }) => data.data)
         .catch(err => console.error(err));
+    },
+    CHANGE_USER_NAME(_, userName) {
+      Axios.instance
+        .put("/api/priavet/user/changeusername", userName)
+        .then(({ data }) => {
+          console.log(data);
+          if (data.status) {
+            router.go(-1);
+          }
+        })
+        .catch(err => console.error(err));
     }
   }
 };

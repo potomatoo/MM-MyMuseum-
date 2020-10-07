@@ -13,6 +13,7 @@
       <v-col class="align-self-center">
         <div class="mypage">
           <h1 class="mypage-text mb-5">마이페이지</h1>
+          <h2>{{ user }}</h2>
           <v-form>
             <v-text-field
               class="mb-3"
@@ -30,26 +31,6 @@
               label="닉네임"
               required
             ></v-text-field>
-            <!-- <v-text-field
-              class="mb-3"
-              v-model="userPassword"
-              :rules="passwordRules"
-              type="password"
-              solo
-              label="비밀번호"
-              autocomplete
-              required
-            ></v-text-field>
-            <v-text-field
-              class="mb-3"
-              v-model="userPasswordCheck"
-              :rules="passwordCheckRules"
-              type="password"
-              solo
-              label="비밀번호 확인"
-              autocomplete
-              required
-            ></v-text-field> -->
             <v-row>
               <v-col cols="6">
                 <v-btn
@@ -58,6 +39,7 @@
                   color="rgb(137,120,104)"
                   dark
                   large
+                  @click="changeName"
                 >
                   수정
                 </v-btn>
@@ -69,6 +51,7 @@
                   color="rgb(137,120,104)"
                   dark
                   large
+                  @click="cancleChange"
                 >
                   취소
                 </v-btn>
@@ -93,6 +76,7 @@ const AccountsModule = namespace("AccountsModule");
 export default class MyPageView extends Vue {
   @AccountsModule.State user!: User;
   @AccountsModule.Action FETCH_USER_INFO: any;
+  @AccountsModule.Action CHANGE_USER_NAME: any;
 
   userEmail: string | null = "";
   userNickname: string | null = "";
@@ -125,9 +109,19 @@ export default class MyPageView extends Vue {
   }
 
   created() {
-    if (!this.user) {
-      this.FETCH_USER_INFO();
+    this.FETCH_USER_INFO();
+  }
+
+  changeName() {
+    if (this.userNickname !== this.user.userName) {
+      this.CHANGE_USER_NAME(this.userNickname);
+    } else {
+      alert("변경사항이 없습니다.");
     }
+  }
+
+  cancleChange() {
+    this.userNickname = this.user.userName;
   }
 }
 </script>
