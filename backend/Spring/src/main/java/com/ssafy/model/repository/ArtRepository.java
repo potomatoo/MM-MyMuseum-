@@ -23,4 +23,8 @@ public interface ArtRepository extends JpaRepository<ArtDto, Integer> {
 
 	@Query(value = "select * from ssafy.art where art_genre = :genre limit :start ,16", nativeQuery = true)
 	public List<ArtDto> findArtByGenrelimit(@Param("genre") String genre, @Param("start") Integer start);
+
+	@Query(value = "select * from ssafy.art where art_no in (select art_no from ssafy.favorite where user_id = :user_id) limit :start ,16", nativeQuery = true)
+	public List<ArtDto> findArtByFavorite(@Param("user_id") String userId, @Param("start") Integer start);
+
 }
