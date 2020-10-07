@@ -8,7 +8,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      Amateur
+      MM ARTIST
     </h2>
     <v-row
       cols="12"
@@ -212,6 +212,7 @@ export default class AmateurArtistView extends Vue {
 
 <style scoped>
 .v-card {
+  border-radius: 5px !important;
   transition: opacity 0.4s ease-in-out;
 }
 
