@@ -8,7 +8,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      아마추어 작가
+      AmateurArtists
     </h2>
     <v-row
       cols="12"
