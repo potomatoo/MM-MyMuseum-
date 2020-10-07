@@ -105,7 +105,7 @@ def update_score():
     art_table.to_csv('../../../recommend/art_score.csv', encoding="utf-8-sig", index=False)
 
     # routine
-    threading.Timer(10, update_score).start()
+    threading.Timer(30, update_score).start()
 
 
 @api_view(['GET'])
