@@ -136,7 +136,7 @@ const routes: Array<RouteConfig> = [
     component: AmateurArtUpload
   },
   {
-    path: "/amateur/detail",
+    path: "/amateur/detail/:myartNo",
     name: "DetailAmateurArt",
     component: DetailAmateurArt
   }
