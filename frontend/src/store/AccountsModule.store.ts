@@ -91,13 +91,13 @@ const module: Module<AccountsModule, RootState> = {
         .catch(err => console.error(err));
     },
 
-    CHANGE_USER_NAME(_, userName) {
+    CHANGE_USER_NAME({ dispatch }, userName) {
       Axios.instance
-        .put("/api/priavet/user/changeusername", userName)
+        .put("/api/private/user/changeusername", { userName })
         .then(({ data }) => {
-          console.log(data);
           if (data.status) {
-            router.go(-1);
+            dispatch("FETCH_USER_INFO");
+            alert("수정이 완료되었습니다.");
           }
         })
         .catch(err => console.error(err));
