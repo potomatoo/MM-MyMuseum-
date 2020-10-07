@@ -37,6 +37,17 @@
               {{ detail.myartType }}
             </span>
           </div>
+          <div
+            class="art-description"
+            style="font-size: 18px; margin-top: 10px"
+          >
+            <span style="font-family: 'Do Hyeon', sans-serif;">
+              작품 설명:
+            </span>
+            <span>
+              {{ detail.myartDescription }}
+            </span>
+          </div>
 
           <div
             class="d-flex row"
