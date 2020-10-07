@@ -81,18 +81,18 @@ public class UserController {
 		}
 	}
 
-	@PutMapping("/api/priavet/user/changeusername")
-	public Object ChangeUserName(@RequestHeader("Authorization") String jwtToken, @RequestBody String userName) {
+	@PutMapping("/api/private/user/changeusername")
+	public Object ChangeUserName(@RequestHeader("Authorization") String jwtToken, @RequestBody UserDto user) {
 		BasicResponse response = new BasicResponse();
 
-		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
-		if (user == null) {
+		UserDto userinfo = (UserDto) redisTemplate.opsForValue().get(jwtToken);
+		if (userinfo == null) {
 			response.status = false;
 			response.message = "잘못된 사용자 입니다.";
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 
-		response.data = userService.UpdateUserName(user.getUserId(), userName);
+		response.data = userService.UpdateUserName(userinfo.getUserId(), user.getUserName());
 		response.status = (response.data != null) ? true : false;
 
 		if (response.status) {
