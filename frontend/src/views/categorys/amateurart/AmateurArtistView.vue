@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- 윗공간 -->
     <v-responsive class="mx-auto mb-12" width="56">
       <v-divider class="mb-1"></v-divider>
       <v-divider></v-divider>
