@@ -1,6 +1,9 @@
 <template>
   <div v-if="artsByColor">
-    <h2 class="display-2 my-10 text-uppercase text-center rec-title">
+    <h2
+      :style="`color: ${titleColor[$route.params.color]}`"
+      class="display-2 my-10 text-uppercase text-center rec-title"
+    >
       {{ $route.params.color }}
     </h2>
     <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
@@ -94,6 +97,20 @@ export default class ArtListByColorView extends Vue {
     red: "red lighten-4",
     brown: "brown lighten-4",
     black: "grey lighten-1"
+  };
+
+  titleColor = {
+    white: "#ffffff",
+    gray: "#bdbdbd",
+    pink: "#f48fb1",
+    blue: "#2a56c6",
+    teal: "#2979ff",
+    green: "#0d904f",
+    yellow: "#fdd835",
+    orange: "#ff9800",
+    red: "#d50000",
+    brown: "#795548",
+    black: "#37474f"
   };
 
   zoomIn(event: any) {
