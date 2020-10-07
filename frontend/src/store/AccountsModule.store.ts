@@ -14,6 +14,9 @@ const module: Module<AccountsModule, RootState> = {
   getters: {
     isLoggedIn(state) {
       return !!state.token;
+    },
+    userName(state) {
+      return state.user?.userName || "guest";
     }
   },
 
@@ -34,9 +37,9 @@ const module: Module<AccountsModule, RootState> = {
   },
 
   actions: {
-    SIGNUP(_, { userId, userPassword }) {
+    SIGNUP(_, { userId, userName, userPassword }) {
       Axios.instance
-        .post("/api/public/signup", { userId, userPassword })
+        .post("/api/public/signup", { userId, userName, userPassword })
         .then(res => router.push({ name: "Login" }))
         .catch(err => console.error(err));
     },
@@ -85,6 +88,18 @@ const module: Module<AccountsModule, RootState> = {
       return Axios.instance
         .get("/api/public/user/checkemail", { params: { email } })
         .then(({ data }) => data.data)
+        .catch(err => console.error(err));
+    },
+
+    CHANGE_USER_NAME(_, userName) {
+      Axios.instance
+        .put("/api/priavet/user/changeusername", userName)
+        .then(({ data }) => {
+          console.log(data);
+          if (data.status) {
+            router.go(-1);
+          }
+        })
         .catch(err => console.error(err));
     },
     REQUEST_AMATEURARTIST({ commit }, token) {

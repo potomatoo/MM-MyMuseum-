@@ -34,7 +34,8 @@ export default class DetailArtView extends Vue {
 
   @Watch("$route", { immediate: true })
   fetchArt() {
-    this.FETCH_ART({ artNo: Number(this.$route.params.artNo) });
+    const { artNo, type } = this.$route.params;
+    this.FETCH_ART({ artNo, type });
   }
 }
 </script>
@@ -50,7 +51,7 @@ export default class DetailArtView extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100%;
   background: #000;
 }
 .container {
