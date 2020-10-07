@@ -139,4 +139,22 @@ public class UserController {
 		}
 	}
 
+	@GetMapping("/api/public/user/userinfo")
+	public Object UserInfoByUserId(@RequestParam("userId") String userId) {
+		BasicResponse response = new BasicResponse();
+
+		UserDto user = userService.findUserDetail(userId);
+		if (user == null) {
+			response.status = false;
+			response.message = "사용자 조회에 실패하였습니다.";
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
+		user.setUserPassword("");
+		response.data = user;
+		response.status = true;
+		response.message = "사용자 정보입니다.";
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 }
