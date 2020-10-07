@@ -81,7 +81,7 @@
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
                   <div id="fade" class="art-image">
-                    <div class="container">
+                    <div class="containers">
                       <img :src="detail.myartUrl" />
                     </div>
                   </div>
@@ -148,6 +148,14 @@ export default class DetailArtDescription extends Vue {
   max-width: 600px;
   transform-origin: center;
   transform: perspective(800px) rotateY(20deg);
+  transition: 0.5s;
+  -webkit-box-reflect: below 1px
+    linear-gradient(transparent, transparent, #0004);
+}
+.containers img {
+  max-width: 1100px;
+  transform-origin: center;
+  transform: perspective(800px) rotateY(0deg);
   transition: 0.5s;
   -webkit-box-reflect: below 1px
     linear-gradient(transparent, transparent, #0004);
