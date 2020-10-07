@@ -163,8 +163,6 @@ router.beforeEach((to, from, next) => {
 
   authRequired && !isLoggedIn ? next({ name: "Login" }) : next();
   unAuthRequired && isLoggedIn ? next({ name: "Home" }) : next();
-  console.log(to.name, from.name);
-  to.name !== from.name ? next() : undefined;
 });
 
 export default router;
