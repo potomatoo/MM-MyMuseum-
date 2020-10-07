@@ -3,8 +3,9 @@ export interface RecommendationModule {
   artsByColor: Art[] | null;
   artsByWeather: ArtsByWeather | null;
   artsByTime: ArtsByTime | null;
-  favoriteArts: Art[] | null;
+  favoriteArts: FavoriteArt[] | null;
   scrollEnd: boolean;
+  favoriteArt: FavoriteArt | null;
 }
 
 export interface ArtsByWeather {
@@ -30,4 +31,19 @@ export interface Art {
   art_no: number;
   art_method: string;
   log_type?: number;
+}
+
+export interface FavoriteArt {
+  artNo: number;
+  artTitle: string | null;
+  artArtist: string | null;
+  artAge: string | null;
+  artSize: string | null;
+  artType: string | null;
+  artMehtod: string | null;
+  artMuseum: string | null;
+  artUrl: string;
+  artGenre: string | null;
+  artDescription: string | null;
+  art_color: string | null;
 }
