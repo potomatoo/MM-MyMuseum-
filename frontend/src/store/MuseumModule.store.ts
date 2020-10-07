@@ -46,7 +46,6 @@ const module: Module<MuseumModule, RootState> = {
     },
 
     FETCH_SERCH_MUSEUM({ commit }, { museumName, start }) {
-      console.log(museumName + " " + start);
       Axios.instance
         .get("api/public/museum/find", { params: { museumName, start } })
         .then(({ data }) => {

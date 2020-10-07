@@ -3,7 +3,7 @@
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <div
-          v-if="museum.museumName"
+          v-if="museum && museum.museumName"
           class="mb-5 museum-title"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
@@ -12,7 +12,7 @@
 
         <div
           class="mb-5 museum-country"
-          v-if="museum.museumLogo"
+          v-if="museum && museum.museumLogo"
           style="margin-top: 50px;"
         >
           <img
@@ -40,7 +40,7 @@
 
         <div
           class="mb-5 museum-country"
-          v-if="museum.museumCountry"
+          v-if="museum && museum.museumCountry"
           style="font-size: 15px;font-family: 'Do Hyeon', sans-serif;"
         >
           {{ museum.museumCountry }}
