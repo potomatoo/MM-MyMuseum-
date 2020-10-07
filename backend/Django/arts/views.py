@@ -346,15 +346,12 @@ def recommend_weather(request):
     location = requests.get(LOCATION_URL).json()
 
     # WEATHER_CITY = location['city']
-    print('hours', hours)
-    print('city', location['city'])
+    # print('hours', hours)
+    # print('city', location['city'])
     WEATHER_CITY = 'Daejeon'
     WEATHER_KEY = '48b8e7cc211fc6af5e3255ab3c00d305'
     WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid={}'.format(WEATHER_CITY, WEATHER_KEY)
     res = requests.get(WEATHER_URL).json()
-    
-    print('날씨', res['weather'][0]['main'])
-    print('시간', hours)
 
     art_table = pd.read_csv('../../../recommend/arts.csv')
     
@@ -421,4 +418,4 @@ def recommend_weather(request):
 
     return Response({'data':{'weather': {'title': WEATHER, 'data': s_w.data}, 'time': {'title': TIME, 'data': s_t.data}}})
 
-# update_score()
+update_score()
