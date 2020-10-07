@@ -18,7 +18,7 @@ public class MuseumServiceImpl implements MuseumService {
 	@Override
 	public List<MuseumDto> findMuseumlimit(int start) {
 		// TODO Auto-generated method stub
-		int index = start * 16;
+		int index = start * 16 + 1;
 
 		return museumRepository.findMuseumlimit(index);
 	}
@@ -26,7 +26,7 @@ public class MuseumServiceImpl implements MuseumService {
 	@Override
 	public List<MuseumDto> findMuseumByMuseumNamelimit(String museumName, int start) {
 		// TODO Auto-generated method stub
-		int index = start * 16;
+		int index = start * 16 + 1;
 
 		return museumRepository.findMuseumByMuseumNamelimit(museumName, index);
 	}
