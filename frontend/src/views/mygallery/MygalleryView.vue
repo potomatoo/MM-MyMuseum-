@@ -1,80 +1,47 @@
 <template>
   <section id="all">
     <div id="clicked1">
-      <v-row>
-        <span
-          class="mdi mdi-chevron-left"
-          @click="model++"
-          style="margin-right: 10px; align-self: center; cursor: pointer"
-        ></span>
-
-        <v-carousel
-          hide-delimiters
-          id="box"
-          width="100%"
-          height="200px"
-          :show-arrows="false"
-          v-model="model"
-        >
-          <v-carousel-item
-            v-for="(item, i) in items"
-            :key="i"
-            :src="item.src"
-            @click="showDialog = true"
-            style="cursor: pointer"
-          >
-            <v-dialog
-              v-model="showDialog"
-              fullscreen
-              hide-overlay
-              transition="dialog-bottom-transition"
-            >
-              <v-card style="background: black">
-                <v-btn icon dark @click="showDialog = false">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-                <div id="fade" class="art-image">
-                  <div class="container">
-                    <img :src="item.src" />
-                  </div>
-                </div>
-              </v-card>
-            </v-dialog>
-          </v-carousel-item>
-        </v-carousel>
-
-        <span
-          class="mdi mdi-chevron-right"
-          @click="model++"
-          style="margin-left: 10px; align-self: center; cursor: pointer"
-        ></span>
-      </v-row>
+      <img
+        id="box"
+        src="https://lh5.ggpht.com/LI90lhru6dCFuKx4C5S7kDDF0kcxaq98H8ETfWs3UjzjzFylWC14XDJDw_0K"
+        @click="showDialog = true"
+        style="cursor: pointer"
+      />
+      <v-dialog
+        v-model="showDialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <v-card style="background: black">
+          <v-btn icon dark @click="showDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <div id="fade" class="art-image">
+            <div class="container">
+              <img
+                src="https://lh5.ggpht.com/LI90lhru6dCFuKx4C5S7kDDF0kcxaq98H8ETfWs3UjzjzFylWC14XDJDw_0K"
+              />
+              <detail-art-description />
+            </div>
+          </div>
+        </v-card>
+      </v-dialog>
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import DetailArtView from "@/views/detail/DetailArtView.vue";
 
-@Component
+@Component({
+  components: {
+    DetailArtView
+  }
+})
 export default class MygalleryView extends Vue {
-  model = 0;
   showDialog = false;
-
-  items = [
-    {
-      src:
-        "//lh5.ggpht.com/LI90lhru6dCFuKx4C5S7kDDF0kcxaq98H8ETfWs3UjzjzFylWC14XDJDw_0K"
-    },
-    {
-      src:
-        "https://lh5.ggpht.com/4YrrPBu5qd9wG3xIdP9loPW5dyEJsw9G4RCWP8a2HUn_pVYjJTVtrT4YwfY"
-    },
-    {
-      src:
-        "//lh5.ggpht.com/sGFNYnsvcc0L5hH_h3bcFo7pcQSqsYRZninoM_YpT_zudbjOVQAxeA0DZgM"
-    }
-  ];
 }
 </script>
 
