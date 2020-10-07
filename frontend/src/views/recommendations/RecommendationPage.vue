@@ -2,6 +2,7 @@
   <div>
     <detail-art-rotate :arts="userRecArts" />
     <div class="recommendation-page">
+      <!-- 유저별 추천 작품 -->
       <div
         class="rec-section"
         @mouseover="onWrapHover('user')"
@@ -14,7 +15,7 @@
             @mouseleave="outTitleHover('user')"
           >
             <div class="rec-header-title">
-              니가 좋아할만한 작품
+              {{ userName }} 님을 위한 추천 작품
             </div>
             <div class="rec-header-aro">
               <v-fade-transition mode="out-in">
@@ -32,7 +33,11 @@
             </div>
           </div>
         </h1>
-        <vue-slick-carousel v-if="userRecArts" class="slick" v-bind="settings">
+        <vue-slick-carousel
+          v-if="userRecArts"
+          class="slick"
+          v-bind="settingsrtl"
+        >
           <div v-for="art in userRecArts" :key="art.art_no">
             <router-link
               class="router-link"
@@ -47,46 +52,110 @@
           </div>
         </vue-slick-carousel>
       </div>
+
+      <!-- 색상 별 작품 -->
       <div class="color-slider">
         <color-slider />
       </div>
+
+      <!-- 날씨 별 추천 -->
       <div
         class="rec-section"
-        @mouseover="onWrapHover('author')"
-        @mouseleave="outWrapHover('author')"
+        @mouseover="onWrapHover('weather')"
+        @mouseleave="outWrapHover('weather')"
       >
         <h1 class="rec-header">
           <div
             class="rec-title"
-            @mouseover="onTitleHover('author')"
-            @mouseleave="outTitleHover('author')"
+            @mouseover="onTitleHover('weather')"
+            @mouseleave="outTitleHover('weather')"
           >
             <div class="rec-header-title">
-              작가 추천
+              {{ weatherTitle }}
             </div>
             <div class="rec-header-aro">
               <v-fade-transition mode="out-in">
-                <div v-if="recTitle.author.titleHover" class="see-all">
+                <div
+                  v-if="recTitle.weather.titleHover"
+                  class="see-all"
+                  @click="toAllWeatherArts"
+                >
                   모두보기
                 </div>
               </v-fade-transition>
-              <v-icon class="rec-icon" v-if="isAuthorHover" dark>
+              <v-icon class="rec-icon" v-if="isWeatherHover" dark>
                 mdi-36px mdi-chevron-right
               </v-icon>
             </div>
           </div>
         </h1>
         <vue-slick-carousel
-          v-if="userRecArts"
+          v-if="weatherRecArts"
+          class="slick"
+          v-bind="settings"
+        >
+          <div v-for="art in weatherRecArts" :key="art.art_no">
+            <router-link
+              class="router-link"
+              :to="{ name: 'DetailArtView', params: { artNo: art.art_no } }"
+            >
+              <img
+                class="recommendation-img"
+                :src="art.art_url"
+                :alt="art.art_title"
+              />
+            </router-link>
+          </div>
+        </vue-slick-carousel>
+      </div>
+
+      <!-- 시간 별 추천 -->
+      <div
+        class="rec-section"
+        @mouseover="onWrapHover('time')"
+        @mouseleave="outWrapHover('time')"
+      >
+        <h1 class="rec-header">
+          <div
+            class="rec-title"
+            @mouseover="onTitleHover('time')"
+            @mouseleave="outTitleHover('time')"
+          >
+            <div class="rec-header-title">
+              {{ timeTitle }}
+            </div>
+            <div class="rec-header-aro">
+              <v-fade-transition mode="out-in">
+                <div
+                  v-if="recTitle.time.titleHover"
+                  class="see-all"
+                  @click="toAllTimeArts"
+                >
+                  모두보기
+                </div>
+              </v-fade-transition>
+              <v-icon class="rec-icon" v-if="isTimeHover" dark>
+                mdi-36px mdi-chevron-right
+              </v-icon>
+            </div>
+          </div>
+        </h1>
+        <vue-slick-carousel
+          v-if="timeRecArts"
           class="slick"
           v-bind="settingsrtl"
         >
-          <div v-for="art in userRecArts" :key="art.art_no">
-            <img
-              class="recommendation-img"
-              :src="art.art_url"
-              :alt="art.art_title"
-            />
+          <div v-for="art in timeRecArts" :key="art.art_no">
+            <router-link
+              class="router-link"
+              :to="{ name: 'DetailArtView', params: { artNo: art.art_no } }"
+            >
+              <img
+                class="recommendation-img"
+                :src="art.art_url"
+                :alt="art.art_title"
+              />
+            </router-link>
           </div>
         </vue-slick-carousel>
       </div>
@@ -106,6 +175,7 @@ import ColorSlider from "@/components/recommendations/ColorSlider.vue";
 
 const articleModule = namespace("articleModule");
 const RecommendationModule = namespace("RecommendationModule");
+const AccountsModule = namespace("AccountsModule");
 
 @Component({
   components: {
@@ -115,15 +185,25 @@ const RecommendationModule = namespace("RecommendationModule");
   }
 })
 export default class RecommendationPage extends Vue {
+  @AccountsModule.Getter userName;
   @RecommendationModule.Getter userRecArts;
+  @RecommendationModule.Getter weatherRecArts;
+  @RecommendationModule.Getter timeRecArts;
+  @RecommendationModule.Getter weatherTitle;
+  @RecommendationModule.Getter timeTitle;
   @RecommendationModule.Action FETCH_ART_LIST;
+  @RecommendationModule.Action FETCH_ART_LIST_BY_WEATHER;
 
   get isRecHover() {
     return this.recTitle.user.wrapHover || this.recTitle.user.titleHover;
   }
 
-  get isAuthorHover() {
-    return this.recTitle.author.wrapHover || this.recTitle.author.titleHover;
+  get isWeatherHover() {
+    return this.recTitle.weather.wrapHover || this.recTitle.weather.titleHover;
+  }
+
+  get isTimeHover() {
+    return this.recTitle.time.wrapHover || this.recTitle.time.titleHover;
   }
 
   window = {
@@ -137,7 +217,12 @@ export default class RecommendationPage extends Vue {
       titleHover: false,
       allseeHover: false
     },
-    author: {
+    weather: {
+      wrapHover: false,
+      titleHover: false,
+      allseeHover: false
+    },
+    time: {
       wrapHover: false,
       titleHover: false,
       allseeHover: false
@@ -145,8 +230,8 @@ export default class RecommendationPage extends Vue {
   };
 
   settings = {
-    arrows: false,
-    dots: true,
+    arrows: true,
+    dots: false,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -182,8 +267,8 @@ export default class RecommendationPage extends Vue {
   };
 
   settingsrtl = {
-    arrows: false,
-    dots: true,
+    arrows: true,
+    dots: false,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -222,8 +307,10 @@ export default class RecommendationPage extends Vue {
   onWrapHover(cate) {
     if (cate == "user") {
       this.recTitle.user.wrapHover = true;
-    } else if (cate == "author") {
-      this.recTitle.author.wrapHover = true;
+    } else if (cate == "weather") {
+      this.recTitle.weather.wrapHover = true;
+    } else if (cate == "time") {
+      this.recTitle.time.wrapHover = true;
     }
   }
 
@@ -231,8 +318,10 @@ export default class RecommendationPage extends Vue {
     setTimeout(() => {
       if (cate == "user") {
         this.recTitle.user.wrapHover = false;
-      } else if (cate == "author") {
-        this.recTitle.author.wrapHover = false;
+      } else if (cate == "weather") {
+        this.recTitle.weather.wrapHover = false;
+      } else if (cate == "time") {
+        this.recTitle.time.wrapHover = false;
       }
     }, 500);
   }
@@ -240,23 +329,20 @@ export default class RecommendationPage extends Vue {
   onTitleHover(cate) {
     if (cate == "user") {
       this.recTitle.user.titleHover = true;
-    } else if (cate == "author") {
-      this.recTitle.author.titleHover = true;
+    } else if (cate == "weather") {
+      this.recTitle.weather.titleHover = true;
+    } else if (cate == "time") {
+      this.recTitle.time.titleHover = true;
     }
-    // const icon = document.querySelector(".rec-icon");
-    // if (icon) {
-    // icon.style.transform = "translateX(30px)";
-    // icon.style.transition = "transform 5000ms";
-    // setTimeout(() => {
-    // }, 500);
-    // }
   }
 
   outTitleHover(cate) {
     if (cate == "user") {
       this.recTitle.user.titleHover = false;
-    } else if (cate == "author") {
-      this.recTitle.author.titleHover = false;
+    } else if (cate == "weather") {
+      this.recTitle.weather.titleHover = false;
+    } else if (cate == "time") {
+      this.recTitle.time.titleHover = false;
     }
   }
 
@@ -274,7 +360,8 @@ export default class RecommendationPage extends Vue {
   }
 
   created() {
-    this.FETCH_ART_LIST("test");
+    this.FETCH_ART_LIST();
+    this.FETCH_ART_LIST_BY_WEATHER();
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
   }
@@ -289,6 +376,14 @@ export default class RecommendationPage extends Vue {
 
   toAllUserRec() {
     this.$router.push({ name: "RecArtList" });
+  }
+
+  toAllWeatherArts() {
+    this.$router.push({ name: "WeatherArtsList" });
+  }
+
+  toAllTimeArts() {
+    this.$router.push({ name: "TimeArtsList" });
   }
 }
 </script>
@@ -322,8 +417,12 @@ export default class RecommendationPage extends Vue {
   height: 165px;
 }
 
+.recommendation-page .rec-section .slick .slick-dots li button::before {
+  color: white;
+}
+
 .rec-section {
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 
 .rec-header {
@@ -351,8 +450,7 @@ export default class RecommendationPage extends Vue {
 }
 
 .color-slider {
-  display: block;
   height: 400px;
-  margin: 100px 0px 50px;
+  margin: 150px 0px 100px;
 }
 </style>
