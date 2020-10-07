@@ -17,9 +17,8 @@
           v-model="model"
         >
           <v-carousel-item
-            v-for="(item, i) in items"
-            :key="i"
-            :src="item.src"
+            :key="favoriteArt.artNo"
+            :src="favoriteArt.artUrl"
             @click="showDialog = true"
             style="cursor: pointer"
           >
@@ -35,7 +34,7 @@
                 </v-btn>
                 <div id="fade" class="art-image">
                   <div class="container">
-                    <img :src="item.src" />
+                    <img :src="favoriteArt.artUrl" />
                   </div>
                 </div>
               </v-card>
@@ -55,9 +54,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import { FavoriteArt } from "../../store/Recommendation.interface";
+
+const RecommendationModule = namespace("RecommendationModule");
 
 @Component
 export default class MygalleryView extends Vue {
+  @RecommendationModule.State favoriteArt!: FavoriteArt | null;
+  @RecommendationModule.Action FETCH_FAVORITE_ART: any;
+
   model = 0;
   showDialog = false;
 
@@ -75,6 +81,10 @@ export default class MygalleryView extends Vue {
         "//lh5.ggpht.com/sGFNYnsvcc0L5hH_h3bcFo7pcQSqsYRZninoM_YpT_zudbjOVQAxeA0DZgM"
     }
   ];
+
+  created() {
+    this.FETCH_FAVORITE_ART(this.$route.params.artNo);
+  }
 }
 </script>
 
