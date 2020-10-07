@@ -58,6 +58,8 @@
                 :src="genre.genreUrl"
                 aspect-ratio="1"
                 class="grey lighten-2 artist-card"
+                @mouseenter="zoomIn"
+                @mouseleave="zoomOut"
               >
                 <template v-slot:placeholder>
                   <v-row
@@ -120,11 +122,24 @@ export default class StyleList extends Vue {
       params: { genre: genre.genreName }
     });
   }
+
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
+  }
 }
 </script>
 
 <style scoped>
 .v-card {
+  border-radius: 5px !important;
   transition: opacity 0.4s ease-in-out;
 }
 

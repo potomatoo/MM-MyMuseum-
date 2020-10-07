@@ -6,7 +6,7 @@
           <div class="flip-container">
             <div>
               <img
-                v-if="museum.museumUrl"
+                v-if="museum && museum.museumUrl"
                 :src="museum.museumUrl"
                 class="artist-img-front"
               />

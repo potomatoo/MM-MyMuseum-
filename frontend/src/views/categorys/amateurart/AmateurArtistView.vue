@@ -19,7 +19,7 @@
       style="margin : 1px 20%"
     >
       <v-btn
-        v-if="userArtist === 3"
+        v-if="user && userArtist === 3"
         width="20%"
         color="rgb(137,120,104)"
         dark
@@ -55,6 +55,8 @@
                   "
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
+                  @mouseenter="zoomIn"
+                  @mouseleave="zoomOut"
                 >
                   <template v-slot:placeholder>
                     <v-row
@@ -111,6 +113,7 @@ export default class AmateurArtistView extends Vue {
 
   @AccountsModule.State user!: User;
   @AccountsModule.Action FETCH_USER_INFO: any;
+  @AccountsModule.Getter isLoggedIn!: boolean;
 
   inputText = "";
   start = 0;
@@ -128,7 +131,9 @@ export default class AmateurArtistView extends Vue {
   }
 
   created() {
-    this.FETCH_USER_INFO();
+    if (this.user) {
+      this.FETCH_USER_INFO();
+    }
 
     if (this.searchText) {
       this.FETCH_SERCH_AMATEUR({
@@ -206,6 +211,18 @@ export default class AmateurArtistView extends Vue {
     this.SET_AMATEUR_ZERO();
     this.searchstart = 0;
     this.start = 0;
+  }
+
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
   }
 }
 </script>
