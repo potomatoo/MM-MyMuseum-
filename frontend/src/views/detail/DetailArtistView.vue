@@ -35,7 +35,7 @@ const DetailModule = namespace("DetailModule");
 export default class DetailArtistView extends Vue {
   @DetailModule.State artList!: Art[] | null;
   @DetailModule.State scrollEnd!: boolean;
-  @DetailModule.State artist!: Artist;
+  @DetailModule.State artist!: Artist | null;
   @DetailModule.Mutation SET_ART_LIST_ZERO!: any;
   @DetailModule.Action FETCH_ARTIST_ART_LIST: any;
   @DetailModule.Action FETCH_ARTIST: any;
@@ -59,7 +59,6 @@ export default class DetailArtistView extends Vue {
         !this.scrollEnd &&
         this.$route.name === "DetailArtistView"
       ) {
-        console.log(this.$route.name);
         ++this.start;
         this.FETCH_ARTIST_ART_LIST({
           artist: this.$route.params.artist,
