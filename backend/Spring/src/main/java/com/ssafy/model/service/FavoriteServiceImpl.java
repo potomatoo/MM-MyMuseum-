@@ -23,7 +23,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 		// TODO Auto-generated method stub
 		int index = start * 16;
 
-		return ArtRepository.findArtByFavorite(userId, start);
+		return ArtRepository.findArtByFavorite(userId, index);
 	}
 
 	@Override
