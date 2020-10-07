@@ -1,6 +1,7 @@
 <template>
   <div id="fade" class="art-image" v-if="detail">
     <div class="container">
+      <!-- dd-->
       <img :src="detail.myartUrl" />
       <v-row> </v-row>
       <div
