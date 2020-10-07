@@ -23,6 +23,7 @@ import StyleList from "@/views/categorys/styles/StyleList.vue";
 import AmateurArtistView from "@/views/categorys/amateurart/AmateurArtistView.vue";
 import AmateurArtView from "@/views/categorys/amateurart/AmateurArtView.vue";
 import AmateurArtUpload from "@/views/categorys/amateurart/AmateurArtUpload.vue";
+import DetailAmateurArt from "@/views/categorys/amateurart/DetailAmateurArt.vue";
 
 Vue.use(VueRouter);
 
@@ -114,19 +115,9 @@ const routes: Array<RouteConfig> = [
     component: ArtListView
   },
   {
-    path: "/requestamateur",
-    name: "RequestAmateur",
-    component: RequestAmateur
-  },
-  {
     path: "/color/:color",
     name: "ArtListByColor",
     component: ArtListByColorView
-  },
-  {
-    path: "/color",
-    name: "ColorSlider",
-    component: ColorSlider
   },
   {
     path: "/categorys/amateurartist",
@@ -142,6 +133,11 @@ const routes: Array<RouteConfig> = [
     path: "/amateur/upload",
     name: "AmateurArtUpload",
     component: AmateurArtUpload
+  },
+  {
+    path: "/amateur/detail",
+    name: "DetailAmateurArt",
+    component: DetailAmateurArt
   }
 ];
 

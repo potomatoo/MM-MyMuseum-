@@ -98,7 +98,6 @@ import { namespace } from "vuex-class";
 import { User } from "../../../store/Accounts.interface";
 const AccountsModule = namespace("AccountsModule");
 
-import { UploadData } from "../../../store/AmateurInterface";
 const amateurModule = namespace("amateurModule");
 
 @Component({})
@@ -130,13 +129,14 @@ export default class AmateurArtUpload extends Vue {
   }
 
   submitForm() {
-    this.UPLOAD_AMATEUR_ART({
-      token: sessionStorage.getItem("jwt-token"),
-      description: this.description,
-      file: this.file,
-      title: this.title,
-      type: this.type
-    });
+    const formData = new FormData();
+    formData.append("token", sessionStorage.getItem("jwt-token")!);
+    formData.append("description", this.description!);
+    formData.append("file", this.file!);
+    formData.append("title", this.title!);
+    formData.append("type", this.type!);
+
+    this.UPLOAD_AMATEUR_ART(formData);
   }
 }
 </script>

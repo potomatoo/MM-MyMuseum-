@@ -3,8 +3,7 @@ import { RootState } from "./index";
 import {
   AmateurModule,
   Amateur,
-  AmateurArt,
-  UploadData
+  AmateurArt
 } from "@/store/AmateurInterface.ts";
 import { Axios } from "@/service/axios.service";
 import router from "@/router";
@@ -19,7 +18,7 @@ const module: Module<AmateurModule, RootState> = {
     searchText: "",
     userId: "",
     userName: "",
-    uploadData: null
+    detail: null
   },
 
   getters: {},
@@ -59,9 +58,22 @@ const module: Module<AmateurModule, RootState> = {
       state.userName = userName;
     },
 
+    SET_USERINFO_ZERO(state) {
+      state.userId = "";
+      state.userName = "";
+    },
+
     SET_AMATEUR_ART_ZERO(state) {
       state.scrollEnd = false;
       state.amateurArts = null;
+    },
+
+    SET_DETAIL_AMATEUR_ART(state, detail: AmateurArt) {
+      state.detail = detail;
+    },
+
+    SET_DETAIL_AMATEUR_ART_ZERO(state) {
+      state.detail = null;
     }
   },
 
@@ -86,10 +98,10 @@ const module: Module<AmateurModule, RootState> = {
         .catch(err => console.error(err));
     },
 
-    UPLOAD_AMATEUR_ART({ commit }, { token, description, file, title, type }) {
+    UPLOAD_AMATEUR_ART({ commit }, formData) {
       Axios.instance
-        .post("/api/private/myart/upload", {
-          params: { token, description, file, title, type }
+        .post("/api/private/myart/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" }
         })
         .then(res => {
           alert("작품 등록이 완료되었습니다.");
@@ -101,12 +113,22 @@ const module: Module<AmateurModule, RootState> = {
         });
     },
 
-    FETCH_AMATEUR_ART({ commit }, { start, userId, userName }) {
+    FETCH_AMATEUR_ART({ commit }, { start, userId }) {
       Axios.instance
         .get("/api/public/myart/list", { params: { start, userId } })
         .then(({ data }) => {
           commit("SET_AMATEUR_ART", data.data);
-          commit("SET_USERINFO", { userId, userName });
+          console.log(data.data);
+        })
+        .catch(err => console.error(err));
+    },
+
+    FETCH_DETAIL_AMATEUR_ART({ commit }, myartNo) {
+      Axios.instance
+        .get("/api/public/myart/detail", { params: { myartNo } })
+        .then(({ data }) => {
+          commit("SET_DETAIL_AMATEUR_ART", data.data);
+          console.log(data.data);
         })
         .catch(err => console.error(err));
     }

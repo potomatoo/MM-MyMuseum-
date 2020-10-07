@@ -12,6 +12,7 @@
     >
       {{ userName }}님의 작품들
     </h2>
+
     <v-row
       cols="12"
       sm="6"
@@ -20,6 +21,9 @@
       justify="center"
       style="margin : 1px 20%"
     >
+      <div v-if="amateurArts && !amateurArts.length" style="margin: 20px">
+        <h1 style="color: white;">등록된 작품이 없습니다.</h1>
+      </div>
     </v-row>
 
     <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
@@ -38,7 +42,7 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                @click="moveDetail(value.mysarNo)"
+                @click="moveDetail(value.myartNo)"
               >
                 <v-img
                   :src="value.myartUrl"
@@ -91,36 +95,34 @@ export default class AmateurArtView extends Vue {
   @amateurModule.Mutation SET_AMATEUR_ART_ZERO: any;
   @amateurModule.State userId: any;
   @amateurModule.State userName: any;
+  @amateurModule.Mutation SET_USERINFO: any;
+  @amateurModule.Mutation SET_USERINFO_ZERO: any;
 
   start = 0;
 
   created() {
-    console.log(this.userId);
-    if (this.userId) {
-      this.FETCH_AMATEUR_ART({
-        start: this.start,
-        userId: this.userId,
-        userName: this.userName
-      });
-    } else {
-      this.FETCH_AMATEUR_ART({
-        start: this.start,
-        userId: this.$route.params.userId,
-        userName: this.$route.params.userName
+    if (this.$route.params.userId != null) {
+      this.SET_USERINFO({
+        userId: this.$route.params.userId.toString(),
+        userName: this.$route.params.userName.toString()
       });
     }
+    this.FETCH_AMATEUR_ART({
+      start: this.start,
+      userId: this.userId
+    });
+    console.log("@@" + this.userId + "!!! " + this.userName);
   }
 
   moveDetail(myartNo: string) {
     this.$router.push({
-      name: "",
+      name: "DetailAmateurArt",
       params: { myartNo: myartNo }
     });
   }
 
   destroyed() {
     this.SET_AMATEUR_ART_ZERO();
-    this.start = 0;
   }
 }
 </script>

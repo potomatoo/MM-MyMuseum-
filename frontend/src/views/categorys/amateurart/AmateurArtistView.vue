@@ -65,7 +65,6 @@
                   :class="{ 'on-hover': hover }"
                   @click="moveAmateurart(value.userId, value.userName)"
                 >
-                  <!-- 임시 이미지 입력  이미지 url http://j3b205.p.ssafy.io/file/~~로 변경 -->
                   <v-img
                     :src="require(`@/assets/dummydata/category/museum.jpg`)"
                     aspect-ratio="1"
@@ -144,9 +143,7 @@ export default class AmateurArtistView extends Vue {
   }
 
   created() {
-    if (!this.user) {
-      this.FETCH_USER_INFO();
-    }
+    this.FETCH_USER_INFO();
 
     if (this.searchText) {
       this.FETCH_SERCH_AMATEUR({
@@ -159,13 +156,6 @@ export default class AmateurArtistView extends Vue {
   }
 
   searchArtist() {
-    for (let i = 0; i < sessionStorage.length; i++) {
-      this.key = sessionStorage.key(i)!;
-      if (this.key != "jwt-token") {
-        sessionStorage.removeItem(this.key);
-      }
-    }
-
     this.SET_AMATEUR_ZERO();
     if (this.inputText) {
       this.SET_AMATEUR_SEARCHTEXT(this.inputText);

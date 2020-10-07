@@ -55,7 +55,6 @@
                   :class="{ 'on-hover': hover }"
                   @click="moveDetail(artist.artistName)"
                 >
-                  <!-- 임시 이미지 입력 -->
                   <v-img
                     :src="artist.artistImg"
                     aspect-ratio="1"

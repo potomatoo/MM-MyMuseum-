@@ -95,6 +95,7 @@ const module: Module<AccountsModule, RootState> = {
         .put("/api/private/user/registArtist", token)
         .then(() => {
           alert("작가등록이 완료되었습니다");
+          router.push("/");
         })
         .catch(err => console.error(err));
     }
