@@ -75,7 +75,7 @@
                   color="rgb(137,120,104)"
                   dark
                   large
-                  @click="moveAmateurart(userId, userName)"
+                  @click="moveAmateurArtUpload()"
                 >
                   작품 등록
                 </v-btn>
@@ -155,7 +155,6 @@ export default class MyPageView extends Vue {
   toRequestAmateur() {
     this.REQUEST_AMATEURARTIST();
   }
-
   moveAmateurArtUpload() {
     this.$router.push({
       name: "AmateurArtUpload"
