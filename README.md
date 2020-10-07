@@ -159,6 +159,8 @@ public class JwtProperties {
 ### CI/CD
 
 - Jenkins
+- Docker
+- nginx
 
 
 
