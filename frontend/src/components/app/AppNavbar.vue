@@ -72,6 +72,7 @@ export default class AppNavbar extends Vue {
   logout() {
     // this.LOGOUT();
     this.REMOVE_TOKEN();
+    this.$router.push({ name: "Home" });
   }
 }
 </script>
