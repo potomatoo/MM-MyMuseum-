@@ -114,19 +114,9 @@ const routes: Array<RouteConfig> = [
     component: ArtListView
   },
   {
-    path: "/requestamateur",
-    name: "RequestAmateur",
-    component: RequestAmateur
-  },
-  {
     path: "/color/:color",
     name: "ArtListByColor",
     component: ArtListByColorView
-  },
-  {
-    path: "/color",
-    name: "ColorSlider",
-    component: ColorSlider
   },
   {
     path: "/categorys/amateurartist",
