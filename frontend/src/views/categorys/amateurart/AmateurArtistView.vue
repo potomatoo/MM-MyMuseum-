@@ -4,7 +4,6 @@
       <v-divider class="mb-1"></v-divider>
       <v-divider></v-divider>
     </v-responsive>
-    <!-- 제목 -->
     <h2
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
