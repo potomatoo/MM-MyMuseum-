@@ -10,7 +10,7 @@
         </div>
 
         <div class="d-flex row genre-title" style="justify-content: center">
-          <div v-if="genre.genreDescription" style="font-size: 10px;">
+          <div v-if="genre && genre.genreDescription" style="font-size: 10px;">
             <span style="font-size: 15px; font-family: 'Do Hyeon', sans-serif;">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">

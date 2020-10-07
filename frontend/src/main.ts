@@ -7,7 +7,8 @@ import GAuth from "vue-google-oauth2";
 import Vuelidate from "vuelidate";
 
 const gauthOption = {
-  clientId: process.env.VUE_APP_CLIENT_ID,
+  clientId:
+    "110473550923-l77b5sv8d1vh1mnuvbrsrljqc3ttgd6u.apps.googleusercontent.com",
   scope: "profile email",
   prompt: "select_account"
 };

@@ -24,7 +24,7 @@
           v-for="({ title, link, hero }, i) in articles"
           :key="i"
           cols="12"
-          md="6"
+          md="3"
           style="padding: 20px"
         >
           <v-hover v-slot:default="{ hover }">
@@ -44,7 +44,7 @@
                 <v-expand-transition>
                   <div
                     v-if="hover"
-                    class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text black"
+                    class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-2 white--text black"
                     style="height: 100%;"
                   >
                     {{ title }}

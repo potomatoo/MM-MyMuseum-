@@ -54,8 +54,11 @@
       </div>
 
       <!-- 색상 별 작품 -->
-      <div class="color-slider">
-        <color-slider />
+      <div>
+        <h1 style="color: white; margin-bottom: 12px;">색상 별 추천</h1>
+        <div class="color-slider">
+          <color-slider />
+        </div>
       </div>
 
       <!-- 날씨 별 추천 -->
@@ -451,6 +454,6 @@ export default class RecommendationPage extends Vue {
 
 .color-slider {
   height: 400px;
-  margin: 150px 0px 100px;
+  margin-bottom: 100px;
 }
 </style>
