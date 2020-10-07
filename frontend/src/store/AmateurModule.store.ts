@@ -77,7 +77,6 @@ const module: Module<AmateurModule, RootState> = {
         .get("/api/public/myart/artist", { params: { start } })
         .then(({ data }) => {
           commit("SET_AMATEUR", data.data);
-          console.log(data.data);
         })
         .catch(err => console.error(err));
     },
@@ -112,7 +111,6 @@ const module: Module<AmateurModule, RootState> = {
         .get("/api/public/myart/list", { params: { start, userId } })
         .then(({ data }) => {
           commit("SET_AMATEUR_ART", data.data);
-          console.log(data.data);
         })
         .catch(err => console.error(err));
     },
@@ -122,7 +120,6 @@ const module: Module<AmateurModule, RootState> = {
         .get("/api/public/user/userinfo", { params: { userId } })
         .then(({ data }) => {
           commit("SET_USERINFO", data.data);
-          console.log(data.data);
         })
         .catch(err => console.error(err));
     },
@@ -132,7 +129,6 @@ const module: Module<AmateurModule, RootState> = {
         .get("/api/public/myart/detail", { params: { myartNo } })
         .then(({ data }) => {
           commit("SET_DETAIL_AMATEUR_ART", data.data);
-          console.log(data.data);
         })
         .catch(err => console.error(err));
     }

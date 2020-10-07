@@ -404,7 +404,7 @@ export default class RecommendationPage extends Vue {
 
 .recommendation-img {
   margin: 5px;
-  width: 98%;
+  width: 94%;
   height: 165px;
   transition: all ease 1ms;
 }

@@ -46,8 +46,6 @@ const module: Module<ArtistModule, RootState> = {
     },
 
     FETCH_SERCH_ARTIST({ commit }, { artistName, start }) {
-      console.log(artistName + " " + start);
-
       Axios.instance
         .get("api/public/artist/find", { params: { artistName, start } })
         .then(({ data }) => {

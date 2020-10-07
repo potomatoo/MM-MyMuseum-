@@ -15,7 +15,7 @@
             <router-link
               class="router-link"
               :to="{
-                name: 'DetailArtView',
+                name: 'MyGalleryView',
                 params: {
                   artNo: art.artNo
                 }
@@ -72,14 +72,14 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import { Art } from "../../store/Recommendation.interface";
+import { FavoriteArt } from "../../store/Recommendation.interface";
 
 const AccountsModule = namespace("AccountsModule");
 
 @Component
 export default class ArtListGallery extends Vue {
   @AccountsModule.Getter userName!: string;
-  @Prop() private arts!: Art[];
+  @Prop() private arts!: FavoriteArt[];
 
   zoomIn(event: any) {
     event.target.style.transform = "scale(1.1)";

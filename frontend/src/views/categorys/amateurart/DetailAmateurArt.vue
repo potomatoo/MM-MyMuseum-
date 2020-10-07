@@ -37,6 +37,17 @@
               {{ detail.myartType }}
             </span>
           </div>
+          <div
+            class="art-description"
+            style="font-size: 18px; margin-top: 10px"
+          >
+            <span style="font-family: 'Do Hyeon', sans-serif;">
+              작품 설명:
+            </span>
+            <span>
+              {{ detail.myartDescription }}
+            </span>
+          </div>
 
           <div
             class="d-flex row"
@@ -70,7 +81,7 @@
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
                   <div id="fade" class="art-image">
-                    <div class="container">
+                    <div class="containers">
                       <img :src="detail.myartUrl" />
                     </div>
                   </div>
@@ -137,6 +148,14 @@ export default class DetailArtDescription extends Vue {
   max-width: 600px;
   transform-origin: center;
   transform: perspective(800px) rotateY(20deg);
+  transition: 0.5s;
+  -webkit-box-reflect: below 1px
+    linear-gradient(transparent, transparent, #0004);
+}
+.containers img {
+  max-width: 1100px;
+  transform-origin: center;
+  transform: perspective(800px) rotateY(0deg);
   transition: 0.5s;
   -webkit-box-reflect: below 1px
     linear-gradient(transparent, transparent, #0004);
