@@ -109,12 +109,20 @@ export default class SignupView extends Vue {
     return a;
   }
 
-  signup() {
+  async signup() {
     const userInfo = {
       userId: this.userEmail,
+      userName: this.userNickname,
       userPassword: this.userPassword
     };
-    this.SIGNUP(userInfo);
+    const isValid = await this.CHECK_EMAIL(this.userEmail);
+    console.log(isValid);
+    if (isValid) {
+      this.SIGNUP(userInfo);
+    } else {
+      alert("이미 사용중인 아이디입니다.");
+    }
+    // this.SIGNUP(userInfo);
   }
 }
 </script>

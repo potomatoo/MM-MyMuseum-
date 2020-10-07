@@ -114,19 +114,9 @@ const routes: Array<RouteConfig> = [
     component: ArtListView
   },
   {
-    path: "/requestamateur",
-    name: "RequestAmateur",
-    component: RequestAmateur
-  },
-  {
     path: "/color/:color",
     name: "ArtListByColor",
     component: ArtListByColorView
-  },
-  {
-    path: "/color",
-    name: "ColorSlider",
-    component: ColorSlider
   },
   {
     path: "/categorys/amateurartist",
@@ -149,6 +139,24 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const authRequiredPages = ["MyPage", "MyGalleryView"];
+  const authRequired = authRequiredPages.includes(to.name!);
+  const isLoggedIn = !!window.sessionStorage.getItem("jwt-token");
+  const unAuthRequiredPages = ["Signup", "Login"];
+  const unAuthRequired = unAuthRequiredPages.includes(to.name!);
+  console.log(authRequired, isLoggedIn);
+
+  if (authRequired && !isLoggedIn) {
+    console.log("로그인으로");
+    next({ name: "Login" });
+  } else {
+    console.log("그대로");
+    next();
+  }
+  unAuthRequired && isLoggedIn ? next({ name: "Home" }) : next();
 });
 
 export default router;
