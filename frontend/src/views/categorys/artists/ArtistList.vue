@@ -60,6 +60,8 @@
                   :src="artist.artistImg"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
+                  @mouseenter="zoomIn"
+                  @mouseleave="zoomOut"
                 >
                   <template v-slot:placeholder>
                     <v-row
@@ -184,11 +186,24 @@ export default class ArtistList extends Vue {
   destroyed() {
     this.SET_ARTIST_ZERO();
   }
+
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
+  }
 }
 </script>
 
 <style scoped>
 .v-card {
+  border-radius: 5px !important;
   transition: opacity 0.4s ease-in-out;
 }
 

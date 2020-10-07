@@ -179,7 +179,11 @@
         </v-dialog>
       </div>
 
-      <div class="art-show" style="font-size: 18px; margin-top: 10px;">
+      <div
+        v-if="isLoggedIn"
+        class="art-show"
+        style="font-size: 18px; margin-top: 10px;"
+      >
         <span style="font-family: 'Do Hyeon', sans-serif;">
           <button
             v-if="isFavoriteArt"
@@ -208,6 +212,8 @@ import { namespace } from "vuex-class";
 import { Art } from "../../store/Detail.interface";
 
 const DetailModule = namespace("DetailModule");
+const AccountsModule = namespace("AccountsModule");
+
 @Component
 export default class DetailArtDescription extends Vue {
   @DetailModule.State art!: Art;
@@ -215,6 +221,7 @@ export default class DetailArtDescription extends Vue {
   @DetailModule.Action ADD_FAVORITE_ART: any;
   @DetailModule.Action DELETE_FAVORITE_ART: any;
   @DetailModule.Action IS_FAVORITE_ART: any;
+  @AccountsModule.Getter isLoggedIn!: any;
 
   dialog = false;
   showDialog = false;

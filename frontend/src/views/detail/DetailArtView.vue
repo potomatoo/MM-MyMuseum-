@@ -15,6 +15,7 @@ import DetailArtDescription from "@/components/detail/DetailArtDescription.vue";
 import { Art } from "../../store/Detail.interface";
 
 const DetailModule = namespace("DetailModule");
+const AccountsModule = namespace("AccountsModule");
 
 @Component({
   components: {
@@ -26,10 +27,13 @@ export default class DetailArtView extends Vue {
   @DetailModule.Action FETCH_ART: any;
   @DetailModule.State isFavoriteArt!: boolean;
   @DetailModule.Action IS_FAVORITE_ART!: any;
+  @AccountsModule.Getter isLoggedIn!: any;
 
   @Watch("$route", { immediate: true })
   checkFavoriteArt() {
-    this.IS_FAVORITE_ART({ artNo: Number(this.$route.params.artNo) });
+    if (this.isLoggedIn) {
+      this.IS_FAVORITE_ART({ artNo: Number(this.$route.params.artNo) });
+    }
   }
 
   @Watch("$route", { immediate: true })

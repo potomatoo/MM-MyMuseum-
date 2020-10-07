@@ -3,7 +3,7 @@
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <div
-          v-if="artist.artistName"
+          v-if="artist && artist.artistName"
           class="artist-title"
           style="font-size: 40px; font-family: Playfair Display, serif; margin-bottom: 10px"
         >
@@ -11,7 +11,7 @@
         </div>
 
         <div
-          v-if="artist.artistAge"
+          v-if="artist && artist.artistAge"
           class="mb-5 artist-age"
           style="font-family: Playfair Display, serif; font-size: 25px; font-family: 'Do Hyeon', sans-serif;"
         >

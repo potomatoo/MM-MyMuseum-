@@ -40,6 +40,8 @@
                 class="mb-4 category-card"
                 height="420"
                 max-width="100%"
+                @mouseenter="zoomIn"
+                @mouseleave="zoomOut"
               >
                 <v-expand-transition>
                   <div
@@ -111,6 +113,18 @@ export default class CategoryView extends Vue {
     this.$router.push({
       name: link
     });
+  }
+
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
   }
 }
 </script>
