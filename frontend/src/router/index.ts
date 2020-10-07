@@ -8,6 +8,7 @@ import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 import DetailMuseumView from "@/views/detail/DetailMuseumView.vue";
 import DetailGenreView from "@/views/detail/DetailGenreView.vue";
 import DetailArtView from "@/views/detail/DetailArtView.vue";
+import MyGalleryListView from "@/views/mygallery/MyGalleryListView.vue";
 import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 
 //recommendation
@@ -69,6 +70,11 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/mygallery",
+    name: "MyGalleryListView",
+    component: MyGalleryListView
+  },
+  {
+    path: "/mygallery/:artNo",
     name: "MyGalleryView",
     component: MygalleryView
   },
