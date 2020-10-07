@@ -22,6 +22,7 @@ import com.ssafy.model.dto.MyArtDto;
 import com.ssafy.model.dto.UserDto;
 import com.ssafy.model.response.BasicResponse;
 import com.ssafy.model.service.MyArtService;
+import com.ssafy.model.service.UserService;
 
 @Controller
 public class MyArtController {
@@ -29,9 +30,11 @@ public class MyArtController {
 	@Autowired
 	private MyArtService myartService;
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
-	private String[] allowFile = { "jpg", "png" };
+	private String[] allowFile = { "jpg", "png", "JPG", "PNG" };
 
 	@GetMapping("/api/public/myart/artist")
 	public Object FindMyArtistList(@RequestParam int start) {
@@ -60,6 +63,8 @@ public class MyArtController {
 			response.message = "잘못된 사용자 입니다.";
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
+
+		user = userService.findUserDetail(user.getUserId());
 
 		if (user.getUserArtist() != 3) {
 			response.status = false;

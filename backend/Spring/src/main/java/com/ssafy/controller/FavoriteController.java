@@ -26,7 +26,7 @@ public class FavoriteController {
 	private RedisTemplate<String, Object> redisTemplate;
 
 	@GetMapping("/api/private/favorite/list")
-	public Object FindFavorite(@RequestHeader("Authorization") String jwtToken, @RequestParam("artNo") int artNo) {
+	public Object FindFavorite(@RequestHeader("Authorization") String jwtToken, @RequestParam("start") int start) {
 		BasicResponse response = new BasicResponse();
 
 		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
@@ -36,7 +36,7 @@ public class FavoriteController {
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 
-		response.data = favoriteService.findFavorityById(user.getUserId(), artNo);
+		response.data = favoriteService.findFavorityById(user.getUserId(), start);
 
 		if (response.data != null) {
 			response.status = true;
