@@ -88,30 +88,30 @@ public class ArtController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+//	@GetMapping("/api/public/art/detail")
+//	public Object findArtDetail(@RequestParam int artNo) {
+//		BasicResponse response = new BasicResponse();
+//
+//		response.data = artService.findArtByArtNo(artNo);
+//		if (response.data != null) {
+//			response.status = true;
+//			response.message = "조회에 성공하였습니다.";
+//		} else {
+//			response.status = false;
+//			response.message = "조회에 실패하였습니다.";
+//		}
+//
+//		return new ResponseEntity<>(response, HttpStatus.OK);
+//	}
+
 	@GetMapping("/api/public/art/detail")
-	public Object findArtDetail(@RequestParam int artNo) {
-		BasicResponse response = new BasicResponse();
-
-		response.data = artService.findArtByArtNo(artNo);
-		if (response.data != null) {
-			response.status = true;
-			response.message = "조회에 성공하였습니다.";
-		} else {
-			response.status = false;
-			response.message = "조회에 실패하였습니다.";
-		}
-
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
-
-	@GetMapping("/api/private/art/detail")
 	public Object findArtDetail(@RequestHeader("Authorization") String jwtToken, @RequestParam int artNo,
 			@RequestParam int type) {
 		BasicResponse response = new BasicResponse();
 
 		UserDto user = (UserDto) redisTemplate.opsForValue().get(jwtToken);
 		if (user == null) {
-			System.out.println("잘못된 사용자 입니다.");
+			System.out.println("사용자 정보가 없습니다.");
 		} else {
 			LogDto log = new LogDto();
 
