@@ -52,7 +52,9 @@
                 @click="moveAmateurart(value.userId)"
               >
                 <v-img
-                  :src="require(`@/assets/dummydata/category/museum.jpg`)"
+                  :src="
+                    require(`@/assets/dummydata/category/amateurartist.JPG`)
+                  "
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
                 >
