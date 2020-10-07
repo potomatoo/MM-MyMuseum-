@@ -8,7 +8,7 @@
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      AmateurArtists
+      Amateur
     </h2>
     <v-row
       cols="12"
