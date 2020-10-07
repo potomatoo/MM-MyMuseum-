@@ -10,17 +10,17 @@
             <div class="flipper">
               <img
                 v-if="artList[0].artUrl"
-                :src="artList[0].artUrl"
+                :src="`http://j3b205.p.ssafy.io/art/${artList[0].artNo}.jpg`"
                 class="artist-img-front"
               />
               <img
                 v-if="artList.length >= 2"
-                :src="artList[1].artUrl"
+                :src="`http://j3b205.p.ssafy.io/art/${artList[1].artNo}.jpg`"
                 class="artist-img-back"
               />
               <img
                 v-if="artList.length < 2"
-                :src="artList[0].artUrl"
+                :src="`http://j3b205.p.ssafy.io/art/${artList[0].artNo}.jpg`"
                 class="artist-img-back"
               />
             </div>

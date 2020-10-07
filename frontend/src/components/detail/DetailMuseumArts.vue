@@ -50,7 +50,7 @@
                   :class="{ 'on-hover': hover }"
                 >
                   <v-img
-                    :src="art.artUrl"
+                    :src="`http://j3b205.p.ssafy.io/art/${art.artNo}.jpg`"
                     aspect-ratio="1"
                     class="grey lighten-2 artist-card"
                     @mouseenter="zoomIn"

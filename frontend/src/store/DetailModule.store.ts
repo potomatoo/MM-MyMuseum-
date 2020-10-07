@@ -2,8 +2,6 @@ import { Module } from "vuex";
 import { RootState } from "./index";
 import { Axios } from "@/service/axios.service";
 import { DetailModule, Art, Artist, Museum, Genre } from "./Detail.interface";
-import { observable } from "vue/types/umd";
-import { stringify } from "qs";
 
 const module: Module<DetailModule, RootState> = {
   namespaced: true,
@@ -26,7 +24,6 @@ const module: Module<DetailModule, RootState> = {
       } else if (!artList.length) {
         state.scrollEnd = true;
       }
-      console.log(artList.length);
     },
 
     SET_ART_LIST_ZERO(state) {

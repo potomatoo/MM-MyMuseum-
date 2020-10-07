@@ -1,7 +1,7 @@
 <template>
   <div id="fade" class="art-image" v-if="art">
     <div class="container">
-      <img :src="art.artUrl" />
+      <img :src="`http://j3b205.p.ssafy.io/art/${art.artNo}.jpg`" />
       <detail-art-description />
     </div>
   </div>
