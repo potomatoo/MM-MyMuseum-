@@ -8,6 +8,7 @@ import DetailArtistView from "@/views/detail/DetailArtistView.vue";
 import DetailMuseumView from "@/views/detail/DetailMuseumView.vue";
 import DetailGenreView from "@/views/detail/DetailGenreView.vue";
 import DetailArtView from "@/views/detail/DetailArtView.vue";
+import MyGalleryListView from "@/views/mygallery/MyGalleryListView.vue";
 import MygalleryView from "@/views/mygallery/MygalleryView.vue";
 
 //recommendation
@@ -24,6 +25,7 @@ import StyleList from "@/views/categorys/styles/StyleList.vue";
 import AmateurArtistView from "@/views/categorys/amateurart/AmateurArtistView.vue";
 import AmateurArtView from "@/views/categorys/amateurart/AmateurArtView.vue";
 import AmateurArtUpload from "@/views/categorys/amateurart/AmateurArtUpload.vue";
+import DetailAmateurArt from "@/views/categorys/amateurart/DetailAmateurArt.vue";
 
 Vue.use(VueRouter);
 
@@ -70,6 +72,11 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/mygallery",
+    name: "MyGalleryListView",
+    component: MyGalleryListView
+  },
+  {
+    path: "/mygallery/:artNo",
     name: "MyGalleryView",
     component: MygalleryView
   },
@@ -125,7 +132,7 @@ const routes: Array<RouteConfig> = [
     component: AmateurArtistView
   },
   {
-    path: "/categorys/amateurart",
+    path: "/categorys/amateurart/:userId",
     name: "AmateurArtView",
     component: AmateurArtView
   },
@@ -133,6 +140,11 @@ const routes: Array<RouteConfig> = [
     path: "/amateur/upload",
     name: "AmateurArtUpload",
     component: AmateurArtUpload
+  },
+  {
+    path: "/amateur/detail/:myartNo",
+    name: "DetailAmateurArt",
+    component: DetailAmateurArt
   }
 ];
 

@@ -3,6 +3,8 @@ export interface RecommendationModule {
   artsByColor: Art[] | null;
   artsByWeather: ArtsByWeather | null;
   artsByTime: ArtsByTime | null;
+  favoriteArts: Art[] | null;
+  scrollEnd: boolean;
 }
 
 export interface ArtsByWeather {

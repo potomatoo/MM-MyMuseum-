@@ -1,104 +1,88 @@
 <template>
   <div>
-    <!-- 윗공간 -->
     <v-responsive class="mx-auto mb-12" width="56">
       <v-divider class="mb-1"></v-divider>
       <v-divider></v-divider>
     </v-responsive>
-    <!-- 제목 -->
     <h2
       class="display-2 font-weight-bold mb-3 text-uppercase text-center"
       style="color:white"
     >
-      아마추어 작가
+      MM ARTIST
     </h2>
     <v-row
       cols="12"
       sm="6"
       offset-sm="3"
       align="center"
-      justify="center"
+      justify="end"
       style="margin : 1px 20%"
     >
-      <v-text-field
-        outlined
+      <v-btn
+        v-if="userArtist === 3"
+        width="20%"
+        color="rgb(137,120,104)"
         dark
-        placeholder="아티스트 검색"
-        type="text"
-        clearable
-        prepend-inner-icon="mdi-magnify"
-        v-model="inputText"
-        color="white"
-        background-color="rgb(80, 70, 60)"
-        @keypress.enter="searchArtist()"
+        large
+        @click="moveAmateurArtUpload()"
       >
-      </v-text-field>
-      <v-col cols="2">
-        <v-btn
-          v-if="userArtist === 3"
-          width="100%"
-          color="rgb(137,120,104)"
-          dark
-          large
-          @click="moveAmateurArtUpload()"
-        >
-          작품 등록
-        </v-btn>
-      </v-col>
+        작품 등록
+      </v-btn>
     </v-row>
     <div :scrollHeight="scrollHeight">
-      <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
-        <v-container fluid cols="12">
-          <v-row>
-            <v-col
-              v-for="(value, n) in amateurs"
-              :key="n"
-              class="d-flex child-flex"
-              cols="3"
-            >
-              <v-hover v-slot:default="{ hover }">
-                <v-card
-                  flat
-                  tile
-                  class="d-flex"
-                  :elevation="hover ? 12 : 2"
-                  :class="{ 'on-hover': hover }"
-                  @click="moveAmateurart(value.userName)"
+      <v-row style="margin: 10px 10%">
+        <v-row>
+          <v-col
+            v-for="(value, n) in amateurs"
+            :key="n"
+            class="d-flex child-flex"
+            cols="12"
+            md="3"
+            sm="6"
+          >
+            <v-hover v-slot:default="{ hover }">
+              <v-card
+                flat
+                tile
+                class="d-flex"
+                :elevation="hover ? 12 : 2"
+                :class="{ 'on-hover': hover }"
+                @click="moveAmateurart(value.userId)"
+              >
+                <v-img
+                  :src="
+                    require(`@/assets/dummydata/category/amateurartist.jpg`)
+                  "
+                  aspect-ratio="1"
+                  class="grey lighten-2 artist-card"
                 >
-                  <!-- 임시 이미지 입력  이미지 url http://j3b205.p.ssafy.io/file/~~로 변경 -->
-                  <v-img
-                    :src="require(`@/assets/dummydata/category/museum.jpg`)"
-                    aspect-ratio="1"
-                    class="grey lighten-2 artist-card"
-                  >
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row>
-                    </template>
+                  <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        indeterminate
+                        color="grey lighten-5"
+                      ></v-progress-circular>
+                    </v-row>
+                  </template>
 
-                    <v-expand-transition>
-                      <div
-                        v-if="hover"
-                        class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
-                        style="width: 100%; height: 100%;"
-                      >
-                        {{ value.userName }}
-                      </div>
-                    </v-expand-transition>
-                  </v-img>
-                </v-card>
-              </v-hover>
-            </v-col>
-          </v-row>
-        </v-container>
+                  <v-expand-transition>
+                    <div
+                      v-if="hover"
+                      class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
+                      style="width: 100%; height: 100%;"
+                    >
+                      {{ value.userName }}
+                    </div>
+                  </v-expand-transition>
+                </v-img>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </v-row>
       </v-row>
     </div>
   </div>
@@ -144,9 +128,7 @@ export default class AmateurArtistView extends Vue {
   }
 
   created() {
-    if (!this.user) {
-      this.FETCH_USER_INFO();
-    }
+    this.FETCH_USER_INFO();
 
     if (this.searchText) {
       this.FETCH_SERCH_AMATEUR({
@@ -159,13 +141,6 @@ export default class AmateurArtistView extends Vue {
   }
 
   searchArtist() {
-    for (let i = 0; i < sessionStorage.length; i++) {
-      this.key = sessionStorage.key(i)!;
-      if (this.key != "jwt-token") {
-        sessionStorage.removeItem(this.key);
-      }
-    }
-
     this.SET_AMATEUR_ZERO();
     if (this.inputText) {
       this.SET_AMATEUR_SEARCHTEXT(this.inputText);
@@ -220,10 +195,10 @@ export default class AmateurArtistView extends Vue {
     });
   }
 
-  moveAmateurart(artist: string) {
+  moveAmateurart(userId: string) {
     this.$router.push({
       name: "AmateurArtView",
-      params: { artist: artist }
+      params: { userId: userId }
     });
   }
 
@@ -237,6 +212,7 @@ export default class AmateurArtistView extends Vue {
 
 <style scoped>
 .v-card {
+  border-radius: 5px !important;
   transition: opacity 0.4s ease-in-out;
 }
 
