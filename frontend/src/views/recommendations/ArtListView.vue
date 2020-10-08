@@ -106,6 +106,7 @@ export default class ArtListView extends Vue {
   @RecommendationModule.State artsByWeather?: ArtsByWeather;
   @RecommendationModule.State artsByTime?: ArtsByTime;
   @RecommendationModule.Action FETCH_ART_LIST: any;
+  @RecommendationModule.Action FETCH_ART_LIST_BY_WEATHER: any;
 
   get currentPage() {
     return this.$route.name;
@@ -175,6 +176,9 @@ export default class ArtListView extends Vue {
   created() {
     if (!this.arts) {
       this.FETCH_ART_LIST();
+    }
+    if (!this.artsByWeather || !this.artsByTime) {
+      this.FETCH_ART_LIST_BY_WEATHER();
     }
   }
 

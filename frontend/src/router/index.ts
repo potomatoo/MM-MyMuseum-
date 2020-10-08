@@ -160,15 +160,8 @@ router.beforeEach((to, from, next) => {
   const isLoggedIn = !!window.sessionStorage.getItem("jwt-token");
   const unAuthRequiredPages = ["Signup", "Login"];
   const unAuthRequired = unAuthRequiredPages.includes(to.name!);
-  console.log(authRequired, isLoggedIn);
 
-  if (authRequired && !isLoggedIn) {
-    console.log("로그인으로");
-    next({ name: "Login" });
-  } else {
-    console.log("그대로");
-    next();
-  }
+  authRequired && !isLoggedIn ? next({ name: "Login" }) : next();
   unAuthRequired && isLoggedIn ? next({ name: "Home" }) : next();
 });
 

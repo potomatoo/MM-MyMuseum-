@@ -14,7 +14,6 @@ const module: Module<ArticleModule, RootState> = {
   mutations: {
     SET_ARTICLE(state) {
       state.articles = require("@/data/articles.json");
-      console.log(state.articles);
     }
   },
 

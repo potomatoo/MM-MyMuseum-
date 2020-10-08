@@ -1,63 +1,53 @@
 <template>
-  <section id="all">
+  <section v-if="favoriteArt" id="all">
     <div id="clicked1">
-      <v-row>
-        <span
-          class="mdi mdi-chevron-left"
-          @click="model++"
-          style="margin-right: 10px; align-self: center; cursor: pointer"
-        ></span>
-
-        <v-carousel
-          hide-delimiters
-          id="box"
-          width="100%"
-          height="200px"
-          :show-arrows="false"
-          v-model="model"
-        >
-          <v-carousel-item
-            v-for="(item, i) in items"
-            :key="i"
-            :src="item.src"
-            @click="showDialog = true"
-            style="cursor: pointer"
-          >
-            <v-dialog
-              v-model="showDialog"
-              fullscreen
-              hide-overlay
-              transition="dialog-bottom-transition"
-            >
-              <v-card style="background: black">
-                <v-btn icon dark @click="showDialog = false">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-                <div id="fade" class="art-image">
-                  <div class="container">
-                    <img :src="item.src" />
-                  </div>
-                </div>
-              </v-card>
-            </v-dialog>
-          </v-carousel-item>
-        </v-carousel>
-
-        <span
-          class="mdi mdi-chevron-right"
-          @click="model++"
-          style="margin-left: 10px; align-self: center; cursor: pointer"
-        ></span>
-      </v-row>
+      <img
+        id="box"
+        :src="favoriteArt.artUrl"
+        @click="toDetailArt(favoriteArt.artNo)"
+        style="cursor: pointer"
+      />
+      <h2 class="mt-5" style="max-width: 400px">{{ favoriteArt.artTitle }}</h2>
+      <h4>{{ favoriteArt.artArtist }}</h4>
+      <!-- <v-dialog
+        v-model="showDialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <v-card style="background: black">
+          <v-btn icon dark @click="showDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <div id="fade" class="art-image">
+            <div class="container">
+              <img :src="favoriteArt.artUrl" />
+              <detail-art-description />
+            </div>
+          </div>
+        </v-card>
+      </v-dialog> -->
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import { FavoriteArt } from "../../store/Recommendation.interface";
+import DetailArtView from "@/views/detail/DetailArtView.vue";
 
-@Component
+const RecommendationModule = namespace("RecommendationModule");
+
+@Component({
+  components: {
+    DetailArtView
+  }
+})
 export default class MygalleryView extends Vue {
+  @RecommendationModule.State favoriteArt!: FavoriteArt | null;
+  @RecommendationModule.Action FETCH_FAVORITE_ART: any;
+
   model = 0;
   showDialog = false;
 
@@ -75,6 +65,14 @@ export default class MygalleryView extends Vue {
         "//lh5.ggpht.com/sGFNYnsvcc0L5hH_h3bcFo7pcQSqsYRZninoM_YpT_zudbjOVQAxeA0DZgM"
     }
   ];
+
+  toDetailArt(artNo: string) {
+    this.$router.push({ name: "DetailArtView", params: { artNo } });
+  }
+
+  created() {
+    this.FETCH_FAVORITE_ART(this.$route.params.artNo);
+  }
 }
 </script>
 

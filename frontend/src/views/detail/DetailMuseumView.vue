@@ -60,7 +60,6 @@ export default class DetailArtistView extends Vue {
         !this.scrollEnd &&
         this.$route.name === "DetailArtistView"
       ) {
-        console.log(this.$route.name);
         ++this.start;
         this.FETCH_MUSEUM_ART_LIST({
           museum: this.$route.params.museum,

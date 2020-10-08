@@ -11,7 +11,8 @@ const module: Module<RecommendationModule, RootState> = {
     artsByWeather: null,
     artsByTime: null,
     favoriteArts: null,
-    scrollEnd: false
+    scrollEnd: false,
+    favoriteArt: null
   },
 
   getters: {
@@ -60,6 +61,9 @@ const module: Module<RecommendationModule, RootState> = {
     REMOVE_FAVORITE_ART_LIST(state) {
       state.favoriteArts = null;
       state.scrollEnd = false;
+    },
+    SET_FAVORITE_ART(state, art) {
+      state.favoriteArt = art;
     }
   },
 
@@ -86,13 +90,15 @@ const module: Module<RecommendationModule, RootState> = {
         .catch(err => console.error(err));
     },
     FETCH_FAVORITE_ART_LIST({ commit }, start) {
-      console.log("start", start);
       Axios.instance
-        .get("/api/private/favorite/list", { params: { artNo: start } })
-        .then(({ data }) => {
-          console.log(data);
-          commit("SET_FAVORITE_ART_LIST", data.data);
-        })
+        .get("/api/private/favorite/list", { params: { start } })
+        .then(({ data }) => commit("SET_FAVORITE_ART_LIST", data.data))
+        .catch(err => console.error(err));
+    },
+    FETCH_FAVORITE_ART({ commit }, artNo) {
+      Axios.instance
+        .get("/api/public/art/fdetail", { params: { artNo } })
+        .then(({ data }) => commit("SET_FAVORITE_ART", data.data))
         .catch(err => console.error(err));
     }
   }
