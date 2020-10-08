@@ -30,20 +30,22 @@
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="test"
+        @keypress.enter="searchArtist()"
       >
       </v-text-field>
     </v-row>
 
     <!-- 작가 별 -->
-    <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
-      <v-container fluid cols="12">
+    <div :scrollHeight="scrollHeight">
+      <v-row style="margin: 10px 10%">
         <v-row>
           <v-col
-            v-for="(value, n) in articles"
+            v-for="(artist, n) in artists"
             :key="n"
             class="d-flex child-flex"
-            cols="3"
+            cols="12"
+            md="3"
+            sm="6"
           >
             <v-hover v-slot:default="{ hover }">
               <v-card
@@ -52,12 +54,14 @@
                 class="d-flex"
                 :elevation="hover ? 12 : 2"
                 :class="{ 'on-hover': hover }"
-                :to="{ name: link }"
+                @click="moveDetail(artist.artistName)"
               >
                 <v-img
-                  :src="require(`@/assets/dummydata/articles/${value.hero}`)"
+                  :src="artist.artistImg"
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"
+                  @mouseenter="zoomIn"
+                  @mouseleave="zoomOut"
                 >
                   <template v-slot:placeholder>
                     <v-row
@@ -78,7 +82,7 @@
                       class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
                       style="width: 100%; height: 100%;"
                     >
-                      {{ value.title }}
+                      {{ artist.artistName }}
                     </div>
                   </v-expand-transition>
                 </v-img>
@@ -86,8 +90,8 @@
             </v-hover>
           </v-col>
         </v-row>
-      </v-container>
-    </v-row>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -95,23 +99,111 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { Article } from "../../../store/ArticleInterface";
+import { Artist } from "../../../store/ArtistInterface";
 
-const articleModule = namespace("articleModule");
+const artistModule = namespace("artistModule");
 
 @Component
 export default class ArtistList extends Vue {
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+  @artistModule.State artists!: Artist[] | null;
+  @artistModule.Action FETCH_ARTIST: any;
+  @artistModule.Action FETCH_SERCH_ARTIST: any;
+  @artistModule.State scrollEnd!: boolean;
+  @artistModule.Mutation SET_ARTIST_ZERO: any;
+  @artistModule.Mutation SET_ARTIST_SEARCHTEXT: any;
+  @artistModule.State searchText: any;
+
+  inputText = "";
+  start = 0;
+  scrollHeight = 0;
+  searchstart = 0;
 
   created() {
-    this.SET_ARTICLE();
+    if (this.searchText) {
+      this.FETCH_SERCH_ARTIST({
+        artistName: this.searchText,
+        start: this.searchstart
+      });
+    } else {
+      this.FETCH_ARTIST(this.start);
+    }
+  }
+
+  searchArtist() {
+    this.SET_ARTIST_ZERO();
+    if (this.inputText) {
+      this.SET_ARTIST_SEARCHTEXT(this.inputText);
+      this.FETCH_SERCH_ARTIST({
+        artistName: this.searchText,
+        start: this.searchstart
+      });
+    } else {
+      this.FETCH_ARTIST(this.start);
+    }
+  }
+
+  moveDetail(artistName: string) {
+    this.$router.push({
+      name: "DetailArtistView",
+      params: { artist: artistName }
+    });
+  }
+
+  scroll() {
+    window.onscroll = () => {
+      const ceilBottomOfWindow =
+        Math.ceil(window.pageYOffset) + window.innerHeight ===
+        document.documentElement.offsetHeight;
+
+      const plusBottomOfWindow =
+        Math.ceil(window.pageYOffset) + window.innerHeight + 1 ===
+        document.documentElement.offsetHeight;
+
+      if (
+        (ceilBottomOfWindow || plusBottomOfWindow) &&
+        !this.scrollEnd &&
+        this.$route.name === "ArtistList"
+      ) {
+        if (this.searchText) {
+          ++this.searchstart;
+          this.FETCH_SERCH_ARTIST({
+            artistName: this.searchText,
+            start: this.searchstart
+          });
+        } else {
+          ++this.start;
+          this.FETCH_ARTIST(this.start);
+        }
+      }
+    };
+  }
+
+  mounted() {
+    this.scroll();
+    this.scrollHeight = window.innerHeight;
+  }
+
+  destroyed() {
+    this.SET_ARTIST_ZERO();
+  }
+
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
   }
 }
 </script>
 
 <style scoped>
 .v-card {
+  border-radius: 5px !important;
   transition: opacity 0.4s ease-in-out;
 }
 

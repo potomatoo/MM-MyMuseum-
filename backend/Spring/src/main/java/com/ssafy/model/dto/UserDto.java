@@ -22,10 +22,11 @@ public class UserDto implements Serializable {
 	@Column(name = "user_type")
 	private int userType;
 
-	@Column(name = "user_gender")
-	private int userGender;
-	@Column(name = "user_age")
-	private int userAge;
+	@Column(name = "user_name")
+	private String userName;
+
+	@Column(name = "user_artist")
+	private int userArtist;
 
 	public String getUserId() {
 		return userId;
@@ -51,26 +52,26 @@ public class UserDto implements Serializable {
 		this.userType = userType;
 	}
 
-	public int getUserGender() {
-		return userGender;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserGender(int userGender) {
-		this.userGender = userGender;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public int getUserAge() {
-		return userAge;
+	public int getUserArtist() {
+		return userArtist;
 	}
 
-	public void setUserAge(int userAge) {
-		this.userAge = userAge;
+	public void setUserArtist(int userArtist) {
+		this.userArtist = userArtist;
 	}
 
 	@Override
 	public String toString() {
-		return "UserDto [userId=" + userId + ", userPassword=" + userPassword + ", userType=" + userType
-				+ ", userGender=" + userGender + ", userAge=" + userAge + "]";
+		return "UserDto [userId=" + userId + ", userPassword=" + userPassword + ", userType=" + userType + ", userName="
+				+ userName + ", userArtist=" + userArtist + "]";
 	}
 
 }

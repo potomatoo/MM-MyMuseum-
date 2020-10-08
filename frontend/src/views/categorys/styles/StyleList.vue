@@ -30,62 +30,64 @@
         v-model="inputText"
         color="white"
         background-color="rgb(80, 70, 60)"
-        @keypress.enter="test"
+        @keypress.enter="searchStyle($event)"
       >
       </v-text-field>
     </v-row>
     <!-- 화풍별 -->
-    <v-row style="margin: 10px 10%" cols="12" sm="6" offset-sm="3">
-      <v-container fluid cols="12">
-        <v-row>
-          <v-col
-            v-for="(value, n) in articles"
-            :key="n"
-            class="d-flex child-flex"
-            cols="3"
-          >
-            <v-hover v-slot:default="{ hover }">
-              <v-card
-                flat
-                tile
-                class="d-flex"
-                :elevation="hover ? 12 : 2"
-                :class="{ 'on-hover': hover }"
-                :to="{ name: link }"
+    <v-row style="margin: 10px 10%">
+      <v-row>
+        <v-col
+          v-for="(genre, n) in styles"
+          :key="n"
+          class="d-flex child-flex"
+          cols="12"
+          md="3"
+          sm="6"
+        >
+          <v-hover v-slot:default="{ hover }">
+            <v-card
+              flat
+              tile
+              class="d-flex"
+              :elevation="hover ? 12 : 2"
+              :class="{ 'on-hover': hover }"
+              @click="moveDetail(genre)"
+            >
+              <v-img
+                :src="genre.genreUrl"
+                aspect-ratio="1"
+                class="grey lighten-2 artist-card"
+                @mouseenter="zoomIn"
+                @mouseleave="zoomOut"
               >
-                <v-img
-                  :src="require(`@/assets/dummydata/articles/${value.hero}`)"
-                  aspect-ratio="1"
-                  class="grey lighten-2 artist-card"
-                >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular
-                        indeterminate
-                        color="grey lighten-5"
-                      ></v-progress-circular>
-                    </v-row>
-                  </template>
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="grey lighten-5"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
 
-                  <v-expand-transition>
-                    <div
-                      v-if="hover"
-                      class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
-                      style="width: 100%; height: 100%;"
-                    >
-                      {{ value.title }}
-                    </div>
-                  </v-expand-transition>
-                </v-img>
-              </v-card>
-            </v-hover>
-          </v-col>
-        </v-row>
-      </v-container>
+                <v-expand-transition>
+                  <div
+                    v-if="hover"
+                    class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-1 white--text black text-center"
+                    style="width: 100%; height: 100%;"
+                  >
+                    {{ genre.genreName }}
+                  </div>
+                </v-expand-transition>
+              </v-img>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
     </v-row>
   </div>
 </template>
@@ -94,23 +96,50 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import { Article } from "../../../store/ArticleInterface";
+import { Style } from "../../../store/StyleInterface";
 
-const articleModule = namespace("articleModule");
+const styleModule = namespace("styleModule");
 
 @Component
 export default class StyleList extends Vue {
-  @articleModule.State articles!: Article[] | null;
-  @articleModule.Mutation SET_ARTICLE: any;
+  @styleModule.State styles!: Style[] | null;
+  @styleModule.Action FETCH_STYLE: any;
+  @styleModule.Action FETCH_SERCH_STYLE: any;
+
+  inputText = "";
 
   created() {
-    this.SET_ARTICLE();
+    this.FETCH_STYLE();
+  }
+
+  searchStyle($event: KeyboardEvent) {
+    this.FETCH_SERCH_STYLE(this.inputText);
+  }
+
+  moveDetail(genre: Style) {
+    this.$router.push({
+      name: "DetailGenreView",
+      params: { genre: genre.genreName }
+    });
+  }
+
+  zoomIn(event: any) {
+    event.target.style.transform = "scale(1.1)";
+    event.target.style.zIndex = 1;
+    event.target.style.transition = "all 0.5s";
+  }
+
+  zoomOut(event: any) {
+    event.target.style.transform = "scale(1)";
+    event.target.style.zIndex = 0;
+    event.target.style.transition = "all 0.5s";
   }
 }
 </script>
 
 <style scoped>
 .v-card {
+  border-radius: 5px !important;
   transition: opacity 0.4s ease-in-out;
 }
 

@@ -4,16 +4,17 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import GAuth from "vue-google-oauth2";
+import Vuelidate from "vuelidate";
 
 const gauthOption = {
   clientId:
-    "476248660063-e2gk89ukcim2la7mbttisi10pq9ck5r6.apps.googleusercontent.com",
+    "110473550923-l77b5sv8d1vh1mnuvbrsrljqc3ttgd6u.apps.googleusercontent.com",
   scope: "profile email",
   prompt: "select_account"
 };
 
 Vue.use(GAuth, gauthOption);
-
+Vue.use(Vuelidate);
 Vue.config.productionTip = false;
 
 new Vue({

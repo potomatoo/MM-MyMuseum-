@@ -25,6 +25,7 @@
             class="text-h4 main-text"
             @mouseover="hovered.exhibition = true"
             @mouseleave="hovered.exhibition = false"
+            @click="routerToMyGallery"
           >
             <span v-if="hovered.exhibition" class="arrow">&rarr;</span>
             내 전시회
@@ -45,9 +46,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+
+const AccountsModule = namespace("AccountsModule");
 
 @Component
 export default class Home extends Vue {
+  @AccountsModule.Getter isLoggedIn!: boolean;
   hovered = {
     recommendation: false,
     collection: false,
@@ -61,10 +66,23 @@ export default class Home extends Vue {
   routerToRecommendation() {
     this.$router.push({ name: "RecommendView" });
   }
+
+  routerToMyGallery() {
+    if (this.isLoggedIn) {
+      this.$router.push({ name: "MyGalleryListView" });
+    } else {
+      if (
+        confirm("로그인이 필요합니다.\n로그인 화면으로 이동하시겠습니까?") ===
+        true
+      ) {
+        this.$router.push({ name: "Login" });
+      }
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style>
 .full-height {
   height: 100%;
   margin: 0px;
