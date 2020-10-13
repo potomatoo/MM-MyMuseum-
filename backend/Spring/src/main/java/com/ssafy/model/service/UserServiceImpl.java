@@ -64,6 +64,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public UserDto UpdateUserProfile(String userId, String userProfile) {
+		// TODO Auto-generated method stub
+		int result = userRepository.updateUserProfile(userId, userProfile);
+		if (result != 0) {
+			UserDto user = userRepository.findById(userId).get();
+			user.setUserPassword("");
+			return user;
+		}
+		return null;
+	}
+
+	@Override
 	public UserDto RegistArtist(String userId) {
 		// TODO Auto-generated method stub
 		int result = userRepository.registArtist(userId);
