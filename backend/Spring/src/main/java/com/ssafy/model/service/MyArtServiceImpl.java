@@ -47,7 +47,7 @@ public class MyArtServiceImpl implements MyArtService {
 
 	@Override
 	public MyArtDto findMyArtDetail(int myartNo) {
-		Optional<MyArtDto> myart = myartReponsitory.findById(myartNo);
+		Optional<MyArtDto> myart = myartReponsitory.findMyartDetail(myartNo);
 
 		if (myart.isPresent())
 			return myart.get();
