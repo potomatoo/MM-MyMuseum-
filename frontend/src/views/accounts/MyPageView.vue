@@ -13,7 +13,6 @@
       <v-col class="align-self-center">
         <div class="mypage">
           <h1 class="mypage-text mb-5">마이페이지</h1>
-          <h2>{{ user }}</h2>
           <v-form>
             <v-text-field
               class="mb-3"
@@ -31,7 +30,7 @@
               label="닉네임"
               required
             ></v-text-field>
-            <v-row>
+            <v-row v-if="userArtist != 3">
               <v-col cols="4">
                 <v-btn
                   class="pa-2"
@@ -58,7 +57,6 @@
               </v-col>
               <v-col cols="4">
                 <v-btn
-                  v-if="userArtist != 3"
                   class="pa-2"
                   width="100%"
                   color="rgb(137,120,104)"
@@ -68,19 +66,123 @@
                 >
                   작가 신청
                 </v-btn>
-                <v-btn
-                  v-if="userArtist == 3"
-                  class="pa-2"
-                  width="100%"
-                  color="rgb(137,120,104)"
-                  dark
-                  large
-                  @click="moveAmateurArtUpload()"
-                >
-                  작품 등록
-                </v-btn>
               </v-col>
             </v-row>
+            <div v-if="userArtist == 3">
+              <v-row>
+                <v-col cols="6">
+                  <v-btn
+                    class="pa-2"
+                    width="100%"
+                    color="rgb(137,120,104)"
+                    dark
+                    large
+                    @click="changeName"
+                  >
+                    수정
+                  </v-btn>
+                </v-col>
+                <v-col cols="6">
+                  <v-btn
+                    class="pa-2"
+                    width="100%"
+                    color="rgb(137,120,104)"
+                    dark
+                    large
+                    @click="cancleChange"
+                  >
+                    취소
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-dialog v-model="showDialog" width="500">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        v-bind="attrs"
+                        v-on="on"
+                        class="pa-2"
+                        width="100%"
+                        color="rgb(137,120,104)"
+                        dark
+                        large
+                      >
+                        작가 사진 등록
+                      </v-btn>
+                    </template>
+
+                    <v-card>
+                      <v-card-title
+                        class="headline grey lighten-2"
+                        style="font-family: 'Do Hyeon', sans-serif !important;"
+                      >
+                        작가 사진 등록
+                      </v-card-title>
+
+                      <v-card-text
+                        style="margin-top: 15px; font-family: 'Do Hyeon', sans-serif;"
+                      >
+                        <v-img
+                          :src="
+                            user.userProfile ||
+                              require('@/assets/dummydata/category/amateurartist.jpg')
+                          "
+                          aspect-ratio="1"
+                          class="grey lighten-2 artist-img mx-auto"
+                        >
+                        </v-img>
+                        <v-file-input
+                          v-model="imgFile"
+                          show-size
+                          solo
+                          label="포트폴리오나 작품을 올려주세요"
+                          prepend-icon="mdi-camera"
+                        ></v-file-input>
+                        <v-row>
+                          <v-col cols="6">
+                            <v-btn
+                              class="pa-2"
+                              width="100%"
+                              color="rgb(137,120,104)"
+                              dark
+                              large
+                              @click="updateAmateurImg"
+                            >
+                              등록
+                            </v-btn>
+                          </v-col>
+                          <v-col cols="6">
+                            <v-btn
+                              class="pa-2"
+                              width="100%"
+                              color="rgb(137,120,104)"
+                              dark
+                              large
+                              @click="cancleImg"
+                            >
+                              취소
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
+                </v-col>
+                <v-col cols="6">
+                  <v-btn
+                    class="pa-2"
+                    width="100%"
+                    color="rgb(137,120,104)"
+                    dark
+                    large
+                    @click="moveAmateurArtUpload()"
+                  >
+                    작품 등록
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </div>
           </v-form>
         </div>
       </v-col>
@@ -95,6 +197,7 @@ import { namespace } from "vuex-class";
 import { User } from "../../store/Accounts.interface";
 
 const AccountsModule = namespace("AccountsModule");
+const AmateurModule = namespace("amateurModule");
 
 @Component
 export default class MyPageView extends Vue {
@@ -102,12 +205,15 @@ export default class MyPageView extends Vue {
   @AccountsModule.Action FETCH_USER_INFO: any;
   @AccountsModule.Action CHANGE_USER_NAME: any;
   @AccountsModule.Action REQUEST_AMATEURARTIST: any;
+  @AmateurModule.Action UPLOAD_AMATEUR_IMG: any;
 
   userEmail: string | null = "";
   userNickname: string | null = "";
   userArtist: number | null = 0;
   userPassword = "";
   userPasswordCheck = "";
+  showDialog = false;
+  imgFile: string | null = null;
 
   nicknameRules = [
     (v: string) => !!v || "닉네임을 입력하세요",
@@ -160,6 +266,26 @@ export default class MyPageView extends Vue {
       name: "AmateurArtUpload"
     });
   }
+  async updateAmateurImg() {
+    if (this.imgFile) {
+      const formData = new FormData();
+      formData.append("file", this.imgFile);
+      const status = await this.UPLOAD_AMATEUR_IMG(formData);
+      if (status) {
+        this.FETCH_USER_INFO();
+        alert("사진 등록이 완료되었습니다.");
+      } else {
+        alert("사진 등록이 실패하였습니다. 다시 시도해주세요.");
+      }
+    } else {
+      alert("사진을 등록해 주세요.");
+    }
+    this.imgFile = null;
+  }
+  cancleImg() {
+    this.imgFile = null;
+    this.showDialog = false;
+  }
 }
 </script>
 
@@ -183,5 +309,11 @@ export default class MyPageView extends Vue {
 
 .empty-space {
   max-width: 200px;
+}
+
+.artist-img {
+  box-shadow: 0px 0px 5px 2px;
+  margin: 30px 0px 40px 0px;
+  max-width: 300px;
 }
 </style>

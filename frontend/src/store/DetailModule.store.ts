@@ -124,14 +124,14 @@ const module: Module<DetailModule, RootState> = {
       Axios.instance
         .post("/api/private/favorite/save", favorite)
         .then(({ data }) => dispatch("IS_FAVORITE_ART", favorite))
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     },
 
     DELETE_FAVORITE_ART({ dispatch }, artNo: number) {
       Axios.instance
         .delete("/api/private/favorite/delete", { params: artNo })
         .then(() => dispatch("IS_FAVORITE_ART", artNo))
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
   }
 };

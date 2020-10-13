@@ -14,6 +14,7 @@ export interface Amateur {
   userType: number;
   userName: string;
   userArtist: number;
+  userProfile: string | null;
 }
 
 export interface AmateurArt {

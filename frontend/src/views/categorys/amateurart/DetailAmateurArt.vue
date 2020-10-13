@@ -12,12 +12,14 @@
           </div>
         </div>
         <div class="art-detail-description">
-          <div class="art-artist" style="font-size: 18px; margin-top: 30px">
-            <span style="font-family: 'Do Hyeon', sans-serif;">
+          <div class="art-artist" style="font-size: 18px; margin-top: 30px;">
+            <span>
               아티스트:
             </span>
 
-            <span> {{ detail.userId }} </span>
+            <span>
+              {{ detail.userId }}
+            </span>
           </div>
 
           <div class="art-age" style="font-size: 18px; margin-top: 10px">
@@ -177,6 +179,14 @@ export default class DetailArtDescription extends Vue {
   width: 1100px;
   display: flex;
   justify-content: center;
+}
+
+.art-detail-description {
+  font-family: "Do Hyeon", sans-serif;
+}
+
+.description-text {
+  font-family: "Do Hyeon", sans-serif;
 }
 
 .description-text .art-title:before,

@@ -123,6 +123,15 @@ const module: Module<AmateurModule, RootState> = {
         .get("/api/public/myart/detail", { params: { myartNo } })
         .then(({ data }) => commit("SET_DETAIL_AMATEUR_ART", data.data))
         .catch(err => console.error(err));
+    },
+
+    UPLOAD_AMATEUR_IMG(_, formData) {
+      return Axios.instance
+        .post("/api/private/user/profile", formData, {
+          headers: { "Content-Type": "multipart/form-data" }
+        })
+        .then(({ data }) => data.status)
+        .catch(err => console.error(err));
     }
   }
 };
