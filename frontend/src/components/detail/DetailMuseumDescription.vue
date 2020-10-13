@@ -1,9 +1,8 @@
 <template>
-  <v-col class="artist-description">
+  <v-col v-if="museum && museum.museumName" class="artist-description">
     <v-row style="height: 100%">
       <v-col class="align-self-center text-center">
         <div
-          v-if="museum && museum.museumName"
           class="mb-5 museum-title"
           style="font-size: 40px; font-family: Playfair Display, serif;"
         >
