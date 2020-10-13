@@ -43,7 +43,7 @@ const module: Module<AccountsModule, RootState> = {
         .then(res => router.push({ name: "Login" }))
         .catch(err => console.error(err));
     },
-    LOGIN({ commit }, { userId, userPassword }) {
+    LOGIN({ commit, dispatch }, { userId, userPassword }) {
       const userInfo = {
         params: {
           userId,
@@ -54,7 +54,7 @@ const module: Module<AccountsModule, RootState> = {
         .post("/api/public/login", null, userInfo)
         .then(({ data }) => {
           commit("SET_TOKEN", data.data.userPassword);
-          commit("SET_USER_INFO", data.data);
+          dispatch("FETCH_USER_INFO", data.data);
           router.go(-1);
         })
         .catch(err => {
@@ -62,12 +62,12 @@ const module: Module<AccountsModule, RootState> = {
           alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
         });
     },
-    GOOGLE_LOGIN({ commit }, authToken) {
+    GOOGLE_LOGIN({ commit, dispatch }, authToken) {
       Axios.instance
         .post("/api/public/google/login", authToken)
         .then(({ data }) => {
           commit("SET_TOKEN", data.data.userPassword);
-          commit("SET_USER_INFO", data.data);
+          dispatch("FETCH_USER_INFO", data.data);
           router.go(-1);
         })
         .catch(err => console.error(err));

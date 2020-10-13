@@ -9,4 +9,5 @@ export interface User {
   userType: number | null;
   userName: string | null;
   userArtist: number | null;
+  userProfile: string | null;
 }
