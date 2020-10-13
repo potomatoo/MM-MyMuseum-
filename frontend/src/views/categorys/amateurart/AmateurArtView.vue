@@ -12,7 +12,10 @@
     >
       {{ userName }}님의 작품들
     </h2>
-
+    <v-responsive class="mx-auto mb-12" width="56">
+      <v-divider class="mb-1"></v-divider>
+      <v-divider></v-divider>
+    </v-responsive>
     <v-row
       cols="12"
       sm="6"
