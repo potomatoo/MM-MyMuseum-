@@ -10,7 +10,7 @@
     >
       MM ARTIST
     </h2>
-    <v-row
+    <!-- <v-row
       cols="12"
       sm="6"
       offset-sm="3"
@@ -28,7 +28,11 @@
       >
         작품 등록
       </v-btn>
-    </v-row>
+    </v-row> -->
+    <v-responsive class="mx-auto mb-12" width="56">
+      <v-divider class="mb-1"></v-divider>
+      <v-divider></v-divider>
+    </v-responsive>
     <div :scrollHeight="scrollHeight">
       <v-row style="margin: 10px 10%">
         <v-row>
@@ -51,7 +55,8 @@
               >
                 <v-img
                   :src="
-                    require(`@/assets/dummydata/category/amateurartist.jpg`)
+                    value.userProfile ||
+                      require('@/assets/dummydata/category/amateurartist.jpg')
                   "
                   aspect-ratio="1"
                   class="grey lighten-2 artist-card"

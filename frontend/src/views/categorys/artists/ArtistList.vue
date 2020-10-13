@@ -133,6 +133,8 @@ export default class ArtistList extends Vue {
     this.SET_ARTIST_ZERO();
     if (this.inputText) {
       this.SET_ARTIST_SEARCHTEXT(this.inputText);
+      this.searchstart = 0;
+      this.start = 0;
       this.FETCH_SERCH_ARTIST({
         artistName: this.searchText,
         start: this.searchstart

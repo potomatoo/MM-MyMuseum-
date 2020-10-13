@@ -26,8 +26,8 @@ public class MuseumServiceImpl implements MuseumService {
 	@Override
 	public List<MuseumDto> findMuseumByMuseumNamelimit(String museumName, int start) {
 		// TODO Auto-generated method stub
-		int index = start * 16 + 1;
-
+		int index = start * 16;
+		System.out.println(museumName);
 		return museumRepository.findMuseumByMuseumNamelimit(museumName, index);
 	}
 

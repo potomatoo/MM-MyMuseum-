@@ -1,7 +1,17 @@
 <template>
   <div style="color:white">
-    <detail-art-rotate :arts="favoriteArts" />
-    <art-list-in-gallery :arts="favoriteArts" />
+    <div v-if="favoriteArts && favoriteArts.length">
+      <detail-art-rotate :arts="favoriteArts" />
+      <art-list-in-gallery :arts="favoriteArts" />
+    </div>
+    <div v-else class="rec-title">
+      <h2 class="display-2 my-10 text-center ">
+        추가된 작품이 없습니다.
+      </h2>
+      <h2 class="display-2 my-10 text-center">
+        작품을 추가해 주세요.
+      </h2>
+    </div>
   </div>
 </template>
 
@@ -65,4 +75,8 @@ export default class MyGalleryListView extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.rec-title {
+  margin-top: 20% !important;
+}
+</style>

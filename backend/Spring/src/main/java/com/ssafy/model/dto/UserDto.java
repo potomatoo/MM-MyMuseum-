@@ -28,6 +28,9 @@ public class UserDto implements Serializable {
 	@Column(name = "user_artist")
 	private int userArtist;
 
+	@Column(name = "user_profile")
+	private String userProfile;
+
 	public String getUserId() {
 		return userId;
 	}
@@ -68,10 +71,18 @@ public class UserDto implements Serializable {
 		this.userArtist = userArtist;
 	}
 
+	public String getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDto [userId=" + userId + ", userPassword=" + userPassword + ", userType=" + userType + ", userName="
-				+ userName + ", userArtist=" + userArtist + "]";
+				+ userName + ", userArtist=" + userArtist + ", userProfile=" + userProfile + "]";
 	}
 
 }
