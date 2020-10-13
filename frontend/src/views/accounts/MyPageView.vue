@@ -129,7 +129,7 @@
                               require('@/assets/dummydata/category/amateurartist.jpg')
                           "
                           aspect-ratio="1"
-                          class="grey lighten-2 artist-img mx-auto"
+                          class="grey lighten-2 mypage-artist-img mx-auto"
                         >
                         </v-img>
                         <v-file-input
@@ -289,7 +289,7 @@ export default class MyPageView extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 .mypage-picture {
   width: 100%;
   min-width: 400px;
@@ -311,7 +311,7 @@ export default class MyPageView extends Vue {
   max-width: 200px;
 }
 
-.artist-img {
+.mypage-artist-img {
   box-shadow: 0px 0px 5px 2px;
   margin: 30px 0px 40px 0px;
   max-width: 300px;
