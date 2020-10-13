@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="art"
-    style="min-width: 320px; color: white; font-family: Playfair Display, serif; align-self: center"
+    style="min-width: 320px; color: white; font-family: Playfair Display, serif; align-self: center; max-width: 400px"
   >
     <div class="description-text">
       <div
