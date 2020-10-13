@@ -34,7 +34,7 @@ public class ArtistController {
 	@GetMapping("/api/public/artist/find")
 	public Object getMuseumList(@RequestParam String artistName, @RequestParam int start) {
 		BasicResponse response = new BasicResponse();
-		System.out.println("[ artistName : " + artistName + " start : " + start + "]");
+		
 		response.data = artistService.findArtistByArtistNamelimit('%' + artistName + '%', start);
 		if (response.data != null) {
 			response.status = true;
