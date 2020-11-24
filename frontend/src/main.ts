@@ -6,9 +6,9 @@ import vuetify from "./plugins/vuetify";
 import GAuth from "vue-google-oauth2";
 import Vuelidate from "vuelidate";
 
-const gauthOption = {
+const gauthOption = {  
   clientId:
-    "110473550923-l77b5sv8d1vh1mnuvbrsrljqc3ttgd6u.apps.googleusercontent.com",
+    `${process.env.APP_VUE_CLIENT_ID}.apps.googleusercontent.com`,
   scope: "profile email",
   prompt: "select_account"
 };
